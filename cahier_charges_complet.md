@@ -1,7 +1,3 @@
-Voici une version enrichie du cahier des charges, intégrant des éléments sur l’ergonomie, l’accessibilité, la sécurité, les tests, les performances, la gestion de projet et les livrables.
-
----
-
 # 1-X75-Atelier  
 # Cahier des Charges – Projet de Site Web Dynamique
 
