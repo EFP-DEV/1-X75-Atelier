@@ -68,7 +68,7 @@ Créer un site web dynamique où le contenu peut être modifié facilement via u
 
 ### 1.3. Durée du projet
 - Environ 80 heures au total (conception et réalisation).
-- [Plan du projet](step_by_step.md)
+- [Plan du projet](more/step_by_step.md)
 
 ---
 
