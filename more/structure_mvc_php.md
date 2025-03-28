@@ -2,24 +2,26 @@
 
 1. [Introduction](#1-introduction)
 2. [Problèmes quotidiens liés à une mauvaise organisation](#2-problèmes-quotidiens-liés-à-une-mauvaise-organisation)
-3. [Architecture de Fichiers d'Application Web](#3-architecture-de-fichiers-dapplication-web)
-4. Concepts de bibliothéconomie appliqués au développement
-    - 4.1. [Classification et taxonomie](#41-classification-et-taxonomie)
-    - 4.2. [Proximité logique](#42-proximité-logique)
-    - 4.3. [Points d'accès normalisés](#43-points-daccès-normalisés)
-    - 4.4. [Préservation et sécurité](#44-préservation-et-sécurité)
-    - 4.5. [Contextualisation](#45-contextualisation)
+3. [Architecture de fichiers d'application web](#3-architecture-de-fichiers-dapplication-web)
+4. [Validation de la structure de projet](#4-validation-de-la-structure-de-projet)
+   - 4.1. [Validation bibliothéconomique](#41-validation-bibliothéconomique)
+     - 4.1.1. [Classification et taxonomie](#411-classification-et-taxonomie)
+     - 4.1.2. [Proximité logique](#412-proximité-logique)
+     - 4.1.3. [Points d'accès normalisés](#413-points-daccès-normalisés)
+     - 4.1.4. [Préservation et sécurité](#414-préservation-et-sécurité)
+     - 4.1.5. [Contextualisation](#415-contextualisation)
+   - 4.2. [Validation selon les principes de développement](#42-validation-selon-les-principes-de-développement)
+     - 4.2.1. [Separation of Concerns (SoC)](#421-separation-of-concerns-soc)
+     - 4.2.2. [Don't Repeat Yourself (DRY)](#422-dont-repeat-yourself-dry)
+     - 4.2.3. [Convention over Configuration (CoC)](#423-convention-over-configuration-coc)
+     - 4.2.4. [Keep It Simple, Stupid (KISS)](#424-keep-it-simple-stupid-kiss)
+     - 4.2.5. [Principle of Least Surprise](#425-principle-of-least-surprise)
+     - 4.2.6. [Security by Design](#426-security-by-design)
+   - 4.3. [Validation par comparaison avec les standards de l'industrie](#43-validation-par-comparaison-avec-les-standards-de-lindustrie)
+     - 4.3.1. [Frameworks PHP populaires](#431-frameworks-php-populaires)
+5. [Architecture de fichiers et dossiers](#5-architecture-de-fichiers-et-dossiers)
 
-5. Principes de développement dans l'architecture présentée
-   - 5.1. [Separation of Concerns (SoC)](#51-separation-of-concerns-soc)
-   - 5.2. [Don't Repeat Yourself (DRY)](#52-dont-repeat-yourself-dry)
-   - 5.3. [Convention over Configuration (CoC)](#53-convention-over-configuration-coc)
-   - 5.4. [Keep It Simple, Stupid (KISS)](#54-keep-it-simple-stupid-kiss)
-   - 5.5. [Principle of Least Surprise](#55-principle-of-least-surprise)
-   - 5.6. [Security by Design](#56-security-by-design)
-6. Frameworks correspondant à cette structure
-   - 6.1. [Frameworks PHP](#61-frameworks-php)
-   - 6.2. [Framework JavaScript](#62-framework-javascript)
+---
 
 # 1. Introduction
 
@@ -40,7 +42,7 @@ L'organisation des fichiers dans un projet de développement est aussi fondament
 
 Si vous avez répondu "oui" à plusieurs de ces questions, votre système d'organisation pourrait bénéficier d'une restructuration.
 
-# 3. Architecture de Fichiers d'Application Web
+# 3. Architecture de dossiers
 
 ```
 /
@@ -72,11 +74,13 @@ Si vous avez répondu "oui" à plusieurs de ces questions, votre système d'orga
 └── import/                     # Scripts et données d'importation
 ```
 
-# 4. Analyse bibliothéconomique
+# 4. Validation de la structure de projet
 
-La bibliothéconomie, science de l'organisation des connaissances, offre des principes pertinents pour structurer efficacement un projet de développement:
+## 4.1 Validation bibliothéconomique
 
-## 4.1. Classification et taxonomie
+La bibliothéconomie, science de l'organisation des connaissances, offre des principes pertinents pour structurer efficacement un projet de développement.
+
+### 4.1.1 Classification et taxonomie
 
 Dans la structure présentée, on observe une classification hiérarchique claire:
 
@@ -86,7 +90,7 @@ Dans la structure présentée, on observe une classification hiérarchique clair
 
 Cette taxonomie reflète le principe bibliothéconomique de classement par sujet et fonction, facilitant la navigation intuitive.
 
-## 4.2. Proximité logique
+### 4.1.2 Proximité logique
 
 En bibliothéconomie, les ouvrages traitant de sujets connexes sont placés à proximité. Dans la structure présentée:
 
@@ -94,7 +98,7 @@ En bibliothéconomie, les ouvrages traitant de sujets connexes sont placés à p
 - Les ressources liées à l'interface utilisateur sont centralisées (`assets/ui/`)
 - La configuration est isolée dans un emplacement dédié (`app/config/`)
 
-## 4.3. Points d'accès normalisés
+### 4.1.3 Points d'accès normalisés
 
 Les bibliothèques utilisent des points d'entrée standardisés (catalogues, index). Le projet implémente ce principe avec:
 
@@ -102,7 +106,7 @@ Les bibliothèques utilisent des points d'entrée standardisés (catalogues, ind
 - Des conventions de nommage cohérentes
 - Une organisation prévisible des ressources statiques
 
-## 4.4. Préservation et sécurité
+### 4.1.4 Préservation et sécurité
 
 En bibliothéconomie, certains documents précieux nécessitent une protection particulière. Cette structure applique ce principe:
 
@@ -110,7 +114,7 @@ En bibliothéconomie, certains documents précieux nécessitent une protection p
 - Seuls les fichiers destinés au public sont exposés (`public/`)
 - Des barrières de sécurité supplémentaires sont définies (`.htaccess`)
 
-## 4.5. Contextualisation
+### 4.1.5 Contextualisation
 
 Les métadonnées contextuelles enrichissent la compréhension d'un document. Cette architecture fournit du contexte par:
 
@@ -118,64 +122,52 @@ Les métadonnées contextuelles enrichissent la compréhension d'un document. Ce
 - Le regroupement logique des fonctionnalités connexes
 - La documentation dédiée (`doc/`)
 
-# 5. Architecture et principes de développement
+## 4.2 Validation selon les principes de développement
 
-L'architecture de fichiers présentée repose sur des principes de développement éprouvés, favorisant la maintenabilité et la sécurité. Voici un aperçu des principes clés appliqués:
+L'architecture de fichiers présentée repose sur des principes de développement éprouvés, favorisant la maintenabilité et la sécurité.
 
-## 5.1. Separation of Concerns (SoC)
+### 4.2.1 Separation of Concerns (SoC)
 
-_Séparation des Préoccupations_
-
-Le projet sépare clairement les différentes responsabilités :
+Le projet sépare clairement les différentes responsabilités:
 
 - Les contrôleurs gèrent le traitement des requêtes
 - Les modèles gèrent les données et la logique métier
 - Les vues gèrent la présentation
 - Les ressources publiques sont isolées du code applicatif
 
-## 5.2. Don't Repeat Yourself (DRY)
-
-_Ne Pas Se Répéter_
+### 4.2.2 Don't Repeat Yourself (DRY)
 
 - Les fonctions d'aide partagées dans `/app/helper/` évitent la duplication
 - Configurations communes centralisées dans `/app/config/`
 
-## 5.3. Convention over Configuration (CoC)
-
-_Convention plutôt que Configuration_
+### 4.2.3 Convention over Configuration (CoC)
 
 - Nommage cohérent des répertoires (`controller/`, `model/`, `view/`)
 - Points d'entrée prévisibles (`index.php`)
 - Organisation standard des ressources dans les sections admin et public
 
-## 5.4. Keep It Simple, Stupid (KISS)
-
-_Faites Simple_
+### 4.2.4 Keep It Simple, Stupid (KISS)
 
 - Hiérarchie plate et logique qui minimise la complexité
 - Correspondance directe entre contrôleurs et vues
 - Séparation claire entre contenu téléchargé et ressources statiques
 - Les ressources statiques sont organisées pour un accès facile et évitent la redondance
 
-## 5.5. Principle of Least Surprise
-
-_Principe de Moindre Surprise_
+### 4.2.5 Principle of Least Surprise
 
 - Les composants sont là où les développeurs s'attendraient à les trouver
 - Structures similaires pour les sections admin et public
 - Implémentation standard du modèle MVC
 
-## 5.6. Security by Design
-
-_Sécurité par Conception_
+### 4.2.6 Security by Design
 
 - Code applicatif en dehors de la racine web
 - Seul `/public/` est exposé aux requêtes web
 - `.htaccess` pour des contrôles de sécurité supplémentaires
 
-# 6. Frameworks correspondant à cette structure
+## 4.3 Validation par comparaison avec les standards de l'industrie
 
-## 6.1. Frameworks PHP
+### 4.3.1 Frameworks PHP populaires
 
 1. **Laravel** - Framework PHP populaire suivant une architecture MVC similaire avec app/Http/Controllers, app/Models et resources/views.
 
@@ -185,10 +177,86 @@ _Sécurité par Conception_
 
 4. **Yii Framework** - Organisation comparable avec controllers/, models/, views/ et web/ pour les fichiers publics.
 
-## 6.2. Framework JavaScript
 
-1. **Express.js avec structure MVC** - Framework Node.js configurable pour adopter cette structure avec controllers/, models/ et views/.
+## 5. Architecture de fichiers et dossiers
 
-2. **React**, **Vue.js** et **Angular** - Peuvent être organisés de manière similaire et intégrés dans une structure MVC avec un backend PHP.
-
-La structure présentée illustre l'application de ces principes au développement web, créant une architecture qui favorise la maintenabilité, l'efficacité et la sécurité, tout en restant intuitive pour les nouveaux contributeurs.
+```
+/
+├── app/                        # Code de l'application
+│   ├── controller/             # Scripts des contrôleurs
+│   │   ├── admin/              # Contrôleurs admin
+│   │   │   ├── auth.php        # Authentification admin
+│   │   │   ├── dashboard.php   # Tableau de bord
+│   │   │   ├── items.php       # Gestion des items
+│   │   │   ├── tags.php        # Gestion des tags
+│   │   │   ├── operators.php   # Gestion des opérateurs
+│   │   │   └── messages.php    # Gestion des messages
+│   │   └── public/             # Contrôleurs publics
+│   │       ├── home.php        # Page d'accueil
+│   │       ├── item.php        # Page détail item
+│   │       ├── items.php       # Liste des items
+│   │       ├── search.php      # Recherche
+│   │       ├── contact.php     # Formulaire de contact
+│   │       └── collection.php  # Collections utilisateur
+│   ├── model/                  # Scripts des modèles
+│   │   ├── item.php            # Fonctions CRUD items
+│   │   ├── tag.php             # Fonctions CRUD tags
+│   │   ├── operator.php        # Fonctions CRUD opérateurs
+│   │   ├── visitor.php         # Fonctions CRUD visiteurs
+│   │   ├── message.php         # Fonctions CRUD messages
+│   │   ├── collection.php      # Fonctions CRUD collections
+│   │   ├── item_tag.php        # Relations items-tags
+│   │   ├── collection_item.php # Relations collections-items
+│   │   └── search.php          # Journalisation des recherches
+│   ├── view/                   # Templates de vues
+│   │   ├── admin/              # Vues admin
+│   │   │   ├── layout.php      # Template principal admin
+│   │   │   ├── login.php       # Page connexion
+│   │   │   ├── dashboard.php   # Tableau de bord
+│   │   │   ├── items/          # Vues gestion items
+│   │   │   │   ├── list.php    # Liste des items
+│   │   │   │   ├── edit.php    # Formulaire édition
+│   │   │   │   └── create.php  # Formulaire création
+│   │   │   ├── tags/           # Vues gestion tags
+│   │   │   ├── operators/      # Vues gestion opérateurs
+│   │   │   └── messages/       # Vues gestion messages
+│   │   └── public/             # Vues publiques
+│   │       ├── layout.php      # Template principal public
+│   │       ├── header.php      # En-tête
+│   │       ├── footer.php      # Pied de page
+│   │       ├── home.php        # Page d'accueil
+│   │       ├── item.php        # Détail d'un item
+│   │       ├── items.php       # Liste d'items
+│   │       ├── search.php      # Résultats de recherche
+│   │       ├── contact.php     # Formulaire de contact
+│   │       ├── collection.php  # Collections utilisateur
+│   │       └── 404.php         # Page d'erreur 404
+│   ├── helper/                 # Fonctions d'aide
+│   │   ├── database.php        # Fonctions de base de données
+│   │   ├── auth.php            # Fonctions d'authentification
+│   │   ├── validation.php      # Validation des données
+│   │   ├── security.php        # Fonctions de sécurité
+│   │   ├── upload.php          # Gestion des téléchargements
+│   │   ├── format.php          # Formatage des données
+│   │   └── pagination.php      # Pagination
+│   └── config/                 # Fichiers de configuration
+│       ├── database.php        # Configuration base de données
+│       ├── app.php             # Configuration générale
+│       └── routes.php          # Configuration des routes
+├── public/                     # Fichiers accessibles publiquement
+│   ├── index.php               # Point d'entrée public
+│   ├── admin/                  # Section admin
+│   │   ├── index.php           # Point d'entrée admin
+│   │   └── assets/             # Ressources spécifiques à l'admin
+│   │       ├── css/
+│   │       ├── js/
+│   │       └── ui/             # Éléments d'interface (icônes, graphiques)
+│   ├── assets/                 # Ressources statiques publiques
+│   │   ├── css/
+│   │   ├── js/
+│   │   └── ui/                 # Éléments d'interface (icônes, graphiques)
+│   ├── images/                 # Images téléchargées/de contenu publiques
+│   └── .htaccess               # Configuration Apache
+├── doc/                        # Documentation
+└── import/                     # Scripts et données d'importation
+```
