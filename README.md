@@ -8,13 +8,13 @@
 - [1.3. Durée du projet](#13-durée-du-projet)
 
 ## 2. Fonctionnalités du système de gestion de contenu
-- [Gestion de contenu centralisée](#gestion-de-contenu-centralisée)
-- [Classification structurée du contenu](#classification-structurée-du-contenu)
-- [Interaction utilisateur ciblée](#interaction-utilisateur-ciblée)
-- [Collections et personnalisation](#collections-et-personnalisation)
-- [Analyse des tendances](#analyse-des-tendances)
-- [Liste complète des fonctionnalités frontend](#liste-complète-des-fonctionnalités-frontend)
-- [Liste complète des fonctionnalités admin](#liste-complète-des-fonctionnalités-admin)
+- [2.1. Gestion de contenu centralisée](#21-gestion-de-contenu-centralisée)
+- [2.2. Classification structurée du contenu](#22-classification-structurée-du-contenu)
+- [2.3. Interaction utilisateur ciblée](#23-interaction-utilisateur-ciblée)
+- [2.4. Collections et personnalisation](#24-collections-et-personnalisation)
+- [2.5. Analyse des tendances](#25-analyse-des-tendances)
+- [2.6. Liste complète des fonctionnalités frontend](#26-liste-complète-des-fonctionnalités-frontend)
+- [2.7. Liste complète des fonctionnalités admin](#27-liste-complète-des-fonctionnalités-admin)
 
 ## 3. Conception Visuelle
 - [3.1. Éléments Visuels](#31-éléments-visuels)
@@ -48,10 +48,9 @@
 - [7.4. Documentation](#74-documentation)
   - [7.4.1. Backend](#741-backend)
   - [7.4.2. Frontend](#742-frontend)
-  - [7.4.3. Full](#743-full)
+  - [7.4.3. Global](#743-global)
 
 ## 8. Conseils et Bonnes Pratiques
-
 ---
 
 ## 1. Présentation du Projet
@@ -74,37 +73,37 @@ Créer un site web dynamique où le contenu peut être modifié facilement via u
 
 ## 2. Fonctionnalités du système de gestion de contenu
 
-### Gestion de contenu centralisée
+### 2.1 Gestion de contenu centralisée
 - Publication et organisation d'articles, produits ou autres éléments de contenu
 - Catégorisation multi-critères via un système de tags
 - Interface d'administration réservée aux opérateurs autorisés
 
-### Classification structurée du contenu
+### 2.2 Classification structurée du contenu
 - Association flexible des items avec plusieurs tags
 - Navigation par catégories pour les visiteurs
 - Organisation thématique des contenus
 
-### Interaction utilisateur ciblée
+### 2.3 Interaction utilisateur ciblée
 - Communication via formulaire de contact
 - Réception et traitement des messages par les administrateurs
 - Création de collections personnelles par les visiteurs
 
-### Collections et personnalisation
+### 2.4 Collections et personnalisation
 - Création de paniers d'achats temporaires ou permanents
 - Listes de souhaits/wishlists pour achats futurs
 - Système de favoris pour retrouver facilement le contenu apprécié
 - Fonctionnalité de "likes" pour indiquer les préférences
 - Possibilité pour les visiteurs de sauvegarder leurs préférences
 
-### Analyse des tendances
+### 2.5 Analyse des tendances
 - Journalisation des termes de recherche
 - Identification des intérêts des visiteurs via leurs collections
 - Optimisation éditoriale basée sur les données d'usage et les préférences
 
 
-### [Liste complète des fonctionnalités frontend](duty_to_do_front.md)
+### 2.6 [Liste complète des fonctionnalités frontend](duty_to_do_front.md)
 
-### [Liste complète des fonctionnalités admin](duty_to_do_admin.md)
+### 2.7 [Liste complète des fonctionnalités admin](duty_to_do_admin.md)
 
 ---
 
