@@ -1,6 +1,58 @@
 # Cahier des Charges Complet - Projet 1-X75-Atelier
 
-# Table des Matières - Cahier des Charges 1-X75-Atelier
+# Table des Matières
+
+## 1. Présentation du Projet
+- [1.1. Objectif](#11-objectif)
+- [1.2. Objectifs d'apprentissage](#12-objectifs-dapprentissage)
+- [1.3. Durée du projet](#13-durée-du-projet)
+
+## 2. Fonctionnalités du système de gestion de contenu
+- [Gestion de contenu centralisée](#gestion-de-contenu-centralisée)
+- [Classification structurée du contenu](#classification-structurée-du-contenu)
+- [Interaction utilisateur ciblée](#interaction-utilisateur-ciblée)
+- [Collections et personnalisation](#collections-et-personnalisation)
+- [Analyse des tendances](#analyse-des-tendances)
+- [Liste complète des fonctionnalités frontend](#liste-complète-des-fonctionnalités-frontend)
+- [Liste complète des fonctionnalités admin](#liste-complète-des-fonctionnalités-admin)
+
+## 3. Conception Visuelle
+- [3.1. Éléments Visuels](#31-éléments-visuels)
+- [3.2. Wireframes](#32-wireframes)
+- [3.3. Composants d'Interface](#33-composants-dinterface)
+
+## 4. Spécifications Techniques
+- [4.1. Architecture Logicielle](#41-architecture-logicielle)
+- [4.2. Structure de la Base de Données](#42-structure-de-la-base-de-données)
+- [4.3. Sécurité](#43-sécurité)
+- [4.4. Performances et Optimisation](#44-performances-et-optimisation)
+- [4.5. Interface Utilisateur](#45-interface-utilisateur)
+- [4.6. Stockage Local](#46-stockage-local)
+
+## 5. Livrables Attendus
+- [5.1. Code source complet](#51-code-source-complet)
+- [5.2. Base de données](#52-base-de-données)
+- [5.3. Documentation](#53-documentation)
+- [5.4. Site fonctionnel](#54-site-fonctionnel)
+
+## 6. Critères d'Évaluation
+- [6.1. Fonctionnalités](#61-fonctionnalités)
+- [6.2. Qualité du Code](#62-qualité-du-code)
+- [6.3. Interface Utilisateur](#63-interface-utilisateur)
+- [6.4. Documentation et Présentation](#64-documentation-et-présentation)
+
+## 7. Ressources Recommandées
+- [7.1. Environnement de Développement](#71-environnement-de-développement)
+- [7.2. Technologies à Utiliser](#72-technologies-à-utiliser)
+- [7.3. Librairies autorisées](#73-librairies-autorisées)
+- [7.4. Documentation](#74-documentation)
+  - [7.4.1. Backend](#741-backend)
+  - [7.4.2. Frontend](#742-frontend)
+  - [7.4.3. Full](#743-full)
+
+## 8. Conseils et Bonnes Pratiques
+
+---
 
 ## 1. Présentation du Projet
 
@@ -20,31 +72,41 @@ Créer un site web dynamique où le contenu peut être modifié facilement via u
 
 ---
 
-## 2. Architecture Générale
+## 2. Fonctionnalités du système de gestion de contenu
 
-### 2.1. Partie publique
-Visible par tous les visiteurs:
-- Page d'accueil présentant les contenus récents
-- Page listant tous les contenus (articles, produits, etc.)
-- Page détaillée pour chaque contenu
-- Filtrage des contenus par catégories (tags, p.e. via un menu ou une sidebar)
-- Fonction de recherche avancée (texte libre, par tag, etc., ordre de tri, nombre de résultats)
-- Fonction de contact
-- Système de favoris, panier, ou liste de souhaits
-- Personnalisation de l'affichage (mode sombre, taille du texte)
+### Gestion de contenu centralisée
+- Publication et organisation d'articles, produits ou autres éléments de contenu
+- Catégorisation multi-critères via un système de tags
+- Interface d'administration réservée aux opérateurs autorisés
 
-### 2.2. Partie administration
-Réservée aux gestionnaires du site:
-- Page de connexion sécurisée (login)
-- Tableau de bord
-- Gestion complète des contenus (CRUD)
-- Gestion des catégories (tags)
-- Gestion des relations entre contenus et catégories
-- Gestion des images associées aux contenus
-- Consultation des messages reçus
+### Classification structurée du contenu
+- Association flexible des items avec plusieurs tags
+- Navigation par catégories pour les visiteurs
+- Organisation thématique des contenus
 
-### 2.3. Fonctionnalités
-- [Liste des fonctionnalités à développer](duty_to_do.md)
+### Interaction utilisateur ciblée
+- Communication via formulaire de contact
+- Réception et traitement des messages par les administrateurs
+- Création de collections personnelles par les visiteurs
+
+### Collections et personnalisation
+- Création de paniers d'achats temporaires ou permanents
+- Listes de souhaits/wishlists pour achats futurs
+- Système de favoris pour retrouver facilement le contenu apprécié
+- Fonctionnalité de "likes" pour indiquer les préférences
+- Possibilité pour les visiteurs de sauvegarder leurs préférences
+
+### Analyse des tendances
+- Journalisation des termes de recherche
+- Identification des intérêts des visiteurs via leurs collections
+- Optimisation éditoriale basée sur les données d'usage et les préférences
+
+
+### [Liste complète des fonctionnalités frontend](duty_to_do_front.md)
+
+### [Liste complète des fonctionnalités admin](duty_to_do_admin.md)
+
+---
 
 ## 3. Conception Visuelle
 
@@ -76,8 +138,22 @@ Réservée aux gestionnaires du site:
 - Organisation modulaire du code
 
 ### 4.2. Structure de la Base de Données
-Le schéma de base de données comprend les tables suivantes:
 
+La table `item` doit contenir les champs suivants:
+- Titre unique + slug URL
+- Description courte + contenu détaillé
+- Image principale
+- Images supplémentaires (optionnel)
+- Prix (optionnel)
+
+Ainsi que les attributs techniques suivants:
+- `ID` unique
+- Date de création
+- Date de mise à jour
+- Createur
+
+
+Les autres tables:
 1. **operator**: Administrateurs du site
 2. **tag**: Système de catégorisation
 3. **item**: Contenus principaux (articles ou produits ou ..)
@@ -114,6 +190,7 @@ Le schéma de base de données comprend les tables suivantes:
   - Le visitor_token
   - Les préférences d'affichage
   - Les identifiants des contenus favoris
+
 
 ## 5. Livrables Attendus
 
@@ -175,7 +252,8 @@ Le schéma de base de données comprend les tables suivantes:
 - [HTML5](https://developer.mozilla.org/fr/docs/Web/HTML), [CSS3](https://developer.mozilla.org/fr/docs/Web/CSS), [JavaScript](https://developer.mozilla.org/fr/docs/Web/JavaScript)
 - [PHP](https://www.php.net/docs.php) (version 8.1 ou supérieure)
 - [MySQL](https://dev.mysql.com/doc/) ou [MariaDB](https://mariadb.org/)
-- [PDO](https://www.php.net/manual/fr/book.pdo.php) pour les requêtes de base de données
+- [PDO](https://phpdelusions.net/pdo) pour les requêtes de base de données ([version française et mise a jour](more/PDO_PHP_DELUSIONS.md)) 
+- [GIT](https://git-scm.com/doc)
 
 ### 7.3. Librairies autorisées
 - **Aucune sans accord préalable**
@@ -184,17 +262,16 @@ Le schéma de base de données comprend les tables suivantes:
 
 ### 7.4. Documentation
 
-#### 7.4.1. Backend
-- [PHP Delusion PDO](https://phpdelusions.net/pdo)
+** Backend **
+- [PHP Delusion PDO]()
 
-#### 7.4.2. Frontend
+** Frontend **
 - [Accessibilité Web](https://www.w3.org/WAI/WCAG21/quickref/)
 - [Responsive Web Design](https://developer.mozilla.org/fr/docs/Learn/CSS/CSS_layout/Responsive_Design)
 - [JavaScript Fetch API](https://developer.mozilla.org/fr/docs/Web/API/Fetch_API)
 - [LocalStorage Documentation](https://developer.mozilla.org/fr/docs/Web/API/Window/localStorage)
 
-#### 7.4.3. Full
-- [Git Documentation](https://git-scm.com/doc)
+** Global **
 
 ## 8. Conseils et Bonnes Pratiques
 - Commencez par une version minimale fonctionnelle puis enrichissez-la
