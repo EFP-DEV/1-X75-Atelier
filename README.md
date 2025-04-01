@@ -136,6 +136,8 @@ Créer un site web dynamique où le contenu peut être modifié facilement via u
 - Séparation claire des responsabilités
 - Organisation modulaire du code
 
+<img src="assets/LAMP_flowchart.svg" alt="LAMP Architecture" />
+
 ### 4.2. Structure de la Base de Données
 
 La table `item` doit contenir les champs suivants:
@@ -162,6 +164,8 @@ Les autres tables:
 7. **collection**: Collections d'items (favoris, etc.)
 8. **collection_item**: Éléments dans les collections
 9. **search**: Journalisation des recherches (optionnel)
+
+<img src="assets/MCD.svg" alt="Database Structure" />
 
 ### 4.3. Sécurité
 - Protection contre les injections SQL (requêtes préparées)

@@ -1,0 +1,36 @@
+flowchart TB
+    Client["Navigateur Client"] -->|Requête HTTP 
+    *GET, POST*| WebServer["Apache (ou nginx)"]
+    
+    subgraph "COUCHE SERVEUR WEB"
+        WebServer -->|mod_php| PHP["Interpréteur PHP"]
+    end
+    
+    subgraph "COUCHE APPLICATION"
+        PHP -->|Selection| Router["Routage"] -->|Execution| Controller["Contrôleurs PHP"]
+        Controller -->|Variables de template| Templates["Templates PHP: .php, .html, .tpl"]
+    end
+    
+    Templates -->|HTML Dynamique| PHP
+    PHP -->|Sortie transformée| WebServer
+    WebServer -->|Réponse HTTP| Client
+    
+    subgraph "COUCHE D'ACCÈS PHP"
+        PDO["Interface PDO"]
+        FileSystem["Système de Fichiers"]
+    end
+    
+    Controller <-->|Accès aux Données| PDO
+    Controller <-->|Opérations sur Fichiers| FileSystem
+    Templates -->|Opérations sur Fichiers Template| FileSystem
+    
+    subgraph "COUCHE DE DONNÉES"
+        Database[("Base de Données MySQL")]
+        DiskStorage["Stockage Disque: .php, .html, .css, .js, .jpg, .png, .pdf, .."]
+    end
+    
+    PDO -->|Requêtes SQL| Database
+    Database -->|Résultats des Requêtes| PDO
+    FileSystem -->|Lecture/Écriture| DiskStorage
+
+    WebServer -->|Accès Direct Restreint      *Sortie Statique*| DiskStorage
