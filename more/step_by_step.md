@@ -12,7 +12,7 @@ Je vais ajouter des points de contrôle précis pour chaque phase de votre plann
 | 2 | Mise en place de la [structure MVC](structure_mvc_php.md) | 3h | Arborescence conforme, routes testées |
 
 ### Points de contrôle globaux :
-* Validation technique par pull request avec critères définis
+* Envoi du repository par mail (ate@amstram.be)
 * README.md documentant l'installation et l'architecture
 
 ## Phase 2 : Front-End (40h)
