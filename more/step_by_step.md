@@ -13,7 +13,6 @@ Je vais ajouter des points de contrôle précis pour chaque phase de votre plann
 
 ### Points de contrôle globaux :
 * Validation technique par pull request avec critères définis
-* Premier tag versioning v0.1.0
 * README.md documentant l'installation et l'architecture
 
 ## Phase 2 : Front-End (40h)
