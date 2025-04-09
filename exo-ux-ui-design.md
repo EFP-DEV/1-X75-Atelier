@@ -31,8 +31,6 @@ Cet exercice vous guide pas à pas dans la démarche de conception UX/UI d'un si
 - Niveau de confort avec le web (débutants, intermédiaires, experts)
 - Contraintes particulières (accessibilité, charge mentale, langue…)
 
-### 1.3 Créez des personas
-
 Créez 3 fiches de personas : donnez-leur un prénom, un âge, un objectif principal sur le site, et une petite histoire (2-3 lignes) qui résume leur situation.
 
 **Exemple de persona** :
