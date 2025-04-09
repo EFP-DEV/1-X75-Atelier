@@ -113,7 +113,7 @@ Pour chaque site concurrent, mesurez et notez :
 - **Temps de chargement** : Page d'accueil et page de détail, avec et sans cache (utilisez l'onglet Network dans les outils de développement du navigateur)
 - **Poids des pages** : Taille totale en Mo des pages analysées
 - **Nombre de requêtes** : Combien de requêtes sont effectuées au chargement
-- **Stack technologique** : Identifiez les technologies utilisées (via whatcms.org ou similaire)
+- **Stack technologique** : Identifiez les technologies utilisées (via [whatcms](https://whatcms.org/) ou [builtwith](https://builtwith.com/)
 - **Scores de performance** : Résultats Lighthouse ou PageSpeed Insights (pour Mobile et Desktop)
 
 ### Exercice :
