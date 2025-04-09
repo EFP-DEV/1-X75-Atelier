@@ -127,6 +127,8 @@ Créer un site web dynamique où le contenu peut être modifié facilement via u
 - Transitions et animations subtiles
 - États interactifs clairement définis
 
+[Exercice UX/UI](exo-ux-ui-design.md)
+
 ---
 
 ## 4. Spécifications Techniques
