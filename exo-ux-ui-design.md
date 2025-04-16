@@ -225,7 +225,6 @@ Outils recommandés :
 **PAUSE** : 10 minutes
 
 ---
-Je vais transformer ce point de "Prototype UI" en "Charte Graphique". Voici la nouvelle version :
 
 ## 5. Charte graphique (50 min)
 **Objectif** : Définir l'identité visuelle de votre interface.
