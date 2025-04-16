@@ -340,7 +340,7 @@ Rassemblez vos livrables dans un document unique (PDF ou présentation) :
 ☐ J'ai créé 3 personas détaillés  
 ☐ Mon sitemap montre clairement la structure du site  
 ☐ Mes wireframes incluent tous les éléments essentiels (desktop + mobile)  
-☐ Ma maquette UI respecte les principes fondamentaux du design  
+☐ Ma charte graphique respecte les principes fondamentaux du design  
 
 ### Analyse technique
 ☐ J'ai analysé les temps de chargement des sites concurrents (avec/sans cache)  
