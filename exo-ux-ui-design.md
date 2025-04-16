@@ -225,10 +225,10 @@ Outils recommandés :
 **PAUSE** : 10 minutes
 
 ---
+Je vais transformer ce point de "Prototype UI" en "Charte Graphique". Voici la nouvelle version :
 
-## 5. Prototype UI (50 min)
-
-**Objectif** : Donner une première vie visuelle à votre interface.
+## 5. Charte graphique (50 min)
+**Objectif** : Définir l'identité visuelle de votre interface.
 
 ### Principes fondamentaux du design :
 - **Contraste** : Assurer la lisibilité entre texte et fond
@@ -242,27 +242,26 @@ Outils recommandés :
 - Boutons et zones cliquables suffisamment grands (minimum 44x44px)
 
 ### Étapes :
-
-1. Choisissez une palette de couleurs cohérente (2-3 couleurs maximum pour commencer)
+1. Définissez une palette de couleurs cohérente (2-3 couleurs maximum pour commencer)
    - Outil : Coolors (https://coolors.co)
    - Adobe Color (https://color.adobe.com)
-
 2. Sélectionnez une typographie lisible (1-2 polices maximum)
    - Google Fonts (https://fonts.google.com)
    - Recommandations : Roboto, Open Sans, Lato, Montserrat pour le texte
-
-3. Ajoutez des éléments graphiques simples
+3. Spécifiez les règles d'utilisation des éléments graphiques
    - Icônes : Font Awesome, Material Icons
-   - Images : Unsplash, Pexels (images libres de droits)
+   - Images : Style et traitement uniformes
 
 ### Exercice :
-
-Transformez l'un de vos wireframes en une maquette visuelle (versions desktop ET mobile).
-Justifiez brièvement vos choix graphiques : couleurs, tailles, alignements, etc.
+Créez un document de charte graphique pour votre interface contenant :
+- La palette de couleurs avec codes hexadécimaux
+- Les typographies choisies avec leurs usages spécifiques
+- Les règles d'utilisation des éléments graphiques
+- Exemples d'application sur des composants clés (boutons, cartes, navigation)
 
 **Livrable** :
-- Deux maquettes visuelles (version desktop + version mobile)
-- Une courte note expliquant vos choix de design
+- Un document de charte graphique
+- Une courte note expliquant vos choix de design et leur adéquation avec l'identité du projet
 
 **PAUSE** : 10 minutes
 
