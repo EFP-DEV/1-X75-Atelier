@@ -80,3 +80,86 @@
   1. Parcourez le DOM dans l’inspecteur (Chrome DevTools → Accessibility).  
   2. Vérifiez la liste des landmarks (`<header>`, `<nav>`, `<main>`, `<aside>`, `<footer>`).  
   3. Assurez-vous qu’ils couvrent tout le document sans doublons inutiles.
+
+---
+
+Voici une section complémentaire avec d'autres balises sémantiques importantes :
+
+## 5. Autres balises sémantiques essentielles
+
+| Balise | Rôle | Exemple d'usage |
+|--------|------|-----------------|
+| `<address>` | Coordonnées de contact | Adresse physique, email, téléphone |
+| `<blockquote>` | Citation longue avec attribut `cite` | Citation d'article ou d'auteur |
+| `<details>` + `<summary>` | Contenu extensible (accordéon) | FAQ, détails techniques |
+| `<mark>` | Texte mis en évidence | Résultat de recherche, surbrillance |
+| `<progress>` | Barre de progression | Avancement de téléchargement |
+| `<dialog>` | Boîte de dialogue modale | Fenêtre de confirmation, popup |
+| `<abbr>` | Abréviation avec définition | `<abbr title="HyperText Markup Language">HTML</abbr>` |
+| `<cite>` | Référence à une œuvre | Titre de livre, de film |
+| `<code>` | Fragment de code informatique | Exemple de fonction, commande |
+| `<data>` | Valeur lisible avec équivalent machine | `<data value="398">Produit XYZ</data>` |
+| `<dl>`, `<dt>`, `<dd>` | Liste de définitions | Glossaire, métadonnées |
+
+```html
+<details>
+  <summary>Comment utiliser cette fonction ?</summary>
+  <p>Voici les étapes à suivre :</p>
+  <ol>
+    <li>Sélectionnez l'option dans le menu</li>
+    <li>Configurez les paramètres selon votre besoin</li>
+    <li>Cliquez sur <code>Appliquer</code></li>
+  </ol>
+  <progress value="70" max="100">70%</progress>
+</details>
+
+<address>
+  <p>Contact : <a href="mailto:info@example.com">info@example.com</a></p>
+  <p>Téléphone : <a href="tel:+33123456789">+33 1 23 45 67 89</a></p>
+</address>
+
+<dl>
+  <dt>HTML</dt>
+  <dd>Langage de balisage utilisé pour structurer le contenu web</dd>
+  <dt>CSS</dt>
+  <dd>Langage de style utilisé pour mettre en forme les pages web</dd>
+</dl>
+```
+---
+
+## 6. Balises de formulaire sémantiques
+
+| Balise | Rôle | Avantage |
+|--------|------|----------|
+| `<label>` | Étiquette liée à un champ | Association explicite via attribut `for` |
+| `<fieldset>` + `<legend>` | Groupe de champs avec titre | Organisation logique des formulaires |
+| `<datalist>` | Liste de suggestions pour `<input>` | Autocomplétion avec liberté de saisie |
+| `<output>` | Résultat de calcul | Affichage de résultat de manipulation |
+| `<meter>` | Mesure scalaire dans une plage connue | Jauge visuelle avec min/max/optimum |
+
+```html
+<form>
+  <fieldset>
+    <legend>Informations personnelles</legend>
+    <p>
+      <label for="nom">Nom :</label>
+      <input type="text" id="nom" name="nom" list="noms-courants">
+      <datalist id="noms-courants">
+        <option value="Dupont">
+        <option value="Martin">
+      </datalist>
+    </p>
+  </fieldset>
+  
+  <p>
+    <label for="satisfaction">Niveau de satisfaction :</label>
+    <meter id="satisfaction" min="0" max="100" value="75" low="33" high="66" optimum="80">75%</meter>
+  </p>
+  
+  <p>
+    <label for="prix">Prix HT :</label>
+    <input type="number" id="prix" name="prix" value="100" min="0" step="0.01">
+    <output for="prix" id="prixTTC">120.00 €</output>
+  </p>
+</form>
+```
