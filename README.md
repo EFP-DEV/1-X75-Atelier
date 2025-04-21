@@ -136,17 +136,13 @@ Pattern MVC, séparation claire des responsabilités, modules réutilisables.
 - `short_description` TEXT  
 - `content` LONGTEXT  
 - `main_image` VARCHAR(255)  
-- `additional_images` JSON NULL  
-- `price` DECIMAL(10,2) NULL  
-- `stock` INT NULL  
-- `sku` VARCHAR(100)  
 - `status` ENUM('draft','published','archived')  
 - `created_at` DATETIME  
 - `updated_at` DATETIME  
-- `operator_id` INT FK→`operator`.`id`
+- `created_by` INT FK→`operator`.`id`
 
-**Autres tables :**  
-- `operator` : administrateurs et clients  
+**Autres tables requises:**  
+- `operator` : administrateurs et clients
 - `tag` : catégories de contenu  
 - `item_tag` : relation n–n entre `item` et `tag`  
 - `message` : formulaires de contact  
@@ -156,26 +152,21 @@ Pattern MVC, séparation claire des responsabilités, modules réutilisables.
 
 ## 4.3 Sécurité :  
 - Requêtes préparées (protection SQLi)  
+- Hashage sécurisé des mots de passe (bcrypt)
 - Validation et échappement des entrées (XSS)  
-- Protection CSRF sur tous les formulaires  
-- Hashage sécurisé des mots de passe (bcrypt)  
-- RBAC (rôles et permissions détaillés)  
+- Protection CSRF sur tous les formulaires
+- Politique CSP
+  
+**Optionnels**
+- RBAC (rôles et permissions détaillés)
 - Journalisation des accès et actions critiques  
 - Verrouillage de compte après 5 échecs de connexion
 
 ## 4.4 Performances et optimisation :  
-- Mise en cache (Redis ou Memcached)  
-- CDN pour assets (images, JS, CSS)  
 - Index appropriés en base de données  
 - Chargement asynchrone des ressources non critiques
 
-## 4.5 Accessibilité :  
-- Conformité WCAG 2.1 niveau AA  
-- Contraste optimisé et navigation clavier  
-- Tests automatisés (axe-core, Pa11y)  
-- Description textuelle des images (attribut `alt`)
-
-## 4.6 Stockage local :  
+## 4.5 Stockage local :  
 - Utilisation de `localStorage` pour le thème et les favoris  
 - Durée de conservation : 30 jours, quota et fallback IndexedDB
 
