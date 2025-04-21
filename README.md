@@ -50,8 +50,6 @@ Environ 80 heures réparties en 4 semaines (conception, développement, tests,
 - Hiérarchisation thématique garantissant une cohérence éditoriale au sein du site   
 - Affichage dynamique des contenus associés (articles, produits, collections) selon les filtres sélectionnés  
 
-
-
 ## 2.3 Interaction utilisateur ciblée :  
 - Formulaire de contact avec validation serveur  
 - Réception et traitement des messages par les administrateurs  
@@ -84,13 +82,12 @@ Environ 80 heures réparties en 4 semaines (conception, développement, tests,
 - Iconographie cohérente (FontAwesome, Heroicons)
 
 ## 3.2 Wireframes :  
-- Maquettes low‑fi des écrans clés (accueil, listing, détail, admin)  
+- Wireframe  des écrans clés (accueil, détail, admin)  
 - Flux de navigation et hiérarchie visuelle
 
 ## 3.3 Composants d’interface :  
-- Grille modulaire (12 colonnes)  
 - Cartes, boutons et formulaires réutilisables  
-- Transitions CSS subtiles  
+- Transitions CSS subtiles
 - États (hover, actif, désactivé) clairement définis
 
 ---
@@ -155,22 +152,12 @@ Pattern MVC, séparation claire des responsabilités, modules réutilisables.
 ---
 
 # 5. Livrables attendus et planning
-
-## 5.1 Livrables :  
 - Code source complet (répertoire Git)  
 - Schéma de base de données et jeu de données de test couvrant tous les cas d’usage  
 - Documentation : guide d’installation, manuel utilisateur, documentation technique  
 - Site fonctionnel déployé sur environnement de test  
 - Rapport de tests (unitaires, fonctionnels, d’accessibilité)
 
-## 5.2 Planning (4 semaines) :
-
-| Semaine | Activités principales                               |
-|---------|-----------------------------------------------------|
-| 1       | Conception (MCD, wireframes, choix technos)         |
-| 2       | Développement backend (CRUD, auth, API)             |
-| 3       | Développement frontend (UI, intégration API, tests) |
-| 4       | Sécurité, performances, accessibilité, déploiement  |
 
 ---
 
