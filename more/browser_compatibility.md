@@ -41,12 +41,6 @@
 3. **Polyfills**: Implémenter des solutions pour combler les lacunes des navigateurs obsolètes
 4. **Tests précoces**: Tester régulièrement sur différents navigateurs pendant le développement
 
-### Techniques spécifiques
-1. **Media queries**: Adapter l'affichage selon les dimensions d'écran
-2. **Feature detection**: Utiliser Modernizr ou des API natives pour détecter les capacités
-4. **Babel**: Transpiler le JavaScript moderne vers des versions compatibles
-
-
 ### Outils de test
 1. **BrowserStack/LambdaTest**: Tests sur navigateurs réels à distance
 2. **Simulateurs intégrés**: Chrome DevTools (Mode responsive), Safari Technology Preview
