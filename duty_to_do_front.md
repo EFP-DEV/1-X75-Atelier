@@ -26,8 +26,8 @@
 - Polices et couleurs accessibles  
 - Contraste suffisant texte/arrière‑plan  
 - Support lecteurs d’écran (aria‑labels, rôles)  
-- Navigation au clavier  
-- Balises HTML sémantiques  
+- Navigation au [clavier](/more/navigation_keyboard.md)
+- Balises [HTML sémantiques](/more/html_semantic.md)
 - Navigation intuitive et aide contextuelle  
 - [Compatibilité avec navigateurs modernes](/more/browser_compatibility.md)  
 
