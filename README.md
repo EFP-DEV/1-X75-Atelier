@@ -1,290 +1,271 @@
-# Cahier des Charges Complet - Projet 1-X75-Atelier
-
-# Table des Matières
-
-## 1. Présentation du Projet
-- [1.1. Objectif](#11-objectif)
-- [1.2. Objectifs d'apprentissage](#12-objectifs-dapprentissage)
-- [1.3. Durée du projet](#13-durée-du-projet)
-
-## 2. Fonctionnalités du système de gestion de contenu
-- [2.1. Gestion de contenu centralisée](#21-gestion-de-contenu-centralisée)
-- [2.2. Classification structurée du contenu](#22-classification-structurée-du-contenu)
-- [2.3. Interaction utilisateur ciblée](#23-interaction-utilisateur-ciblée)
-- [2.4. Collections et personnalisation](#24-collections-et-personnalisation)
-- [2.5. Analyse des tendances](#25-analyse-des-tendances)
-- [2.6. Liste complète des fonctionnalités frontend](#26-liste-complète-des-fonctionnalités-frontend)
-- [2.7. Liste complète des fonctionnalités admin](#27-liste-complète-des-fonctionnalités-admin)
-
-## 3. Conception Visuelle
-- [3.1. Éléments Visuels](#31-éléments-visuels)
-- [3.2. Wireframes](#32-wireframes)
-- [3.3. Composants d'Interface](#33-composants-dinterface)
-
-## 4. Spécifications Techniques
-- [4.1. Architecture Logicielle](#41-architecture-logicielle)
-- [4.2. Structure de la Base de Données](#42-structure-de-la-base-de-données)
-- [4.3. Sécurité](#43-sécurité)
-- [4.4. Performances et Optimisation](#44-performances-et-optimisation)
-- [4.5. Interface Utilisateur](#45-interface-utilisateur)
-- [4.6. Stockage Local](#46-stockage-local)
-
-## 5. Livrables Attendus
-- [5.1. Code source complet](#51-code-source-complet)
-- [5.2. Base de données](#52-base-de-données)
-- [5.3. Documentation](#53-documentation)
-- [5.4. Site fonctionnel](#54-site-fonctionnel)
-
-## 6. Critères d'Évaluation
-- [6.1. Fonctionnalités](#61-fonctionnalités)
-- [6.2. Qualité du Code](#62-qualité-du-code)
-- [6.3. Interface Utilisateur](#63-interface-utilisateur)
-- [6.4. Documentation et Présentation](#64-documentation-et-présentation)
-
-## 7. Ressources Recommandées
-- [7.1. Environnement de Développement](#71-environnement-de-développement)
-- [7.2. Technologies à Utiliser](#72-technologies-à-utiliser)
-- [7.3. Librairies autorisées](#73-librairies-autorisées)
-- [7.4. Documentation](#74-documentation)
-  - [7.4.1. Backend](#741-backend)
-  - [7.4.2. Frontend](#742-frontend)
-  - [7.4.3. Global](#743-global)
-
-## 8. Conseils et Bonnes Pratiques
----
-
-## 1. Présentation du Projet
-
-### 1.1. Objectif
-Créer un site web dynamique où le contenu peut être modifié facilement via une interface d'administration sécurisée, sans avoir à toucher au code HTML directement.
-
-### 1.2. Objectifs d'apprentissage
-* Comprendre la structure d'un projet web complet
-* Maîtriser les bases de l'architecture MVC
-* Expérimenter avec l'intégration frontend/backend
-* Apprendre les bonnes pratiques de documentation
-* Identifier les domaines qui nécessiteraient plus d'attention dans un environnement de production
-
-### 1.3. Durée du projet
-- Environ 80 heures au total (conception et réalisation).
-- [Plan du projet](more/step_by_step.md)
+**Version : 1.1**  
+**Date : 21 avril 2025**  
+**Auteur : [Nom du rédacteur]**  
+**Statut : Brouillon**  
 
 ---
 
-## 2. Fonctionnalités du système de gestion de contenu
+# Table des matières
 
-### 2.1 Gestion de contenu centralisée
-- Publication et organisation d'articles, produits ou autres éléments de contenu
-- Catégorisation multi-critères via un système de tags
-- Interface d'administration réservée aux opérateurs autorisés
-
-### 2.2 Classification structurée du contenu
-- Association flexible des items avec plusieurs tags
-- Navigation par catégories pour les visiteurs
-- Organisation thématique des contenus
-
-### 2.3 Interaction utilisateur ciblée
-- Communication via formulaire de contact
-- Réception et traitement des messages par les administrateurs
-- Création de collections personnelles par les visiteurs
-
-### 2.4 Collections et personnalisation
-- Création de paniers d'achats temporaires ou permanents
-- Listes de souhaits/wishlists pour achats futurs
-- Système de favoris pour retrouver facilement le contenu apprécié
-- Fonctionnalité de "likes" pour indiquer les préférences
-- Possibilité pour les visiteurs de sauvegarder leurs préférences
-
-### 2.5 Analyse des tendances
-- Journalisation des termes de recherche
-- Identification des intérêts des visiteurs via leurs collections
-- Optimisation éditoriale basée sur les données d'usage et les préférences
-
-
-### 2.6 [Liste complète des fonctionnalités frontend](duty_to_do_front.md)
-
-### 2.7 [Liste complète des fonctionnalités admin](duty_to_do_admin.md)
+1. [Présentation du projet](#1-présentation-du-projet)  
+2. [Fonctionnalités du système de gestion de contenu](#2-fonctionnalités-du-système-de-gestion-de-contenu)  
+3. [Conception visuelle](#3-conception-visuelle)  
+4. [Spécifications techniques](#4-spécifications-techniques)  
+5. [Livrables attendus et planning](#5-livrables-attendus-et-planning)  
+6. [Critères d’évaluation et normes de code](#6-critères-dévaluation-et-normes-de-code)  
+7. [Ressources recommandées](#7-ressources-recommandées)  
+8. [Conseils et bonnes pratiques](#8-conseils-et-bonnes-pratiques)  
 
 ---
 
-## 3. Conception Visuelle
+# 1. Présentation du projet
 
-### 3.1. Éléments Visuels
-- Palette de couleurs adaptée au thème choisi
-- Version claire et sombre de chaque couleur
-- Typographie lisible et cohérente
-- Iconographie simple et reconnaissable
+## 1.1 Objectif :  
+Créer un site web dynamique où le contenu peut être modifié facilement via une interface d’administration sécurisée, sans toucher directement au code HTML.
 
-### 3.2. Wireframes
-- Schémas structurels des pages principales
-- Disposition des éléments d'interface
-- Hiérarchie visuelle et flux de navigation
-- Points d'interaction utilisateur
+## 1.2 Objectifs d’apprentissage :  
+- Comprendre la structure d’un projet web complet  
+- Maîtriser l’architecture MVC  
+- Intégrer frontend et backend  
+- Adopter les bonnes pratiques de documentation  
+- Identifier les points critiques en production
 
-### 3.3. Composants d'Interface
-- Système de grille cohérent
-- Composants réutilisables (cartes, boutons, formulaires)
-- Transitions et animations subtiles
-- États interactifs clairement définis
-
-[Exercice UX/UI](exo-ux-ui-design.md)
+## 1.3 Durée du projet :  
+Environ 80 heures réparties en 4 semaines (conception, développement, tests, déploiement).  
+[Plan du projet](more/step_by_step.md)
 
 ---
 
-## 4. Spécifications Techniques
+# 2. Fonctionnalités du système de gestion de contenu
 
-### 4.1. Architecture Logicielle
-- Pattern MVC (Modèle-Vue-Contrôleur)
-- Séparation claire des responsabilités
-- Organisation modulaire du code
+[Tag, themes, categories](more/tag-theme-category.md)
 
-<img src="assets/LAMP_flowchart.svg" alt="LAMP Architecture" />
+## 2.1 Admin
+- Création, publication et mise à jour d’item (articles, produits ou tout autre type de contenu)
+- Classification multi‑critères via un système de tags personnalisables  
+- Accès et droits d’administration sécurisés, réservés aux utilisateurs autorisés  
 
-### 4.2. Structure de la Base de Données
-
-La table `item` doit contenir les champs suivants:
-- Titre unique + slug URL
-- Description courte + contenu détaillé
-- Image principale
-- Images supplémentaires (optionnel)
-- Prix (optionnel)
-- Stock (optionnel)
-- ... 
-- ...
-- ...
-- ...
+## 2.2 Frontend
+- Navigation fluide par catégories et par tags, pour retrouver rapidement tout type de contenu  
+- Hiérarchisation thématique garantissant une cohérence éditoriale au sein du site   
+- Affichage dynamique des contenus associés (articles, produits, collections) selon les filtres sélectionnés  
 
 
-Ainsi que les attributs techniques suivants:
-- `id` unique auto incrementee
-- Date de création
-- Date de mise à jour
-- Createur (operateur)
 
-Les autres tables:
-1. **operator** : Utilisateurs du site (administrateurs ET clients)  
-2. **tag** : Système de catégorisation  
-3. **item** : Contenus principaux (articles, produits, etc.)  
-4. **item_tag** : Relation entre contenus et catégories  
-5. **message** : Messages du formulaire de contact  
-6. **collection** : Collections d'items (favoris, wishlists, etc.)  
-7. **collection_item** : Éléments dans les collections  
-8. **search** : Journalisation des recherches (optionnel)  
+## 2.3 Interaction utilisateur ciblée :  
+- Formulaire de contact avec validation serveur  
+- Réception et traitement des messages par les administrateurs  
+- Création et gestion de collections personnelles
 
-<img src="assets/MCD.svg" alt="Database Structure" />
+## 2.4 Collections et personnalisation :  
+- Paniers d’achats temporaires ou persistants  
+- Wishlists pour achats futurs  
+- Système de favoris et de likes  
+- Sauvegarde des préférences utilisateur
 
-### 4.3. Sécurité
-- Protection contre les injections SQL (requêtes préparées)
-- Validation des entrées utilisateur
-- Échappement des sorties HTML (prévention XSS)
-- Protection CSRF sur les formulaires
-- Hashage sécurisé des mots de passe
-- Gestion sécurisée des sessions
+## 2.5 Analyse des tendances :  
+- Journalisation des recherches (`search`)  
+- Analyse des intérêts via collections et likes  
+- Tableaux de bord pour optimisation éditoriale
 
-### 4.4. Performances et Optimisation
-- Minimisation des requêtes SQL
-- Utilisation appropriée des index de base de données
-- Optimisation des images et ressources
-- Chargement asynchrone des contenus non essentiels
+## 2.6 Liste complète des fonctionnalités frontend :  
+[Voir la liste détaillée](duty_to_do_front.md)
 
-### 4.5. Interface Utilisateur
-- Design responsive (mobile-first)
-- Interactions fluides avec JavaScript
-- Feedback visuel pour les actions utilisateur
-- Accessibilité de base (contraste, navigation clavier)
-- Compatibilité multi-navigateurs
+## 2.7 Liste complète des fonctionnalités admin :  
+[Voir la liste détaillée](duty_to_do_admin.md)
 
-### 4.6. Stockage Local
-Utilisation de `localStorage` pour :
-- Les préférences d’affichage (thème, layout…)  
-- Les identifiants des contenus favoris (collections, wishlist)
+---
 
+# 3. Conception visuelle
 
-## 5. Livrables Attendus
+## 3.1 Éléments visuels :  
+- Palette de couleurs claire et sombre  
+- Typographie lisible (Google Fonts)  
+- Iconographie cohérente (FontAwesome, Heroicons)
 
-### 5.1. Code source complet
-- Structure MVC organisée
-- Commentaires pertinents
-- Respect des conventions de nommage
+## 3.2 Wireframes :  
+- Maquettes low‑fi des écrans clés (accueil, listing, détail, admin)  
+- Flux de navigation et hiérarchie visuelle
 
-### 5.2. Base de données
-- Structure conforme au schéma fourni
-- Jeu de données de démonstration
+## 3.3 Composants d’interface :  
+- Grille modulaire (12 colonnes)  
+- Cartes, boutons et formulaires réutilisables  
+- Transitions CSS subtiles  
+- États (hover, actif, désactivé) clairement définis
 
-### 5.3. Documentation
-- Guide d'installation
-- Manuel utilisateur pour l'administration
-- Documentation technique
+---
 
-### 5.4. Site fonctionnel
-- Interface publique responsive
-- Système d'administration opérationnel
-- Toutes les fonctionnalités implémentées
+# 4. Spécifications techniques
 
-## 6. Critères d'Évaluation
+## 4.1 Architecture logicielle :  
+Pattern MVC, séparation claire des responsabilités, modules réutilisables.
 
-### 6.1. Fonctionnalités
-- Implémentation complète des fonctionnalités requises
-- Bon fonctionnement sur différents navigateurs et appareils
-- Robustesse et gestion des erreurs
+## 4.2 Structure de la base de données :
 
-### 6.2. Qualité du Code
-- Structure et organisation du code
-- Bonnes pratiques de programmation
-- Sécurité et optimisation
+**Table `item` :**  
+- `id` INT AUTO_INCREMENT, PK  
+- `title` VARCHAR(255) UNIQUE  
+- `slug` VARCHAR(255) UNIQUE  
+- `short_description` TEXT  
+- `content` LONGTEXT  
+- `main_image` VARCHAR(255)  
+- `additional_images` JSON NULL  
+- `price` DECIMAL(10,2) NULL  
+- `stock` INT NULL  
+- `sku` VARCHAR(100)  
+- `status` ENUM('draft','published','archived')  
+- `created_at` DATETIME  
+- `updated_at` DATETIME  
+- `operator_id` INT FK→`operator`.`id`
 
-### 6.3. Interface Utilisateur
-- Ergonomie et facilité d'utilisation
-- Cohérence visuelle
-- Adaptabilité aux différents appareils
+**Autres tables :**  
+- `operator` : administrateurs et clients  
+- `tag` : catégories de contenu  
+- `item_tag` : relation n–n entre `item` et `tag`  
+- `message` : formulaires de contact  
+- `collection` : listes de favoris, paniers, wishlists  
+- `collection_item` : relation n–n entre `collection` et `item`  
+- `search` : journalisation des recherches
 
-### 6.4. Documentation et Présentation
-- Clarté de la documentation
-- Qualité de la présentation finale
-- Respect des délais
+## 4.3 Sécurité :  
+- Requêtes préparées (protection SQLi)  
+- Validation et échappement des entrées (XSS)  
+- Protection CSRF sur tous les formulaires  
+- Hashage sécurisé des mots de passe (bcrypt)  
+- RBAC (rôles et permissions détaillés)  
+- Journalisation des accès et actions critiques  
+- Verrouillage de compte après 5 échecs de connexion
 
-## 7. Ressources Recommandées
+## 4.4 Performances et optimisation :  
+- Mise en cache (Redis ou Memcached)  
+- CDN pour assets (images, JS, CSS)  
+- Index appropriés en base de données  
+- Chargement asynchrone des ressources non critiques
 
-### 7.1. Environnement de Développement
-- [XAMPP](https://www.apachefriends.org/index.html)
-- [Visual Studio Code](https://code.visualstudio.com/) ou autre éditeur de code
-- [Git](https://git-scm.com/doc) pour la gestion de versions
-- [GitHub Copilot](https://github.com/features/copilot) pour l'aide à la rédaction de code
-- [Postman](https://www.postman.com/)
-- [Figma](https://www.figma.com/)
-- [phpMyAdmin](https://www.phpmyadmin.net/)
-- [W3C Validator](https://validator.w3.org/)
+## 4.5 Accessibilité :  
+- Conformité WCAG 2.1 niveau AA  
+- Contraste optimisé et navigation clavier  
+- Tests automatisés (axe-core, Pa11y)  
+- Description textuelle des images (attribut `alt`)
+
+## 4.6 Stockage local :  
+- Utilisation de `localStorage` pour le thème et les favoris  
+- Durée de conservation : 30 jours, quota et fallback IndexedDB
+
+---
+
+# 5. Livrables attendus et planning
+
+## 5.1 Livrables :  
+- Code source complet (répertoire Git)  
+- Schéma de base de données et jeu de données de test couvrant tous les cas d’usage  
+- Documentation : guide d’installation, manuel utilisateur, documentation technique  
+- Site fonctionnel déployé sur environnement de test  
+- Rapport de tests (unitaires, fonctionnels, d’accessibilité)
+
+## 5.2 Planning (4 semaines) :
+
+| Semaine | Activités principales                               |
+|---------|-----------------------------------------------------|
+| 1       | Conception (MCD, wireframes, choix technos)         |
+| 2       | Développement backend (CRUD, auth, API)             |
+| 3       | Développement frontend (UI, intégration API, tests) |
+| 4       | Sécurité, performances, accessibilité, déploiement  |
+
+---
+
+# 6. Critères d’évaluation et normes de code
+
+## 6.1 Critères d’évaluation :  
+- Fonctionnalités complètes et robustes  
+- Interface ergonomique et responsive  
+- Respect des délais et qualité de la documentation
+
+## 6.2 Normes de code :  
+- **PHP :** PSR‑12, PHP 8.1+  
+- **JavaScript :** ES6+, ESLint (standard)  
+- CI/CD via GitHub Actions (lint, tests, déploiement)
+
+---
+
+# 7. Ressources recommandées
+
+## 7.1 Environnement de développement :  
+- [XAMPP](https://www.apachefriends.org/index.html)  
+- [Visual Studio Code](https://code.visualstudio.com/) ou autre éditeur  
+- [Git](https://git-scm.com/doc)  
+- [GitHub Copilot](https://github.com/features/copilot)  
+- [Postman](https://www.postman.com/)  
+- [Figma](https://www.figma.com/)  
+- [phpMyAdmin](https://www.phpmyadmin.net/)  
+- [W3C Validator](https://validator.w3.org/)  
 - [WAVE Accessibility Tool](https://wave.webaim.org/)
 
-### 7.2. Technologies à Utiliser
-- [HTML5](https://developer.mozilla.org/fr/docs/Web/HTML), [CSS3](https://developer.mozilla.org/fr/docs/Web/CSS), [JavaScript](https://developer.mozilla.org/fr/docs/Web/JavaScript)
-- [PHP](https://www.php.net/docs.php) (version 8.1 ou supérieure)
-- [MySQL](https://dev.mysql.com/doc/) ou [MariaDB](https://mariadb.org/)
-- [PDO](https://phpdelusions.net/pdo) pour les requêtes de base de données ([version française et mise a jour](more/PDO_PHP_DELUSIONS.md)) 
+## 7.2 Technologies à utiliser :  
+- [HTML5](https://developer.mozilla.org/fr/docs/Web/HTML)  
+- [CSS3](https://developer.mozilla.org/fr/docs/Web/CSS)  
+- [JavaScript](https://developer.mozilla.org/fr/docs/Web/JavaScript)  
+- [PHP](https://www.php.net/docs.php) 8.1+  
+- [MySQL](https://dev.mysql.com/doc/) ou [MariaDB](https://mariadb.org/)  
+- [PDO](https://phpdelusions.net/pdo) (version française et mise à jour)  
 - [GIT](https://git-scm.com/doc)
 
-### 7.3. Librairies autorisées
-- **Aucune sans accord préalable**
-- [FontAwesome](https://fontawesome.com/docs/web/setup/quick), [Feather Icons](https://feathericons.com/), [Lucide](https://lucide.dev/), [Heroicons](https://heroicons.com/), [Phosphor Icons](https://phosphoricons.com/), [Iconoir](https://iconoir.com/), [Google Material Icons](https://fonts.google.com/icons)
-- [Google Fonts](https://fonts.google.com/)
+## 7.3 Librairies autorisées :  
+- Aucune sans accord préalable  
+- FontAwesome, Feather Icons, Lucide, Heroicons, Phosphor Icons, Iconoir, Google Material Icons  
+- Google Fonts
 
-### 7.4. Documentation
+## 7.4 Documentation
 
-** Backend **
-- [PHP Delusion PDO]()
+### 7.4.1 Backend  
+**Technologies**  
+- [PHP.net Manual](https://www.php.net/manual/fr/)  
+- [PHP: The Right Way](https://phptherightway.com/)  
+- [Devhints: MySQL Cheat Sheet](https://devhints.io/mysql)  
+- [Percona Server – Optimisation MySQL](https://www.percona.com/doc/percona-server/5.7/performance/optimization.html)  
 
-** Frontend **
-- [Accessibilité Web](https://www.w3.org/WAI/WCAG21/quickref/)
-- [Responsive Web Design](https://developer.mozilla.org/fr/docs/Learn/CSS/CSS_layout/Responsive_Design)
-- [JavaScript Fetch API](https://developer.mozilla.org/fr/docs/Web/API/Fetch_API)
-- [LocalStorage Documentation](https://developer.mozilla.org/fr/docs/Web/API/Window/localStorage)
+**Outils**  
+- [MySQL Workbench](https://www.mysql.com/products/workbench/)  
+- [phpMyAdmin](https://www.phpmyadmin.net/)  
+- [Adminer](https://www.adminer.org/)  
 
-** Global **
+**Architecture**  
+- [Design Pattern MVC – Tutorialspoint](https://www.tutorialspoint.com/mvc_framework/what_is_mvc_design_pattern.htm)  
+- [MDN: Glossaire MVC](https://developer.mozilla.org/en-US/docs/Glossary/MVC)  
 
-## 8. Conseils et Bonnes Pratiques
-- Commencez par une version minimale fonctionnelle puis enrichissez-la
-- Testez régulièrement chaque fonctionnalité
-- Utilisez Git pour suivre vos modifications et pouvoir revenir en arrière
-- Privilégiez la qualité à la quantité de fonctionnalités
-- N'hésitez pas à demander de l'aide à votre formateur
-- Documentez votre code au fur et à mesure
+### 7.4.2 Frontend  
+**Technologies**  
+- [MDN: Référence HTML](https://developer.mozilla.org/fr/docs/Web/HTML)  
+- [MDN: Référence CSS](https://developer.mozilla.org/fr/docs/Web/CSS)  
+- [MDN: CSS Layout Module Level 1](https://developer.mozilla.org/fr/docs/Web/CSS/CSS_Layout)  
+- [JavaScript Fetch API](https://developer.mozilla.org/fr/docs/Web/API/Fetch_API)  
+- [LocalStorage – MDN](https://developer.mozilla.org/fr/docs/Web/API/Window/localStorage)  
+
+**Outils**  
+- [W3C: Validateur HTML](https://validator.w3.org/)  
+- [W3C: Validateur CSS](https://jigsaw.w3.org/css-validator/)  
+
+**Mise en page et design**  
+- Designing Intrinsic Layouts – Jen Simmons (vidéo)  
+- A Simple Introduction to Intrinsic Web Design – Webdesigner Depot  
+- The Big Web Show #76: Intrinsic Web Design with Jen Simmons (transcript)  
+- [Responsive Web Design – MDN](https://developer.mozilla.org/fr/docs/Learn/CSS/CSS_layout/Responsive_Design)  
+- [Progressive Enhancement – MDN (Glossaire)](https://developer.mozilla.org/fr/docs/Glossary/Progressive_Enhancement)  
+- [Progressive Enhancement – web.dev](https://web.dev/progressive-enhancement/)  
+
+### 7.4.3 UX/UI Design  
+- [Nielsen Norman Group: Articles UX](https://www.nngroup.com/articles/)  
+- [Material Design Guidelines](https://material.io/design)  
+- [Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)  
+- [Smashing Magazine: UX/UI Design](https://www.smashingmagazine.com/category/uxdesign/)  
+- [Interaction Design Foundation](https://www.interaction-design.org/)  
+
+---
+
+# 8. Conseils et bonnes pratiques
+
+- Démarrer par un MVP, puis itérer  
+- Documenter et tester au fur et à mesure  
+- Utiliser Git pour versionner chaque fonctionnalité  
+- Privilégier la robustesse et la maintenabilité  
+- Impliquer régulièrement le formateur pour retours rapides
