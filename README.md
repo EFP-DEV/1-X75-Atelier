@@ -148,24 +148,28 @@ La table `item` doit contenir les champs suivants:
 - Image principale
 - Images supplémentaires (optionnel)
 - Prix (optionnel)
+- Stock (optionnel)
+- ... 
+- ...
+- ...
+- ...
+
 
 Ainsi que les attributs techniques suivants:
-- `ID` unique
+- `id` unique auto incrementee
 - Date de création
 - Date de mise à jour
-- Createur
-
+- Createur (operateur)
 
 Les autres tables:
-1. **operator**: Administrateurs du site
-2. **tag**: Système de catégorisation
-3. **item**: Contenus principaux (articles ou produits ou ..)
-4. **item_tag**: Relation entre contenus et catégories
-5. **message**: Messages du formulaire de contact
-6. **visitor**: Identification et préférences des visiteurs
-7. **collection**: Collections d'items (favoris, etc.)
-8. **collection_item**: Éléments dans les collections
-9. **search**: Journalisation des recherches (optionnel)
+1. **operator** : Utilisateurs du site (administrateurs ET clients)  
+2. **tag** : Système de catégorisation  
+3. **item** : Contenus principaux (articles, produits, etc.)  
+4. **item_tag** : Relation entre contenus et catégories  
+5. **message** : Messages du formulaire de contact  
+6. **collection** : Collections d'items (favoris, wishlists, etc.)  
+7. **collection_item** : Éléments dans les collections  
+8. **search** : Journalisation des recherches (optionnel)  
 
 <img src="assets/MCD.svg" alt="Database Structure" />
 
@@ -191,10 +195,9 @@ Les autres tables:
 - Compatibilité multi-navigateurs
 
 ### 4.6. Stockage Local
-- Utilisation de localStorage pour:
-  - Le visitor_token
-  - Les préférences d'affichage
-  - Les identifiants des contenus favoris
+Utilisation de `localStorage` pour :
+- Les préférences d’affichage (thème, layout…)  
+- Les identifiants des contenus favoris (collections, wishlist)
 
 
 ## 5. Livrables Attendus
