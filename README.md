@@ -1,6 +1,6 @@
 **Version : 1.1**  
 **Date : 21 avril 2025**  
-**Auteur : [Nom du rédacteur]**  
+**Auteur : Sammy Dieleman**  
 **Statut : A reviser**  
 
 ---
