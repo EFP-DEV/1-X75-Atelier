@@ -84,8 +84,7 @@
 - Interface intuitive
 
 ## 7. Identification Visiteurs
-- Génération visitor_token unique
 - Stockage local (préférences/favoris)
-- Sans inscription/authentification
+- Avec inscription/authentification (optionnelle)
 - Respect vie privée
 - Persistance entre visites
