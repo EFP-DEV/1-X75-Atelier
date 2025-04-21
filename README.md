@@ -1,7 +1,7 @@
 **Version : 1.1**  
 **Date : 21 avril 2025**  
 **Auteur : [Nom du rédacteur]**  
-**Statut : Brouillon**  
+**Statut : A reviser**  
 
 ---
 
