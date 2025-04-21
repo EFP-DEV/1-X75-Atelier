@@ -45,7 +45,7 @@
 - Recherche par mots‑clés (titres, descriptions, contenus)  
 - Filtres avancés (tag, date)  
 - Affichage clair des résultats (catalogue paginé)  
-- Journalisation des requêtes (simple, mais optionnel) 
+- Journalisation des requêtes (optionnel)  
 
 ---
 
