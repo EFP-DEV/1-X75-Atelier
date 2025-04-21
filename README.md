@@ -69,8 +69,38 @@ Environ 80 heures réparties en 4 semaines (conception, développement, tests,
 ## 2.6 Liste complète des fonctionnalités frontend :  
 [Voir la liste détaillée](duty_to_do_front.md)
 
-## 2.7 Liste complète des fonctionnalités admin :  
-[Voir la liste détaillée](duty_to_do_admin.md)
+## 2.7 Liste complète des fonctionnalités admin : 
+
+**Consigne Générale sur la mise en œuvre**
+
+La partie backend doit rester la plus simple possible : l’utilisation d’un template existant est permise. Si aucun template ne convient, fournir un prototype hybride (wireframe + maquette) du dashboard et du formulaire de création/édition d’item.
+
+### 2.7.1. Tableau de Bord
+- **Vue d’ensemble** : totaux clés (contenus publiés, messages non lus)  
+- **Liste des items par date d’ajout décroissante**  
+- **Actions rapides** :  
+  - Créer un contenu  
+  - Consulter les messages  
+
+### 2.7.2. Authentification
+- Connexion sécurisée  
+- Hashage des mots de passe (`password_hash()`)  
+
+### 2.7.3. Gestion des Contenus et des Catégories
+- CRUD contenus  
+- CRUD tags & catégories  
+- Association / dissociation contenus ↔ tags / catégories  
+- Génération automatique de slugs  
+- Vue des contenus par tag / catégorie  
+- Gestion des médias  
+
+### 2.7.4. Gestion des Messages
+- Liste des messages (formulaire contact)  
+- Tri (date, statut lu/non‑lu)  
+- Vue détaillée  
+- Marquage du statut (lu/non‑lu)  
+- Suppression  
+
 
 ---
 
