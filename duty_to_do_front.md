@@ -1,91 +1,125 @@
+## Table des matières
 
-# Interface Publique
+1. [Accessibilité & compatibilité](#11-accessibilit%C3%A9--compatibilit%C3%A9)  
+2. [Architecture de l’information et navigation](#2-architecture-de-linformation-et-navigation)  
+   1. [Navigation par catégories](#21-navigation-par-catégories)  
+   2. [Recherche](#22-recherche)  
+3. [Conception UX/UI](#3-conception-uxui)  
+   1. [Contrainte](#31-contrainte)  
+   2. [Graphisme & interactivité](#32-graphisme--interactivit%C3%A9)  
+4. [Affichage & gestion des contenus](#4-affichage--gestion-des-contenus)  
+   1. [Page d’accueil dynamique](#41-page-daccueil-dynamique)  
+   2. [Catalogue paginé](#42-catalogue-pagin%C3%A9)  
+   3. [Page détaillée d’un item](#43-page-détaillée-dun-item)  
+5. [Interactions & engagement](#5-interactions--engagement)  
+   1. [Contact](#51-contact)  
+   2. [Système de favoris](#52-système-de-favoris)  
+6. [Personnalisation & identification](#6-personnalisation--identification)  
+   1. [Personnalisation de l’interface](#61-personnalisation-de-linterface)  
+   2. [Identification des visiteurs](#62-identification-des-visiteurs)  
+7. [Performances & optimisation](#7-performances--optimisation)  
 
-## 0. Accessibilité & compatibilité
-- Accessibilité pour les personnes handicapées (WCAG 2.1)
-- Utilisation de polices et couleurs accessibles
-- Navigation intuitive
-- Aide contextuelle pour les fonctionnalités
-- Support pour les lecteurs d'écran (aria-labels, roles)
-- Utilisation de balises HTML sémantiques
-- Navigation au clavier
-- Contraste suffisant entre texte et arrière-plan
-- [Compatibilité avec les navigateurs modernes](browser_compatibility.md)
+---
 
+## 1. Accessibilité & compatibilité  
+- Respect du WCAG 2.1  
+- Polices et couleurs accessibles  
+- Contraste suffisant texte/arrière‑plan  
+- Support lecteurs d’écran (aria‑labels, rôles)  
+- Navigation au [clavier](/more/navigation_keyboard.md)
+- Balises [HTML sémantiques](/more/html_semantic.md)
+- Navigation intuitive et aide contextuelle  
+- [Compatibilité avec navigateurs modernes](/more/browser_compatibility.md)  
 
-## 1. Design UX/UI
-- Design responsive et mobile first au minimum
-- Idealement un design adaptatif, fluide, elastique
-- Utilisation de flexbox et grid pour la mise en page
-- Images adaptatives
-- Utilisation de media queries mobile-first pour les styles
-- Test sur différents appareils (mobile, tablette, desktop)
-- Utilisation de SVG pour les icônes
-- Utilisation de variables CSS pour la personnalisation
-- Animations CSS pour les transitions
+---
 
-## 3. Performances
-- Chargement conditionnel des ressources (lazy loading)
-- Minification des fichiers CSS et JS
-- Bibliothèques externes localement hébergées
-- Optimisation des images (compression, formats modernes)
-- Mise en cache des ressources statiques
-- Analyse des performances avec des outils comme Lighthouse
+## 2. Architecture de l’information et navigation
 
+### 2.1 Navigation par catégories  
+- Menu / sidebar listant les tags  
+- Filtrage par tag  
+- Système de « fil d’Ariane » (breadcrumbs)  
+- URLs propres (slugs)  
 
-## 4. Affichage des Contenus
+### 2.2 Recherche  
+- Recherche par mots‑clés (titres, descriptions, contenus)  
+- Filtres avancés (tag, date)  
+- Affichage clair des résultats (catalogue paginé)  
+- Journalisation des requêtes (optionnel)  
 
-- Page d'accueil dynamique
-    - Contenus récents/mis en avant
-    - Mise en avant de certains contenus
-    - Présentation visuelle attrayante
-    - Liens vers les pages détaillées
+---
 
-- Catalogue paginé de tous les items
-    - Affichage par défaut de 10 items par page
-    - Pagination claire et intuitive
-    - Tri par date, popularité, etc.
-    - Filtrage par tag/catégorie
+## 3. Conception UX/UI
 
-- Page détaillée pour l'item
-    - Tags associés visibles
+### 3.1 Contrainte  
+- Progressive enhancement  
+- CSS intrinsèque ou responsive  
+- Mobile‑First  
+- Flexbox & CSS Grid pour la mise en page  
+- Pas de [div soup](/more/div_soup.md)  
+- Images [adaptatives](/more/images_adaptive.md)  
 
-## 2. Navigation par Catégories
-- Menu/sidebar avec liste des tags
-- Filtrage par tag
-- Système de breadcrumb
-- URLs propres (slugs)
+### 3.2 Graphisme & interactivité  
+- SVG, PNG pour les icônes  
+- Variables CSS pour la personnalisation  
+- Animations CSS pour transitions agréables  
 
-## 3. Recherche
-- Recherche par mots-clés (titres, descriptions, contenus)
-- Filtres avancés (tag, date)
-- Présentation claire des résultats dans le catalogue pagine
-- Log des recherches (optionnel)
+---
 
-## 4. Contact
-- Champs obligatoires: nom, email, sujet, message
-- Validation client/serveur
-- Anti-spam
-- Notification de réception
-- Confirmation visuelle d'envoi
+## 4. Affichage & gestion des contenus
 
-## 5. Système de Favoris
-- Marquage de contenus
-- Persistance via localStorage (visitor_token)
-- Page de gestion dédiée
-- Sans inscription requise
-- Suppression de favoris
+### 4.1 Page d’accueil dynamique  
+- Mise en avant des contenus récents / phares  
+- Présentation visuelle attrayante  
+- Liens vers pages détaillées  
 
-## 6. Personnalisation Interface
-- Mode sombre/clair
-- Options de taille de texte
-- Sauvegarde préférences (localStorage)
-- Application globale des préférences
-- Interface intuitive
+### 4.2 Catalogue paginé  
+- 10 items par page par défaut  
+- Pagination claire et intuitive  
+- Tri par date, popularité, etc.  
+- Filtrage par tag/catégorie  
 
-## 7. Identification Visiteurs
-- Génération visitor_token unique
-- Stockage local (préférences/favoris)
-- Sans inscription/authentification
-- Respect vie privée
-- Persistance entre visites
+### 4.3 Page détaillée d’un item  
+- Affichage des tags associés  
+
+---
+
+## 5. Interactions & engagement
+
+### 5.1 Contact  
+- Champs obligatoires : nom, email, sujet, message  
+- Validation client et serveur  
+- Anti‑spam  
+- Notification de réception + confirmation visuelle  
+
+### 5.2 Système de favoris  
+- Marquage de contenus  
+- Persistance via localStorage (visitor_token)  
+- Interface de gestion des favoris  
+- Suppression sans inscription  
+
+---
+
+## 6. Personnalisation & identification
+
+### 6.1 Personnalisation de l’interface  
+- Mode sombre / clair  
+- Taille de texte ajustable  
+- Sauvegarde des préférences (localStorage)  
+- Application globale des réglages  
+
+### 6.2 Identification des visiteurs  
+- Stockage local des préférences/favoris  
+- Option d’inscription / authentification  
+- Respect de la vie privée  
+- Persistance entre visites  
+
+---
+
+## 7. Performances & optimisation  
+- Chargement conditionnel (lazy‑loading)  
+- Minification CSS & JS  
+- Hébergement local des libs externes  
+- Optimisation des images (compression, formats modernes)  
+- Mise en cache des ressources statiques  
+- Audit performance (ex. Lighthouse)  
