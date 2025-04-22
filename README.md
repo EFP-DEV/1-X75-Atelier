@@ -130,6 +130,7 @@ Pattern MVC, séparation claire des responsabilités, modules réutilisables.
 
 ## 4.2 Structure de la base de données :
 
+
 **Table `item` :**  
 - `id` INT AUTO_INCREMENT, PK  
 - `title` VARCHAR(255) UNIQUE  
@@ -150,6 +151,9 @@ Pattern MVC, séparation claire des responsabilités, modules réutilisables.
 - `collection` : listes de favoris, paniers, wishlists  
 - `collection_item` : relation n–n entre `collection` et `item`  
 - `search` : journalisation des recherches
+<img src="assets/MCD.svg" alt="LAMP Architecture" />
+
+---
 
 ## 4.3 Sécurité :  
 - Requêtes préparées (protection SQLi)  
