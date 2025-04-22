@@ -125,11 +125,11 @@ La partie backend doit rester la plus simple possible : l’utilisation d’un 
 # 4. Spécifications techniques
 
 ## 4.1 Architecture logicielle
-Pattern MVC, séparation claire des responsabilités, modules réutilisables.
-<img src="assets/LAMP_flowchart.svg" alt="LAMP Architecture" />
+- Pattern MVC, séparation claire des responsabilités, modules réutilisables.
+  <img src="assets/LAMP_flowchart.svg" alt="LAMP Architecture" />
+- [url rewrite](/more/htaccess.md) via `.htaccess` pour rediriger toutes les requêtes vers `index.php`
 
 ## 4.2 Structure de la base de données
-
 
 **Table `item` :**  
 - `id` INT AUTO_INCREMENT, PK  
