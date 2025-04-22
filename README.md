@@ -53,75 +53,75 @@
 ## 8. Conseils et Bonnes Pratiques
 ---
 
-## 1. Présentation du Projet
+# 1. Présentation du Projet
 
-### 1.1. Objectif
+## 1.1. Objectif
 Créer un site web dynamique où le contenu peut être modifié facilement via une interface d'administration sécurisée, sans avoir à toucher au code HTML directement.
 
-### 1.2. Objectifs d'apprentissage
+## 1.2. Objectifs d'apprentissage
 * Comprendre la structure d'un projet web complet
 * Maîtriser les bases de l'architecture MVC
 * Expérimenter avec l'intégration frontend/backend
 * Apprendre les bonnes pratiques de documentation
 * Identifier les domaines qui nécessiteraient plus d'attention dans un environnement de production
 
-### 1.3. Durée du projet
+## 1.3. Durée du projet
 - Environ 80 heures au total (conception et réalisation).
 - [Plan du projet](more/step_by_step.md)
 
 ---
 
-## 2. Fonctionnalités du système de gestion de contenu
+# 2. Fonctionnalités du système de gestion de contenu
 
-### 2.1 Gestion de contenu centralisée
+## 2.1 Gestion de contenu centralisée
 - Publication et organisation d'articles, produits ou autres éléments de contenu
 - Catégorisation multi-critères via un système de tags
 - Interface d'administration réservée aux opérateurs autorisés
 
-### 2.2 Classification structurée du contenu
+## 2.2 Classification structurée du contenu
 - Association flexible des items avec plusieurs tags
 - Navigation par catégories pour les visiteurs
 - Organisation thématique des contenus
 
-### 2.3 Interaction utilisateur ciblée
+## 2.3 Interaction utilisateur ciblée
 - Communication via formulaire de contact
 - Réception et traitement des messages par les administrateurs
 - Création de collections personnelles par les visiteurs
 
-### 2.4 Collections et personnalisation
+## 2.4 Collections et personnalisation
 - Création de paniers d'achats temporaires ou permanents
 - Listes de souhaits/wishlists pour achats futurs
 - Système de favoris pour retrouver facilement le contenu apprécié
 - Fonctionnalité de "likes" pour indiquer les préférences
 - Possibilité pour les visiteurs de sauvegarder leurs préférences
 
-### 2.5 Analyse des tendances
+## 2.5 Analyse des tendances
 - Journalisation des termes de recherche
 - Identification des intérêts des visiteurs via leurs collections
 - Optimisation éditoriale basée sur les données d'usage et les préférences
 
 
-### 2.6 [Liste complète des fonctionnalités frontend](duty_to_do_front.md)
+## 2.6 [Liste complète des fonctionnalités frontend](duty_to_do_front.md)
 
-### 2.7 [Liste complète des fonctionnalités admin](duty_to_do_admin.md)
+## 2.7 [Liste complète des fonctionnalités admin](duty_to_do_admin.md)
 
 ---
 
-## 3. Conception Visuelle
+# 3. Conception Visuelle
 
-### 3.1. Éléments Visuels
+## 3.1. Éléments Visuels
 - Palette de couleurs adaptée au thème choisi
 - Version claire et sombre de chaque couleur
 - Typographie lisible et cohérente
 - Iconographie simple et reconnaissable
 
-### 3.2. Wireframes
+## 3.2. Wireframes
 - Schémas structurels des pages principales
 - Disposition des éléments d'interface
 - Hiérarchie visuelle et flux de navigation
 - Points d'interaction utilisateur
 
-### 3.3. Composants d'Interface
+## 3.3. Composants d'Interface
 - Système de grille cohérent
 - Composants réutilisables (cartes, boutons, formulaires)
 - Transitions et animations subtiles
@@ -130,6 +130,36 @@ Créer un site web dynamique où le contenu peut être modifié facilement via u
 [Exercice UX/UI](exo-ux-ui-design.md)
 
 ---
+
+# 4. Prototype HTML > CSS > JS (Progressive Design)
+
+
+## 4.1. [Design Web Progressif](more/progressive.md)
+
+## 4.2. [Accessibilité](https://www.w3.org/WAI/)
+- Utilisation d'attributs ARIA pour améliorer l'accessibilité 
+- Utilisation de `alt` pour les images [Quest-ce que l'attribut alt ?](https://www.w3.org/WAI/tutorials/images/)
+- Navigation au clavier fluide [Qu'est-ce que la navigation au clavier ?](https://www.w3.org/WAI/ARIA/apg/patterns/keyboard/)
+- Étiquettes claires pour les formulaires et les boutons
+- Validation de l'accessibilité via le [WAVE Accessibility Tool](https://wave.webaim.org/)
+
+
+## 4.2. CSS3
+- Utilisation de Flexbox et Grid pour la mise en page
+- Styles responsives avec media queries
+- Préfixes pour la compatibilité multi-navigateurs
+- Contraste suffisant entre le texte et l'arrière-plan (Accessibilité)
+- Validation du code CSS via le [W3C Validator](https://jigsaw.w3.org/css-validator/)
+
+### 4.3. JavaScript
+- Utilisation de ES6+ pour la syntaxe moderne
+- Manipulation du DOM pour les interactions utilisateur
+- Gestion des événements pour les formulaires et les boutons
+- Utilisation de Fetch API pour les appels AJAX
+
+
+
+
 
 ## 4. Spécifications Techniques
 
@@ -184,6 +214,7 @@ Les autres tables:
 - Chargement asynchrone des contenus non essentiels
 
 ### 4.5. Interface Utilisateur
+- Progresive Enhancement
 - Design responsive (mobile-first)
 - Interactions fluides avec JavaScript
 - Feedback visuel pour les actions utilisateur
