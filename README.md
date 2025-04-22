@@ -30,7 +30,7 @@ Créer un site web dynamique où le contenu peut être modifié facilement via u
 - Adopter les bonnes pratiques de documentation  
 - Identifier les points critiques en production
 
-## 1.3 Durée du projet :  
+## 1.3 Durée du projet
 Environ 80 heures réparties en 4 semaines (conception, développement, tests, déploiement).  
 [Plan du projet](more/step_by_step.md)
 
@@ -50,26 +50,26 @@ Environ 80 heures réparties en 4 semaines (conception, développement, tests,
 - Hiérarchisation thématique garantissant une cohérence éditoriale au sein du site   
 - Affichage dynamique des contenus associés (articles, produits, collections) selon les filtres sélectionnés  
 
-## 2.3 Interaction utilisateur ciblée :  
+## 2.3 Interaction utilisateur ciblée
 - Formulaire de contact avec validation serveur  
 - Réception et traitement des messages par les administrateurs  
 - Création et gestion de collections personnelles
 
-## 2.4 Collections et personnalisation :  
+## 2.4 Collections et personnalisation
 - Paniers d’achats temporaires ou persistants  
 - Wishlists pour achats futurs  
 - Système de favoris et de likes  
 - Sauvegarde des préférences utilisateur
 
-## 2.5 Analyse des tendances :  
+## 2.5 Analyse des tendances
 - Journalisation des recherches (`search`)  
 - Analyse des intérêts via collections et likes  
 - Tableaux de bord pour optimisation éditoriale
 
-## 2.6 Liste complète des fonctionnalités frontend :  
+## 2.6 Liste complète des fonctionnalités frontend
 [Voir la liste détaillée](duty_to_do_front.md)
 
-## 2.7 Liste complète des fonctionnalités admin : 
+## 2.7 Liste complète des fonctionnalités admin
 
 **Consigne Générale sur la mise en œuvre**
 
@@ -124,11 +124,11 @@ La partie backend doit rester la plus simple possible : l’utilisation d’un 
 
 # 4. Spécifications techniques
 
-## 4.1 Architecture logicielle :  
+## 4.1 Architecture logicielle
 Pattern MVC, séparation claire des responsabilités, modules réutilisables.
 <img src="assets/LAMP_flowchart.svg" alt="LAMP Architecture" />
 
-## 4.2 Structure de la base de données :
+## 4.2 Structure de la base de données
 
 
 **Table `item` :**  
@@ -155,23 +155,25 @@ Pattern MVC, séparation claire des responsabilités, modules réutilisables.
 
 ---
 
-## 4.3 Sécurité :  
+## 4.3 Sécurité
 - Requêtes préparées (protection SQLi)  
 - Hashage sécurisé des mots de passe (bcrypt)
 - Validation et échappement des entrées (XSS)  
 - Protection CSRF sur tous les formulaires
 - Politique CSP
   
+### [En savoir plus](/more/security.md)
+
 **Optionnels**
 - RBAC (rôles et permissions détaillés)
 - Journalisation des accès et actions critiques  
 - Verrouillage de compte après 5 échecs de connexion
 
-## 4.4 Performances et optimisation :  
+## 4.4 Performances et optimisation
 - Index appropriés en base de données  
 - Chargement asynchrone des ressources non critiques
 
-## 4.5 Stockage local :  
+## 4.5 Stockage local
 - Utilisation de `localStorage` pour le thème et les favoris  
 - Durée de conservation : 30 jours, quota et fallback IndexedDB
 
@@ -189,12 +191,12 @@ Pattern MVC, séparation claire des responsabilités, modules réutilisables.
 
 # 6. Critères d’évaluation et normes de code
 
-## 6.1 Critères d’évaluation :  
+## 6.1 Critères d’évaluation
 - Fonctionnalités complètes et robustes  
 - Interface ergonomique et responsive  
 - Respect des délais et qualité de la documentation
 
-## 6.2 Normes de code :  
+## 6.2 Normes de code 
 - **PHP :** PSR‑12, PHP 8.1+  
 - **JavaScript :** ES6+, ESLint (standard)  
 - CI/CD via GitHub Actions (lint, tests, déploiement)
@@ -203,7 +205,7 @@ Pattern MVC, séparation claire des responsabilités, modules réutilisables.
 
 # 7. Ressources recommandées
 
-## 7.1 Environnement de développement :  
+## 7.1 Environnement de développement
 - [XAMPP](https://www.apachefriends.org/index.html)  
 - [Visual Studio Code](https://code.visualstudio.com/) ou autre éditeur  
 - [Git](https://git-scm.com/doc)  
@@ -214,7 +216,7 @@ Pattern MVC, séparation claire des responsabilités, modules réutilisables.
 - [W3C Validator](https://validator.w3.org/)  
 - [WAVE Accessibility Tool](https://wave.webaim.org/)
 
-## 7.2 Technologies à utiliser :  
+## 7.2 Technologies à utiliser 
 - [HTML5](https://developer.mozilla.org/fr/docs/Web/HTML)  
 - [CSS3](https://developer.mozilla.org/fr/docs/Web/CSS)  
 - [JavaScript](https://developer.mozilla.org/fr/docs/Web/JavaScript)  
@@ -223,7 +225,7 @@ Pattern MVC, séparation claire des responsabilités, modules réutilisables.
 - [PDO](https://phpdelusions.net/pdo) (version française et mise à jour)  
 - [GIT](https://git-scm.com/doc)
 
-## 7.3 Librairies autorisées :  
+## 7.3 Librairies autorisées 
 - Aucune sans accord préalable  
 - FontAwesome, Feather Icons, Lucide, Heroicons, Phosphor Icons, Iconoir, Google Material Icons  
 - Google Fonts
