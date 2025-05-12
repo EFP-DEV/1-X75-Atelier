@@ -72,7 +72,7 @@ CREATE TABLE `search` (
   `query`         VARCHAR(500) NOT NULL COMMENT 'search term',
   `result_count`  INT UNSIGNED      DEFAULT NULL COMMENT 'number of results returned',
   `created_at`    TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'when the search was executed',
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
   COLLATE=utf8mb4_unicode_ci;
