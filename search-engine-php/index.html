@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtrage véhicules</title>
+</head>
+
+<body>
+    <h1>Filtres véhicules</h1>
+
+    <form method="GET" action="search.php">
+        <fieldset>
+            <legend>Identifiants</legend>
+
+            <label for="brand_id">Marque ID:</label>
+            <input type="number" id="brand_id" name="brand_id" min="1">
+
+            <label for="category_tag_id">Catégorie ID:</label>
+            <input type="number" id="category_tag_id" name="category_tag_id" min="1">
+
+            <label for="theme_tag_id">Thème ID:</label>
+            <input type="number" id="theme_tag_id" name="theme_tag_id" min="1">
+        </fieldset>
+
+        <fieldset>
+            <legend>Caractéristiques</legend>
+
+            <label for="model">Modèle:</label>
+            <input type="text" id="model" name="model" maxlength="100">
+
+            <label for="year_min">Année min:</label>
+            <input type="number" id="year_min" name="year_min" min="1900" max="2030">
+
+            <label for="year_max">Année max:</label>
+            <input type="number" id="year_max" name="year_max" min="1900" max="2030">
+
+            <label for="seats">Places:</label>
+            <select id="seats" name="seats">
+                <option value="">Toutes</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
+
+            <label for="doors">Portes:</label>
+            <select id="doors" name="doors">
+                <option value="">Toutes</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+
+            <label for="transmission">Transmission:</label>
+            <select id="transmission" name="transmission">
+                <option value="">Toutes</option>
+                <option value="automatic">Automatique</option>
+                <option value="manual">Manuelle</option>
+                <option value="semi-automatic">Semi-automatique</option>
+            </select>
+
+            <label for="fuel_type">Carburant:</label>
+            <select id="fuel_type" name="fuel_type">
+                <option value="">Tous</option>
+                <option value="gasoline">Essence</option>
+                <option value="diesel">Diesel</option>
+                <option value="hybrid">Hybride</option>
+                <option value="electric">Électrique</option>
+            </select>
+
+            <label for="carrosserie">Carrosserie:</label>
+            <input type="text" id="carrosserie" name="carrosserie" maxlength="50">
+        </fieldset>
+
+        <fieldset>
+            <legend>Performance</legend>
+
+            <label for="horsepower_min">Puissance min (ch):</label>
+            <input type="number" id="horsepower_min" name="horsepower_min" min="0">
+
+            <label for="horsepower_max">Puissance max (ch):</label>
+            <input type="number" id="horsepower_max" name="horsepower_max" min="0">
+
+            <label for="top_speed_min">Vitesse max min (km/h):</label>
+            <input type="number" id="top_speed_min" name="top_speed_min" min="0">
+
+            <label for="acceleration_max">Accélération max (0-100):</label>
+            <input type="number" id="acceleration_max" name="acceleration_max" step="0.1" min="0">
+
+            <label for="cylinders">Cylindres:</label>
+            <input type="number" id="cylinders" name="cylinders" min="1" max="16">
+        </fieldset>
+
+        <fieldset>
+            <legend>Prix et disponibilité</legend>
+
+            <label for="price_min">Prix min:</label>
+            <input type="number" id="price_min" name="price_min" min="0">
+
+            <label for="price_max">Prix max:</label>
+            <input type="number" id="price_max" name="price_max" min="0">
+
+            <label for="deposit_max">Caution max:</label>
+            <input type="number" id="deposit_max" name="deposit_max" step="0.01" min="0">
+
+            <label for="stock_min">Stock min:</label>
+            <input type="number" id="stock_min" name="stock_min" min="0">
+
+            <label for="status">Statut:</label>
+            <select id="status" name="status">
+                <option value="">Tous</option>
+                <option value="draft">Brouillon</option>
+                <option value="published">Publié</option>
+                <option value="archived">Archivé</option>
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <legend>Actions</legend>
+            <button type="submit">Filtrer</button>
+            <button type="reset">Réinitialiser</button>
+        </fieldset>
+    </form>
+</body>
+
+</html>
