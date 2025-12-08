@@ -14,21 +14,6 @@ VALUES
 ('radia', '$2y$10$T1r2e3w4q5z6x7c8v9b0n1m2L3k4j5h6g7f8d9s0a1p2o3i4u5y6I', 'radia@perlman.tech', '2024-10-31 07:30:00', 1);
 
 
--- Visitors
-
-INSERT INTO visitor (visitor_token, ip_address, user_agent, dark_mode, font_size, last_activity)
-VALUES
-('token-fox-001', '203.0.113.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', 0, 'medium', '2025-03-22 12:00:00'),
-('token-owl-002', '203.0.113.2', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)', 1, 'large', '2025-03-22 12:05:00'),
-('token-lion-003', '203.0.113.3', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64)', 0, 'small', '2025-03-22 12:10:00'),
-('token-tiger-004', '203.0.113.4', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)', 1, 'medium', '2025-03-22 12:15:00'),
-('token-eagle-005', '203.0.113.5', 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)', 0, 'medium', '2025-03-22 12:20:00'),
-('token-panther-006', '203.0.113.6', 'Mozilla/5.0 (Linux; Android 10)', 0, 'large', '2025-03-22 12:25:00'),
-('token-bear-007', '203.0.113.7', 'Mozilla/5.0 (Windows NT 10.0; WOW64)', 1, 'small', '2025-03-22 12:30:00'),
-('token-wolf-008', '203.0.113.8', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0)', 0, 'medium', '2025-03-22 12:35:00'),
-('token-hawk-009', '203.0.113.9', 'Mozilla/5.0 (X11; Linux x86_64)', 1, 'large', '2025-03-22 12:40:00'),
-('token-fox-010', '203.0.113.10', 'Mozilla/5.0 (iPad; CPU OS 13_0 like Mac OS X)', 0, 'medium', '2025-03-22 12:45:00');
-
 INSERT INTO tag (operator_id, name, slug)
 VALUES
 (1, 'Programming', 'programming'),
@@ -68,6 +53,7 @@ VALUES
 (8, 'Book Nook', 'A collection for the literary and the witty alike.', 0),
 (9, 'Home Essentials', 'Everything you need for a cozy yet clever abode.', 1),
 (10, 'Oddities', 'A collection of things that are strangely irresistible.', 0);
+
 INSERT INTO search (visitor_id, query, results_count, session_id)
 VALUES
 (1, '/search?query=quirky+office+chairs+for+creative+minds&tag_id=7,3', 7, 'a1b2c3d4e5f67890123456789abcdef0'),
