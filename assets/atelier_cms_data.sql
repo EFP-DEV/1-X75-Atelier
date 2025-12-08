@@ -17,29 +17,29 @@ VALUES
 INSERT INTO tag (operator_id, name, slug)
 VALUES
 (1, 'Programming', 'programming'),
-(2, 'Web Development', 'web-development'),
-(3, 'Algorithms', 'algorithms'),
+(8, 'Web Development', 'web-development'),
+(1, 'Algorithms', 'algorithms'),
 (4, 'Data Structures', 'data-structures'),
-(5, 'Cybersecurity', 'cybersecurity'),
+(1, 'Cybersecurity', 'cybersecurity'),
 (6, 'Cloud Computing', 'cloud-computing'),
-(7, 'Machine Learning', 'machine-learning'),
+(1, 'Machine Learning', 'machine-learning'),
 (8, 'Databases', 'databases'),
-(9, 'Networking', 'networking'),
-(10, 'Software Engineering', 'software-engineering');
+(1, 'Networking', 'networking'),
+(5, 'Software Engineering', 'software-engineering');
 
 
 INSERT INTO item (operator_id, title, slug, description, content, image, price, stock, status)
 VALUES
 (1, 'Mechanical Keyboard', 'mechanical-keyboard', 'A tactile keyboard that clicks with every keystroke.', 'This keyboard isn’t just key—it’s the typecast star of your desktop.', 'keyboard.jpg', 99.99, 50, 'published'),
-(2, 'Sit & Code Throne', 'sit-code-throne', 'Not your average chair—built to seat your bugs and support your byte-sized ideas.', 'Where comfort meets code: take a seat and let your errors fall off your throne.', 'dev-chair.jpg', 499.99, 20, 'published'),
+(6, 'Sit & Code Throne', 'sit-code-throne', 'Not your average chair—built to seat your bugs and support your byte-sized ideas.', 'Where comfort meets code: take a seat and let your errors fall off your throne.', 'dev-chair.jpg', 499.99, 20, 'published'),
 (3, 'Noise-Cancelling Headphones', 'noise-cancelling-headphones', 'Headphones that silence distractions and amplify your code’s voice.', 'Ideal for debugging in peace—these headphones truly speak volumes.', 'headphones.jpg', 199.99, 30, 'published'),
-(4, 'Byte Me Laptop', 'byte-me-laptop', 'This high-performance laptop is so fast, it’ll byte off more than you can chew.', 'Engineered to compile code at lightning speed—it’s a real “tech”nical marvel.', 'laptop.jpg', 1299.99, 10, 'published'),
+(2, 'Byte Me Laptop', 'byte-me-laptop', 'This high-performance laptop is so fast, it’ll byte off more than you can chew.', 'Engineered to compile code at lightning speed—it’s a real “tech”nical marvel.', 'laptop.jpg', 1299.99, 10, 'published'),
 (5, 'Cloud Storage Subscription', 'cloud-storage-subscription', 'Store your code in the clouds, where your data never falls down.', 'Backup your projects with a service that’s always above the rest—no rainy days here!', 'cloud.jpg', 9.99, 100, 'published'),
 (6, 'Wireless Charging Dock', 'wireless-charging-dock', 'A dock that charges your devices wire-free and error-free.', 'Keep your gadgets powered up without any strings attached—say goodbye to deadlocks!', 'charging-dock.jpg', 39.99, 50, 'draft'),
-(7, '4K Monitor', '4k-monitor', 'A monitor so sharp, it renders your bugs pixel-perfectly out of sight.', 'Enjoy vivid visuals and ample screen real estate to display your code in style—resolution guaranteed!', 'monitor.jpg', 299.99, 15, 'published'),
+(1, '4K Monitor', '4k-monitor', 'A monitor so sharp, it renders your bugs pixel-perfectly out of sight.', 'Enjoy vivid visuals and ample screen real estate to display your code in style—resolution guaranteed!', 'monitor.jpg', 299.99, 15, 'published'),
 (8, 'Retro Gaming Console', 'retro-gaming-console', 'A console that’s a blast from the past—perfect for when you need to reboot your brain.', 'Unwind with vintage games and relive the golden era of arcade coding—fun that never crashes.', 'console.jpg', 149.99, 25, 'archived'),
-(9, 'Bluetooth Debug Speaker', 'bluetooth-debug-speaker', 'A speaker that plays tunes and drops witty bug fixes.', 'Let it amplify your debugging sessions with clever error messages—volume control for your soul.', 'debug-speaker.jpg', 79.99, 40, 'published'),
-(10, 'Smartwatch for Developers', 'smartwatch-for-developers', 'A smartwatch that tracks time and code commits with pinpoint precision.', 'Stay connected on the go and never miss a beat, commit, or coffee break—wrist tech at its finest.', 'dev-smartwatch.jpg', 249.99, 30, 'published');
+(8, 'Bluetooth Debug Speaker', 'bluetooth-debug-speaker', 'A speaker that plays tunes and drops witty bug fixes.', 'Let it amplify your debugging sessions with clever error messages—volume control for your soul.', 'debug-speaker.jpg', 79.99, 40, 'published'),
+(8, 'Smartwatch for Developers', 'smartwatch-for-developers', 'A smartwatch that tracks time and code commits with pinpoint precision.', 'Stay connected on the go and never miss a beat, commit, or coffee break—wrist tech at its finest.', 'dev-smartwatch.jpg', 249.99, 30, 'published');
 
 INSERT INTO collection (operator_id, name, description, is_public)
 VALUES
@@ -51,21 +51,21 @@ VALUES
 (6, 'Clearance Finds', 'The bargain bin never looked so chic.', 0),
 (7, 'Tech Toolbox', 'All the gadgets and gizmos that make life fun.', 1),
 (8, 'Book Nook', 'A collection for the literary and the witty alike.', 0),
-(9, 'Home Essentials', 'Everything you need for a cozy yet clever abode.', 1),
-(10, 'Oddities', 'A collection of things that are strangely irresistible.', 0);
+(8, 'Home Essentials', 'Everything you need for a cozy yet clever abode.', 1),
+(8, 'Oddities', 'A collection of things that are strangely irresistible.', 0);
 
-INSERT INTO search (operator_id, query, results_count, session_id)
+INSERT INTO search (query, results_count, session_id)
 VALUES
-(1, '/search?query=quirky+office+chairs+for+creative+minds&tag_id=7,3', 7, 'a1b2c3d4e5f67890123456789abcdef0'),
-(2, '/search?query=vintage+gadgets+with+modern+flair&tag_id=4,8', 5, 'f0e1d2c3b4a5968778695a4b3c2d1e0f'),
-(3, '/search?query=eco-friendly+products+that+don’t+break+the+bank&tag_id=5,9', 12, '1234567890abcdef1234567890abcdef'),
-(4, '/search?query=smart+devices+with+a+sense+of+humor', 9, 'fedcba0987654321fedcba0987654321'),
-(5, '/search?query=books+that+make+you+laugh+and+think&tag_id=2,10', 8, '0f1e2d3c4b5a69788796a5b4c3d2e1f0'),
-(6, '/search?query=cutting-edge+tech+for+gadget+geeks&tag_id=3,7', 15, 'abcdef0123456789abcdef0123456789'),
-(7, '/search?query=retro+gaming+consoles+for+a+blast+from+the+past&tag_id=8', 6, '11223344556677889900aabbccddeeff'),
-(8, '/search?query=must-have+travel+accessories+with+personality&tag_id=6,9', 4, 'ffeeddccbbaa00998877665544332211'),
-(9, '/search?query=art+pieces+that+spark+conversation&tag_id=9,1', 10, '13579bdf02468ace13579bdf02468ace'),
-(10, '/search?query=unique+home+decor+for+the+unconventional&tag_id=10,2', 11, 'eca86420bdf13579eca86420bdf13579');
+('/search?query=quirky+office+chairs+for+creative+minds&tag_id=7,3', 7, 'a1b2c3d4e5f67890123456789abcdef0'),
+('/search?query=vintage+gadgets+with+modern+flair&tag_id=4,8', 5, 'f0e1d2c3b4a5968778695a4b3c2d1e0f'),
+('/search?query=eco-friendly+products+that+don’t+break+the+bank&tag_id=5,9', 12, '1234567890abcdef1234567890abcdef'),
+('/search?query=smart+devices+with+a+sense+of+humor', 9, 'fedcba0987654321fedcba0987654321'),
+('/search?query=books+that+make+you+laugh+and+think&tag_id=2,10', 8, '0f1e2d3c4b5a69788796a5b4c3d2e1f0'),
+('/search?query=cutting-edge+tech+for+gadget+geeks&tag_id=3,7', 15, 'abcdef0123456789abcdef0123456789'),
+('/search?query=retro+gaming+consoles+for+a+blast+from+the+past&tag_id=8', 6, '11223344556677889900aabbccddeeff'),
+('/search?query=must-have+travel+accessories+with+personality&tag_id=6,9', 4, 'ffeeddccbbaa00998877665544332211'),
+('/search?query=art+pieces+that+spark+conversation&tag_id=9,1', 10, '13579bdf02468ace13579bdf02468ace'),
+('/search?query=unique+home+decor+for+the+unconventional&tag_id=10,2', 11, 'eca86420bdf13579eca86420bdf13579');
 
 INSERT INTO message (name, email, subject, content, is_read, is_spam, operator_id, ip_address)
 VALUES
