@@ -41,7 +41,7 @@ VALUES
 (9, 'Bluetooth Debug Speaker', 'bluetooth-debug-speaker', 'A speaker that plays tunes and drops witty bug fixes.', 'Let it amplify your debugging sessions with clever error messages—volume control for your soul.', 'debug-speaker.jpg', 79.99, 40, 'published'),
 (10, 'Smartwatch for Developers', 'smartwatch-for-developers', 'A smartwatch that tracks time and code commits with pinpoint precision.', 'Stay connected on the go and never miss a beat, commit, or coffee break—wrist tech at its finest.', 'dev-smartwatch.jpg', 249.99, 30, 'published');
 
-INSERT INTO collection (visitor_id, name, description, is_public)
+INSERT INTO collection (operator_id, name, description, is_public)
 VALUES
 (1, 'Favorites', 'A curated list of must-haves, handpicked by our discerning visitor.', 1),
 (2, 'Wishlist', 'Dream big – these items are goals on a shopping list.', 0),
@@ -54,7 +54,7 @@ VALUES
 (9, 'Home Essentials', 'Everything you need for a cozy yet clever abode.', 1),
 (10, 'Oddities', 'A collection of things that are strangely irresistible.', 0);
 
-INSERT INTO search (visitor_id, query, results_count, session_id)
+INSERT INTO search (operator_id, query, results_count, session_id)
 VALUES
 (1, '/search?query=quirky+office+chairs+for+creative+minds&tag_id=7,3', 7, 'a1b2c3d4e5f67890123456789abcdef0'),
 (2, '/search?query=vintage+gadgets+with+modern+flair&tag_id=4,8', 5, 'f0e1d2c3b4a5968778695a4b3c2d1e0f'),
