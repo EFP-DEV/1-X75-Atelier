@@ -1,0 +1,89 @@
+graph TD
+
+    OPERATOR["OPERATOR
+    ---
+    id PK
+    email
+    password
+    last_login
+    is_active"]
+
+    COLLECTION["COLLECTION
+    ---
+    id PK
+    creator_id FK(OPERATOR)
+    name"]
+
+    COLLECTION_ITEM["COLLECTION_ITEM
+    ---
+    collection_id FK(COLLECTION)
+    item_id FK(ITEM)
+    PK(collection_id, item_id)"]
+
+    MESSAGE["MESSAGE
+    ---
+    id PK
+    name
+    email
+    subject
+    content
+    status
+    assigned_to FK(OPERATOR)"]
+
+    ITEM["ITEM
+    ---
+    id PK
+    slug UNI
+    label
+    short_description
+    content
+    main_image
+    status
+    created_at
+    updated_at"]
+
+    CATEGORY["CATEGORY
+    ---
+    id PK
+    slug UNI
+    label"]
+
+    THEME["THEME
+    ---
+    id PK
+    slug UNI
+    label"]
+
+    TAG["TAG
+    ---
+    id PK
+    slug UNI
+    label"]
+
+    TAGUER["TAGUER
+    ---
+    item_id FK(ITEM)
+    tag_id FK(TAG)
+    PK(item_id, tag_id)"]
+
+
+    OPERATOR -->|"0,N"| COLLECTION
+    COLLECTION -->|"1,1"| OPERATOR
+
+    OPERATOR -->|"0,N"| MESSAGE
+    MESSAGE  -->|"0,1"| OPERATOR
+
+    ITEM -->|"0,N"| TAGUER
+    TAGUER -->|"0,N"| TAG
+
+    COLLECTION -->|"0,N"| COLLECTION_ITEM
+    COLLECTION_ITEM -->|"1,1"| COLLECTION
+
+    COLLECTION_ITEM -->|"1,1"| ITEM
+    ITEM -->|"0,N"| COLLECTION_ITEM
+
+    ITEM -->|"1,1"| CATEGORY
+    CATEGORY -->|"0,N"| ITEM
+
+    ITEM -->|"1,1"| THEME
+    THEME -->|"0,N"| ITEM
