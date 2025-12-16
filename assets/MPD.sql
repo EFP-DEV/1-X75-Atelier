@@ -53,7 +53,8 @@ CREATE TABLE item (
     short_description TEXT NULL,
     content LONGTEXT NULL,
     main_image VARCHAR(255),
-    status ENUM('draft','published','archived') DEFAULT 'draft',
+    status VARACHAR(20) DEFAULT 'draft', -- draft, published, archived
+
     created_at DATETIME NOT NULL,
     updated_at DATETIME NOT NULL,
 
@@ -94,8 +95,7 @@ CREATE TABLE message (
     email VARCHAR(255) NOT NULL,
     subject VARCHAR(255),
     content TEXT NOT NULL,
-    status ENUM('new','read','archived') DEFAULT 'new',
-
+    status VARACHAR(20) DEFAULT 'new', -- new, read, archived
     assigned_to INT UNSIGNED NULL      -- (0,1)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
