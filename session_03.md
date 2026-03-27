@@ -12,7 +12,6 @@ Vous devez rendre **deux éléments** :
 Vous devez produire les wireframes et le HTML pour les pages suivantes :
 
 * **Home**
-* **Contact**
 * **Catalog**
 * **Item**
 
