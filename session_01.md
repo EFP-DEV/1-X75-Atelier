@@ -74,6 +74,8 @@ Pour vous aider, répondez à :
 
 Exemples de pages courantes : accueil, catalogue/listing, détail, contact, login admin, dashboard, gestion des contenus.
 
+Annexe: [Distinguer objectifs, fonctionnalités, pages et contenus](session_01_annexe_4.md)
+
 ---
 
 ## Livrable 2 — Mini analyse concurrentielle
