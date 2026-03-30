@@ -119,7 +119,6 @@ Produisez des wireframes pour les pages suivantes :
 * **Accueil**
 * **Catalogue** (avec filtres et cartes)
 * **Détail item**
-* **Contact**
 * **Admin dashboard**
 * **Admin formulaire** (création/édition d'item)
 
@@ -127,7 +126,8 @@ Produisez des wireframes pour les pages suivantes :
 
 Pour chaque page publique, au minimum :
 
-* **Mobile** (≤ 480px)
+* **Mobile** (≤ 320px)
+* **Tablet** (≤ 768px)
 * **Desktop** (≥ 1024px)
 
 Pour les pages admin, le desktop suffit.
@@ -153,67 +153,18 @@ Référence : [more/wireframe.md](more/wireframe.md)
 
 ---
 
-# 4. Travail à la maison
-
-## 4.1 Environnement de développement
+# 4. Environnement de développement
 
 Avant la prochaine session, vous devez avoir :
 
 * Un serveur local fonctionnel (LAMP/MAMP/WAMP), PHP ≥ 8.2, MySQL ≥ 8
 * Un repository Git initialisé
-* La structure MVC en place (dossiers vides, c'est suffisant)
 
-```
-/
-├── app/
-│   ├── controller/
-│   │   ├── admin/
-│   │   └── public/
-│   ├── model/
-│   ├── view/
-│   │   ├── admin/
-│   │   └── public/
-│   ├── helper/
-│   └── config/
-├── public/
-│   ├── index.php
-│   ├── admin/
-│   │   └── index.php
-│   ├── assets/
-│   │   ├── css/
-│   │   ├── js/
-│   │   └── ui/
-│   ├── images/
-│   └── .htaccess
-├── doc/
-├── import/
-└── README.md
-```
-
-Référence : [more/structure_mvc_php.md](more/structure_mvc_php.md)
-
-## 4.2 .htaccess
-
-Mettez en place le fichier `.htaccess` dans `public/` :
-
-```apache
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php [QSA,L]
-```
-
-Testez qu'une URL comme `http://localhost/test` arrive bien dans `index.php`.
-
-Référence : [more/htaccess.md](more/htaccess.md)
-
-## 4.3 README.md
 
 Rédigez un README contenant :
 
 * Nom du projet et description en une phrase
 * Instructions d'installation (prérequis, base de données, configuration)
-* Structure du projet (copier/coller de l'arborescence ci-dessus, c'est acceptable)
 
 ## 4.4 Envoi du repository
 
@@ -221,25 +172,12 @@ Envoyez le lien de votre repository par mail à **ate@amstram.be** avant la proc
 
 ---
 
-# Récapitulatif
-
-| Bloc | Durée | Livrable |
-|------|-------|----------|
-| Définition du projet | 1h | Spécifications + personas + analyse concurrentielle |
-| Architecture de l'information | 30 min | Sitemap + taxonomie de tags |
-| Wireframes | 2h30 | 6 pages wireframées (mobile + desktop) |
-| **Maison** | — | Environnement LAMP + repo Git + structure MVC + README |
-
----
 
 # Références
 
 * [README.md](README.md) — Présentation complète du projet
 * [more/step_by_step.md](more/step_by_step.md) — Planning détaillé par phase
 * [more/wireframe.md](more/wireframe.md) — Méthodologie wireframe
-* [more/structure_mvc_php.md](more/structure_mvc_php.md) — Architecture MVC
-* [more/htaccess.md](more/htaccess.md) — Configuration Apache
-* [more/tag-theme-category.md](more/tag-theme-category.md) — Système de tags
 * [urls_example.md](urls_example.md) — Liste des URLs frontend et admin
 * [exo-ux-ui-design.md](exo-ux-ui-design.md) — Exercice UX/UI complet
 * [checklist.md](checklist.md) — Checklist finale du projet
