@@ -24,7 +24,7 @@ Tous les livrables sont à remettre dans votre repository Git, dans le dossier `
 
 Votre site est un **système de gestion de contenu**. Le contenu peut être ce que vous voulez : articles de blog, fiches produits, recettes, portfolios, annonces, fiches de jeux, etc.
 
-Choisissez un thème qui vous motive. Vous allez vivre avec pendant 4 semaines.
+Choisissez un thème qui vous motive. Vous allez vivre avec pendant 2 mois.
 
 ## 1.2 Rédiger les spécifications
 
