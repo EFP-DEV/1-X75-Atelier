@@ -173,7 +173,7 @@ Restez sur des pages réellement utiles au projet.
 
 ## 5. Des références concurrentes ou inspirantes sont relevées
 
-Vous devez avoir observé quelques sites proches de votre sujet ou intéressants pour votre projet.
+Vous devez avoir observé au moins 3 sites proches de votre sujet ou intéressants pour votre projet.
 
 Le but n’est pas de copier.
 Le but est d’identifier :
