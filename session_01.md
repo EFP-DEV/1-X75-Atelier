@@ -74,7 +74,7 @@ Pour vous aider, répondez à :
 
 Exemples de pages courantes : accueil, catalogue/listing, détail, contact, login admin, dashboard, gestion des contenus.
 
-Annexe: [Distinguer objectifs, fonctionnalités, pages et contenus](session_01_annexe_4.md)
+Annexe: [Distinguer objectifs, fonctionnalités, pages et contenus](./more/session_01_annexe_4.md)
 
 ---
 
@@ -105,6 +105,9 @@ Une référence sans remarque exploitable ne sert à rien. Soyez concrets :
 - ✅ "navigation simple et claire, je retiens l'idée d'un listing avec filtres"
 - ✅ "page d'accueil trop chargée, j'évite la surcharge visuelle"
 - ❌ "site bien fait" (ne dit rien d'utile)
+
+
+Annexe: [Faire une analyse concurrentielle exploitable](./more/session_01_annexe_6.md)
 
 ---
 
