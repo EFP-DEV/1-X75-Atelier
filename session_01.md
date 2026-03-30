@@ -158,7 +158,7 @@ Référence : [more/wireframe.md](more/wireframe.md)
 Avant la prochaine session, vous devez avoir :
 
 * Un serveur local fonctionnel (LAMP/MAMP/WAMP), PHP ≥ 8.2, MySQL ≥ 8
-* Un repository Git initialisé
+* Un repository Git, privé, initialisé, avec `hexmakina` comme collaborateur
 
 
 Rédigez un README contenant :
@@ -166,7 +166,7 @@ Rédigez un README contenant :
 * Nom du projet et description en une phrase
 * Instructions d'installation (prérequis, base de données, configuration)
 
-## 4.4 Envoi du repository
+# 5 Librable
 
 Envoyez le lien de votre repository par mail à **ate@amstram.be** avant la prochaine session.
 
