@@ -1,15 +1,5 @@
 # Plan
 
-## Table des matières
-1. [Analyse](#phase-1--analyse)
-2. [Structure HTML](#phase-2--structure-html)
-3. [Habillage CSS](#phase-3--habillage-css)
-4. [Architecture PHP](#phase-4--architecture-php) 
-5. [Administration et accès](#phase-5--administration-et-accès) 
-6. [Finalisation](#phase-6--finalisation)
-
----
-
 Ce projet se construit par étapes.
 
 L’objectif n’est pas de produire un site “le plus vite possible”, ni de commencer directement par le code sans cadre clair.
@@ -20,12 +10,13 @@ Chaque phase correspond à un ensemble de tâches cohérentes et à des résulta
 Ces livrables ne sont pas accessoires : ils servent de preuve d’avancement, de support de vérification, et de point d’appui pour la suite du projet.
 Le projet devra donc être mené en respectant cette progression :
 
-1. **Analyse**
-2. **Structure HTML**
-3. **Habillage CSS**
-4. **Architecture PHP**
-5. **Administration et accès**
-6. **Finalisation**
+## Table des matières
+1. [Analyse](#phase-1--analyse)
+2. [Structure HTML](#phase-2--structure-html)
+3. [Habillage CSS](#phase-3--habillage-css)
+4. [Architecture PHP](#phase-4--architecture-php) 
+5. [Administration et accès](#phase-5--administration-et-accès) 
+6. [Finalisation](#phase-6--finalisation)
 
 ---
 
