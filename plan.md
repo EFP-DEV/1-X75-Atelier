@@ -2,12 +2,12 @@
 
 ## Table des matières
 
-1. [Phase 1 — Analyse](#phase-1--analyse)
-2. [Phase 2 — Structure HTML](#phase-2--structure-html)
-3. [Phase 3 — Habillage CSS](#phase-3--habillage-css)
-4. [Phase 4 — Architecture PHP](#phase-4--architecture-php) 
-5. [Phase 5 — Administration et accès](#phase-5--administration-et-accès) 
-6. [Phase 6 — Finalisation](#phase-6--finalisation)
+1. [Analyse](#phase-1--analyse)
+2. [Structure HTML](#phase-2--structure-html)
+3. [Habillage CSS](#phase-3--habillage-css)
+4. [Architecture PHP](#phase-4--architecture-php) 
+5. [Administration et accès](#phase-5--administration-et-accès) 
+6. [Finalisation](#phase-6--finalisation)
 
 ---
 
