@@ -1,7 +1,6 @@
 # Plan
 
 ## Table des matières
-
 1. [Analyse](#phase-1--analyse)
 2. [Structure HTML](#phase-2--structure-html)
 3. [Habillage CSS](#phase-3--habillage-css)
