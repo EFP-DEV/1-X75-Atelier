@@ -32,8 +32,6 @@ Le projet devra donc être mené en respectant cette progression :
 
 ## Phase 1 — Analyse
 
-[Lien vers l’annexe 1](./more/annexe-1--analyse.md)
-
 Cette première phase sert à **définir le projet avant de le fabriquer**.
 
 Vous devez d’abord comprendre ce que vous allez produire, pour qui, dans quel but, et sous quelle forme générale.
@@ -56,6 +54,8 @@ Cette étape évite de partir dans plusieurs directions à la fois et permet de 
 * une première analyse concurrentielle exploitable
 * une arborescence simple ou une liste structurée des pages prévues
 * des wireframes des pages principales
+
+[Lien vers l’annexe 1](./more/annexe-1--analyse.md)
 
 ---
 
