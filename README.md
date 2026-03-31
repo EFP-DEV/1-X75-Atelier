@@ -62,49 +62,13 @@ Cette contrainte est volontaire : elle permet de concentrer le travail sur l’a
 
 ## Documents du projet
 
-### Cadrage et organisation
 - [README du projet](README.md)
 - [Plan général du projet](docs/plan.md)
 - [Base de données](docs/database.md)
 
-### Analyse
-- [Analyse du projet](docs/analyse.md)
-- [Questions de cadrage](docs/analyse-questions.md)
-- [Analyse concurrentielle](docs/analyse-concurrentielle.md)
-
-### Conception
-- [Wireframes et structure des pages](docs/wireframes.md)
-- [Arborescence du site](docs/arborescence.md)
-
-### Frontend
-- [Consignes HTML](docs/html.md)
-- [Consignes CSS](docs/css.md)
-
-### Backend
-- [Architecture PHP](docs/php-architecture.md)
-- [Routing et contrôleurs](docs/php-routing.md)
-- [Authentification et sessions](docs/php-auth.md)
-- [Permissions et accès](docs/php-permissions.md)
-
-### Données
-- [Structure de la base de données](docs/database.md)
-- [Tags, thèmes, catégories](more/tag-theme-category.md)
-
-### Sécurité
-- [Consignes de sécurité](more/security.md)
-- [Réécriture d’URL / .htaccess](more/htaccess.md)
-
-### Fonctionnalités détaillées
-- [Fonctionnalités frontend](duty_to_do_front.md)
-- [Fonctionnalités admin](docs/admin-features.md)
-
-### Évaluation et livrables
-- [Livrables attendus](docs/livrables.md)
-- [Critères d’évaluation](docs/evaluation.md)
-
 ---
 
-## Ce que ce dépôt doit contenir à terme
+## Ce que votre dépôt doit contenir à terme
 
 Le projet final devra inclure au minimum :
 
