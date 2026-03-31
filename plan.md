@@ -1,9 +1,21 @@
 # Plan
 
-Le projet est découpé en **6 phases de travail**.
-Chaque phase a un rôle précis dans la progression du projet.
+Ce projet se construit par étapes.
 
-Le but n’est pas seulement d’avancer “dans l’ordre”, mais de produire à chaque étape des éléments concrets, utilisables, et suffisamment clairs pour servir de base à la suite.
+L’objectif n’est pas de produire un site “le plus vite possible”, ni de commencer directement par le code sans cadre clair.
+L’objectif est de développer un projet web de manière progressive, logique et structurée, en partant d’abord de l’analyse, puis de la structure, ensuite de la mise en forme, puis de l’architecture dynamique, avant de terminer par les mécanismes d’administration, les accès et la finalisation.
+
+Le travail est donc organisé en **6 phases**.
+Chaque phase correspond à un ensemble de tâches cohérentes et à des résultats concrets attendus.
+Ces livrables ne sont pas accessoires : ils servent de preuve d’avancement, de support de vérification, et de point d’appui pour la suite du projet.
+Le projet devra donc être mené en respectant cette progression :
+
+1. **Analyse**
+2. **Structure HTML**
+3. **Habillage CSS**
+4. **Architecture PHP**
+5. **Administration et accès**
+6. **Finalisation**
 
 ---
 
