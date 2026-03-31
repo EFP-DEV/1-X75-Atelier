@@ -45,7 +45,7 @@ Cette étape évite de partir dans plusieurs directions à la fois et permet de 
 * une arborescence simple ou une liste structurée des pages prévues
 * des wireframes des pages principales
 
-[Lien vers l’annexe 1](analyse.md)
+[Lien vers l’annexe](analyse.md)
 
 ---
 
@@ -72,7 +72,8 @@ Le HTML constitue la fondation du projet : si cette base est confuse ou incompl�
 * des formulaires présents en HTML lorsque nécessaire
 * un ensemble de pages statiques suffisamment complet pour servir de base à la suite
 * 
-[Lien vers l’annexe 2](./more/annexe-2--structure-html.md)
+[Lien vers l’annexe](HTML.md)
+[Lien vers contenu avance](../more/HTML_antipattern.md)
 
 ---
 
@@ -100,7 +101,7 @@ Le but n’est pas seulement de “faire joli”, mais surtout de rendre l’int
 * une interface lisible sur différents formats d’écran
 * un ensemble front + admin visuellement stable et exploitable
 
-[Lien vers l’annexe 3](./more/annexe-3--habillage-css.md)
+[Lien vers l’annexe 3](CSS.md)
 
 
 ---
