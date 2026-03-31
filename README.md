@@ -1,4 +1,4 @@
-# ATE — site dynamique avec administration
+# ATE - Site dynamique avec administration
 
 ## Présentation
 
