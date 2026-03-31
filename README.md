@@ -63,9 +63,9 @@ Cette contrainte est volontaire : elle permet de concentrer le travail sur l’a
 ## Documents du projet
 
 ### Cadrage et organisation
-- [Plan général du projet](plan.md)
+- [Plan général du projet](docs/plan.md)
 - [README du projet](README.md)
-- [Base de données](database.md)
+- [Base de données](docs/database.md)
 - 
 ### Analyse
 - [Analyse du projet](docs/analyse.md)
