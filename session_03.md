@@ -1,52 +1,9 @@
-# Session 3 — Atelier
+# Session 3 — HTML
 Durée : **4h**
 
 Cette séance a pour objectif de transformer les premières intentions de conception en une **base exploitable pour la suite du projet**.  
 Vous devez produire à la fois une représentation claire des pages et une première intégration HTML propre, sans travail visuel.
 
----
-
-## Livrables
-
-Vous devez rendre **deux éléments** :
-
-1. **Les wireframes**
-2. **Les fichiers HTML** de chaque page, **sans CSS**
-
----
-
-## Pages à réaliser
-
-Vous devez produire les wireframes et le HTML pour les pages suivantes :
-
-- **Home**
-- **Catalog**
-- **Item**
-
----
-
-# 1. Wireframes
-
-Pour chaque page, réalisez au minimum les versions suivantes :
-
-- **Petit mobile**
-- **Petite tablette**
-- **Desktop**
-
-Les wireframes doivent montrer clairement :
-
-- la structure générale de la page
-- la hiérarchie des contenus
-- les zones de navigation
-- les blocs principaux
-- les éléments interactifs essentiels
-- le parcours de lecture et d’usage principal de la page
-
-Un wireframe doit permettre de comprendre la logique de la page, même sans style graphique final.
-
----
-
-# 2. Intégration HTML
 
 Pour chaque page, fournissez un fichier HTML **sans CSS**.
 
