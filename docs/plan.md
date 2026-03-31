@@ -45,7 +45,12 @@ Cette étape évite de partir dans plusieurs directions à la fois et permet de 
 * une arborescence simple ou une liste structurée des pages prévues
 * des wireframes des pages principales
 
-[Lien vers l’annexe](analyse.md)
+### Ressources
+
+- [Annexe sur l'analyse](analyse.md)
+- [Wireframe - theorie](../more/wireframe.md)
+- [Wireframe - exemples](../assets/wireframes-flux-academy.com.pdf)
+- [Wireframe - pratique](wireframe.md)
 
 ---
 
@@ -71,9 +76,11 @@ Le HTML constitue la fondation du projet : si cette base est confuse ou incompl�
 * une structure cohérente de navigation
 * des formulaires présents en HTML lorsque nécessaire
 * un ensemble de pages statiques suffisamment complet pour servir de base à la suite
-* 
-[Lien vers l’annexe](HTML.md)
-[Lien vers contenu avance](../more/HTML_antipattern.md)
+
+#### Ressources
+
+- [Lien vers l’annexe](HTML.md)
+- [Lien vers contenu avance](../more/HTML_antipattern.md)
 
 ---
 

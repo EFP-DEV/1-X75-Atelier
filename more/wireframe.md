@@ -1,116 +1,251 @@
-# L'Utilité des Wireframes dans la Conception Visuelle d'un Site
+# Théorie — Les wireframes
 
-Les wireframes constituent une étape fondamentale dans le processus de conception d'un site web. Ce sont des représentations schématiques qui définissent la structure et la hiérarchie des éléments d'une interface avant tout traitement graphique.
+Les wireframes sont des schémas simples qui servent à définir la structure d’une page avant le travail graphique.
 
-Les wireframes représentent un investissement initial qui optimise considérablement le processus de conception et de développement, réduisant les risques d'erreurs coûteuses et assurant une expérience utilisateur cohérente.
+Ils permettent d’organiser les zones principales, de hiérarchiser l’information, de prévoir les actions importantes de l’utilisateur et d’anticiper le comportement des pages selon le contexte d’usage.
 
-![Wireframe Example](assets/wireframes.svg)
+Un wireframe ne sert pas à “faire joli”.
+Il sert à penser l’interface avant de la décorer.
 
-## 1. Pourquoi Utiliser des Wireframes
+Il permet notamment de préparer :
 
-### Définition du Wireframe
+* la structure des pages
+* la navigation
+* l’ordre des contenus
+* les actions principales
+* l’adaptation responsive
+* la future intégration HTML, CSS et PHP
 
-Un wireframe est une maquette simplifiée qui illustre :
-- La structure de la page
-- La disposition des éléments
-- La hiérarchie de l'information
-- Les parcours utilisateurs
+Un bon wireframe permet donc de prendre des décisions utiles tôt dans le projet, avant de passer du temps sur le design visuel ou sur le code.
 
-### Avantages Principaux
+---
 
-#### Clarification Conceptuelle
-- Permet de visualiser l'architecture de l'information
-- Sépare la structure des considérations esthétiques
-- Facilite la compréhension commune entre toutes les parties prenantes
+## 1. À quoi sert un wireframe
 
-#### Optimisation du Processus
-- Réduit les coûts de modifications ultérieures
-- Accélère les itérations
-- Permet de détecter précocement les problèmes fonctionnels
+Le wireframe sert à représenter l’ossature d’une page.
 
-#### Focus sur l'Expérience Utilisateur
-- Centre la conception sur les besoins utilisateurs
-- Assure la cohérence entre les pages
-- Valide les parcours utilisateurs avant tout développement
+Il aide à répondre à des questions comme :
 
-### Intégration dans le Flux de Développement
+* quelles zones doivent apparaître sur la page ?
+* dans quel ordre ?
+* quelles informations sont prioritaires ?
+* quelles actions l’utilisateur doit-il pouvoir réaliser ?
+* comment la page change-t-elle selon la taille de l’écran ?
 
-Les wireframes s'intègrent entre la phase de recherche utilisateur et la conception graphique détaillée, servant de base pour :
-- Les maquettes graphiques haute-fidélité
-- Les spécifications techniques pour les développeurs
-- Les tests utilisateurs initiaux
+Le wireframe permet aussi de clarifier les échanges dans une équipe.
+Il est plus simple de corriger un schéma de structure qu’une interface déjà stylisée ou codée.
 
-## 2. Comment Créer des Wireframes Efficaces
+---
 
-### Méthodologie de Création
+## 2. Ce qu’un wireframe montre
 
-1. **Analyse des besoins** : identification des objectifs et contraintes
-2. **Croquis initial** : esquisse rapide des concepts
-3. **Élaboration détaillée** : définition précise des éléments
-4. **Validation** : tests et retours d'utilisateurs
-5. **Itération** : ajustements basés sur les retours
+Un wireframe montre surtout :
 
-### Bonnes pratiques
+* les grandes zones de la page
+* la hiérarchie de l’information
+* les blocs principaux
+* les relations entre les éléments
+* les actions importantes
+* les variations selon les formats d’écran
 
-1. **Définir clairement les objectifs**  
-   Établissez précisément ce que le site doit accomplir avant de commencer tout wireframe.
+Un wireframe peut représenter, par exemple :
 
-2. **Prioriser la recherche utilisateur**  
-   Commencez toujours par étudier vos utilisateurs avant de dessiner. Une conception bien réfléchie demande plus de temps en recherche qu'en croquis.
+* un header
+* une navigation
+* un contenu principal
+* une barre latérale
+* une grille de cartes
+* un formulaire
+* un footer
+* une zone de filtres
+* un moteur de recherche
+* des boutons d’action
 
-3. **Analyser la concurrence**  
-   Étudiez les solutions existantes pour identifier les standards du secteur et les opportunités d'innovation.
+---
 
-4. **Viser la simplicité**  
-   Évitez les détails superflus. Un wireframe efficace est direct et minimaliste, réservant les fioritures pour la phase UI.
+## 3. Ce qu’un wireframe ne montre pas encore
 
-5. **Concevoir pour l'utilisateur final**  
-   Basez vos solutions sur les besoins réels identifiés lors de la recherche. Adoptez systématiquement la perspective de l'utilisateur.
+Un wireframe n’a pas pour but de définir :
 
-6. **Privilégier l'esquisse rapide**  
-   Le wireframe n'est qu'une ébauche initiale, non un produit fini. Gardez-le délibérément brut pour faciliter les modifications.
+* les couleurs finales
+* la typographie finale
+* les effets visuels
+* les illustrations finales
+* le style graphique détaillé
 
-7. **Hiérarchiser le contenu**  
-   Organisez les éléments selon leur importance relative pour guider l'attention de l'utilisateur efficacement.
+Il peut y avoir quelques indications simples, mais le wireframe reste un document de structure, pas de décoration.
 
-8. **Adopter des patterns établis**  
-   Utilisez des structures d'interface familières. Les layouts conventionnels améliorent l'intuitivité et l'expérience utilisateur.
+---
 
-9. **Intégrer les points de conversion**  
-   Identifiez et mettez en valeur les éléments d'action clés qui répondent aux objectifs commerciaux du site.
+## 4. Principes à respecter
 
-10. **Maximiser la lisibilité**  
-    La clarté est essentielle. Un wireframe facilement compréhensible simplifie le développement et l'utilisation ultérieurs.
+### Simplicité
 
-11. **Maintenir une vision globale**  
-    Considérez chaque écran comme partie d'un ensemble. Anticipez les transitions et gardez l'objectif final à l'esprit.
+Un wireframe doit aller à l’essentiel.
+Il ne faut pas l’alourdir avec des détails graphiques inutiles.
 
-12. **Assurer l'uniformité**  
-    Conservez une cohérence visuelle et fonctionnelle entre toutes les pages pour créer une expérience unifiée.
+### Hiérarchie de l’information
 
-13. **Documenter les décisions**  
-    Annotez vos wireframes pour expliquer les choix de conception et faciliter la communication avec l'équipe.
+Les éléments les plus importants doivent apparaître clairement.
+On doit comprendre rapidement ce qui attire l’attention en premier, en second, puis en troisième.
 
-14. **Intégrer les retours extérieurs**  
-    Sollicitez activement des feedbacks à chaque étape. Les perspectives externes révèlent souvent des angles morts critiques.
+### Cohérence
 
-15. **Valider par des tests**  
-    Vérifiez que votre wireframe résout effectivement le problème ciblé en l'évaluant comme un utilisateur final le ferait.
+Les pages doivent appartenir au même système.
+Les zones communes doivent être pensées de manière cohérente d’un écran à l’autre.
 
-## Outils ideaux
+### Orientation utilisateur
 
-- papier, crayon, 
-- tableau blanc, 
-- post-it
+Chaque page doit répondre à une intention claire : consulter, chercher, filtrer, lire, créer, modifier, administrer.
 
-Tous sont d'excellents outils pour créer des wireframes rapides et itératifs.
+### Documentation minimale
 
+Si un choix n’est pas évident, il faut l’annoter.
+Quelques notes courtes valent mieux qu’un wireframe ambigu.
 
-## Outils Spécialisés
-- Figma
-- Sketch
-- Adobe XD
-- Balsamiq
-- Axure RP
+### Adaptation responsive
 
-Bien que ces outils soient plus avancés, ils peuvent être trop complexes pour des wireframes simples. Ils sont idéaux pour des maquettes haute-fidélité et des prototypes interactifs.
+Un wireframe ne doit pas seulement exister en “grand format”.
+Il doit aussi montrer comment la structure évolue selon la taille de l’écran.
+
+Il ne suffit pas de redimensionner la même page.
+Il faut montrer une vraie réorganisation si nécessaire.
+
+---
+
+## 5. Wireframe et responsive
+
+Lorsqu’une page est responsive, le wireframe doit permettre d’observer comment la structure change d’un format à l’autre.
+
+On peut par exemple voir :
+
+* un menu complet devenir un menu simplifié
+* des blocs côte à côte devenir des blocs empilés
+* une grille de cartes passer de plusieurs colonnes à une seule
+* des filtres visibles en permanence devenir un panneau repliable
+* des éléments secondaires être déplacés plus bas dans la page
+
+Le but n’est pas seulement de “faire rentrer” la page dans un écran plus petit.
+Le but est de conserver une interface compréhensible, lisible et utilisable.
+
+---
+
+## 6. Cas fréquent : catalogue, filtres et cartes
+
+Une page catalogue mérite souvent une attention particulière dans les wireframes, car elle combine plusieurs enjeux :
+
+* recherche
+* filtres
+* tri
+* lecture rapide
+* comparaison entre éléments
+* adaptation responsive
+
+Dans ce cas, le wireframe doit montrer clairement :
+
+* où se trouve le moteur de recherche
+* où se trouvent les filtres
+* comment les filtres changent selon l’écran
+* comment les cartes sont organisées
+* combien de colonnes apparaissent selon la largeur disponible
+
+Souvent, en responsive :
+
+* le mobile affiche une seule colonne
+* la tablette affiche deux colonnes
+* le desktop affiche davantage de colonnes
+
+Ce type d’évolution doit être pensé dès le wireframe.
+
+---
+
+## 7. Niveau de détail attendu
+
+Le niveau de détail d’un wireframe doit être suffisant pour comprendre :
+
+* la structure générale
+* les zones principales
+* les actions importantes
+* les relations entre les blocs
+* la logique de navigation
+
+En revanche, il n’est pas nécessaire d’entrer trop tôt dans des détails décoratifs.
+
+On attend un document lisible, rapide à produire, rapide à corriger et utile pour la suite du travail.
+
+---
+
+## 8. Formes possibles
+
+Un wireframe peut être réalisé :
+
+* sur papier
+* sur tableau
+* avec des post-it
+* dans un outil numérique simple
+* dans un logiciel de design
+* dans un document annoté
+
+Ce qui compte n’est pas l’outil.
+Ce qui compte est la clarté de la structure proposée.
+
+---
+
+## 9. Conseils de réalisation
+
+### Commencer par l’essentiel
+
+Avant de dessiner, il faut savoir :
+
+* à quoi sert la page
+* ce que l’utilisateur doit y faire
+* quelles informations sont prioritaires
+
+### Travailler d’abord la structure
+
+Il vaut mieux commencer par :
+
+* les grandes zones
+* l’ordre de lecture
+* les actions principales
+
+avant d’ajouter les détails secondaires.
+
+### Penser mobile si la page est publique
+
+Pour les écrans publics, commencer par un petit écran oblige à prioriser l’essentiel.
+
+### Montrer de vraies différences entre versions
+
+Les variantes responsive ne doivent pas être de simples copies redimensionnées.
+Elles doivent montrer de vraies évolutions de mise en page.
+
+### Annoter si nécessaire
+
+Quelques notes peuvent préciser :
+
+* le rôle d’une zone
+* une contrainte particulière
+* le comportement responsive
+* l’action principale attendue
+
+---
+
+## 10. Résultat attendu d’un bon wireframe
+
+Un bon wireframe permet de comprendre :
+
+* quelles zones composent la page
+* quelle information est prioritaire
+* quelles actions l’utilisateur peut effectuer
+* comment la page s’adapte selon l’écran
+* comment cette page s’insère dans l’ensemble du site ou de l’application
+
+Le wireframe devient alors une base utile pour la suite du travail :
+
+* structuration HTML
+* organisation des contenus
+* réflexion UX
+* préparation CSS
+* intégration PHP
+* préparation de l’administration
