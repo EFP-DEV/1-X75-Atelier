@@ -45,7 +45,7 @@ Cette étape évite de partir dans plusieurs directions à la fois et permet de 
 * une arborescence simple ou une liste structurée des pages prévues
 * des wireframes des pages principales
 
-[Lien vers l’annexe 1](./more/annexe-1--analyse.md)
+[Lien vers l’annexe 1](analyse.md)
 
 ---
 
