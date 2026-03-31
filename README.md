@@ -1,4 +1,4 @@
-# Projet web — site dynamique avec administration
+# ATE — site dynamique avec administration
 
 ## Présentation
 
