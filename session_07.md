@@ -1,4 +1,4 @@
-# Cours — Construire un système de login (progressif, minimal)
+# Session 7 - Construire un système de login
 
 ## Objectif
 
