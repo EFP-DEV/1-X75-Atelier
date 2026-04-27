@@ -1,7 +1,5 @@
 # Session 10 — URL, MVC & organisation minimale d'un projet PHP
-**Durée : 3h+ · Niveau : bases PHP acquises**
 
----
 
 ## Objectifs de la séance
 
