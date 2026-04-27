@@ -1,135 +1,846 @@
-# Session 10 — URL, MVC & organisation minimale d'un projet PHP
+# Session 10 — URL, MVC & organisation minimale d’un projet PHP
 
+**Durée : 4h environ · Niveau : bases PHP acquises**
+
+---
 
 ## Objectifs de la séance
 
-À la fin de cette séance, l'étudiant sait :
-- encapsuler le parsing d'URL dans une fonction `router()` qui orchestre deux responsabilités distinctes
-- charger une view via `render()` plutôt qu'un `include` direct, et expliquer pourquoi
-- justifier chaque choix de nommage et de structure, pas juste les appliquer
-- organiser un projet en controllers / models / views à partir d'un diagnostic de ce qui ne va pas
-- respecter la règle « aucune fonction ne fait `echo` ; seules les views affichent »
+À la fin de cette séance, l’étudiant sait :
+
+* expliquer pourquoi on sépare les responsabilités dans un projet
+* faire le lien entre HTML / CSS / JS côté frontend et Model / View / Controller côté backend
+* découper une URL en trois informations : `entity`, `action`, `id`
+* encapsuler le parsing d’URL dans une fonction `parse_url_segments()`
+* utiliser une fonction `router()` pour organiser le traitement d’une requête
+* utiliser `dispatch()` pour trouver le bon fichier à exécuter
+* charger une view avec `render()` plutôt qu’avec un `include` direct dans le controller
+* organiser un projet PHP en `controllers/`, `models/`, `views/`
+* respecter la règle : les fonctions ne font pas d’affichage direct ; seules les views produisent du HTML
 
 ---
 
 ## Plan
 
-| # | Bloc | Durée | Type |
-|---|------|-------|------|
-| 1 | De l'exercice à la fonction `router()` | 25 min | Cours + démo |
-| 2 | `dispatch()` : trouver le fichier et l'exécuter | 25 min | Cours + démo |
-| 3 | Afficher une view avec `render()` | 15 min | Cours |
-| 4 | Exercice 1 — router + render fonctionnels | 30 min | TP |
-| 5 | Faire évoluer la structure | 45 min | Cours + discussion |
-| 6 | Controllers, models, views : rôles et règles | 20 min | Cours |
-| 7 | Exercice 2 — mini projet structuré | 45 min | TP |
-| 8 | Exercice 3 — utilitaires HTTP | 30 min | TP |
-| 9 | Mise en commun & questions | 15 min | Discussion |
+| #  | Bloc                                               | Durée  | Type               |
+| -- | -------------------------------------------------- | ------ | ------------------ |
+| 1  | Séparer les responsabilités : de HTML/CSS/JS à MVC | 25 min | Cours + discussion |
+| 2  | Afficher une view avec `render()`                  | 20 min | Cours + démo       |
+| 3  | De l’URL à `parse_url_segments()`                  | 25 min | Cours + démo       |
+| 4  | `router()` et `dispatch()` version simple          | 25 min | Cours + démo       |
+| 5  | Exercice 1 — router + render fonctionnels          | 30 min | TP                 |
+| 6  | Faire évoluer la structure                         | 45 min | Cours + discussion |
+| 7  | Controllers, models, views : rôles et règles       | 25 min | Cours              |
+| 8  | Exercice 2 — mini projet structuré                 | 45 min | TP                 |
+| 9  | Exercice 3 — utilitaires HTTP                      | 30 min | TP                 |
+| 10 | Mise en commun & questions                         | 15 min | Discussion         |
 
 ---
 
-## Bloc 1 — De l'exercice à la fonction `router()` (25 min)
+# Bloc 1 — Séparer les responsabilités : de HTML/CSS/JS à MVC
 
-### Point de départ
+## Point de départ : côté frontend
 
-L'exercice précédent a produit ce code dans `index.php` :
+Les étudiants connaissent déjà une séparation classique côté frontend :
+
+```text
+HTML → structure
+CSS  → apparence
+JS   → comportement
+```
+
+On pourrait tout mélanger dans un seul fichier HTML :
+
+```html
+<h1 style="color: red;" onclick="alert('Bonjour')">
+    Bienvenue
+</h1>
+```
+
+Ce code fonctionne.
+
+Mais il mélange trois responsabilités :
+
+```text
+<h1>Bienvenue</h1>       → structure HTML
+style="color: red;"      → apparence CSS
+onclick="alert(...)"     → comportement JavaScript
+```
+
+Question à poser :
+
+```text
+Pourquoi évite-t-on de tout mélanger ?
+```
+
+Réponses attendues :
+
+* c’est difficile à lire
+* c’est difficile à modifier
+* on ne sait plus où chercher
+* le même code risque d’être répété
+* modifier l’apparence peut casser autre chose
+* modifier le comportement peut rendre le HTML illisible
+
+La séparation HTML / CSS / JS est donc une forme de **separation of concerns**.
+
+En français : séparation des responsabilités.
+
+Chaque partie du code a un rôle clair.
+
+---
+
+## Même idée côté backend
+
+Côté backend, on a le même problème.
+
+Une page PHP peut faire plusieurs choses à la fois :
+
+```php
+<?php
+
+$items = [
+    ['id' => 1, 'name' => 'Clavier'],
+    ['id' => 2, 'name' => 'Souris'],
+];
+
+echo '<h1>Items</h1>';
+echo '<ul>';
+
+foreach ($items as $item) {
+    echo '<li>' . $item['name'] . '</li>';
+}
+
+echo '</ul>';
+```
+
+Ce code fonctionne.
+
+Mais il mélange plusieurs responsabilités :
+
+```text
+Données      → le tableau $items
+Décision     → parcourir les items
+Affichage    → echo du HTML
+```
+
+Question à poser :
+
+```text
+Quel est le problème si toute l’application est écrite comme ça ?
+```
+
+Réponses attendues :
+
+* le code devient difficile à lire
+* on mélange données et HTML
+* on ne sait plus où modifier l’affichage
+* on ne sait plus où modifier les données
+* on ne peut pas réutiliser facilement le code
+* les fichiers deviennent longs
+
+---
+
+## MVC : trois noms pour trois responsabilités
+
+MVC veut dire :
+
+```text
+Model
+View
+Controller
+```
+
+Ces mots semblent abstraits, mais l’idée est simple.
+
+### View
+
+La **view** est ce que l’utilisateur voit.
+
+Dans notre cas, une view est un fichier PHP qui contient surtout du HTML.
+
+Exemple :
+
+```php
+<h1>Items</h1>
+
+<ul>
+    <?php foreach ($items as $item): ?>
+        <li><?= escape($item['name']) ?></li>
+    <?php endforeach; ?>
+</ul>
+```
+
+La view affiche les données qu’on lui donne.
+
+Elle ne va pas les chercher elle-même.
+
+---
+
+### Model
+
+Le **model** s’occupe des données.
+
+Au début, les données seront de simples tableaux PHP.
+
+Plus tard, elles viendront d’une base de données.
+
+Exemple :
+
+```php
+function get_all_items() {
+    return [
+        ['id' => 1, 'name' => 'Clavier'],
+        ['id' => 2, 'name' => 'Souris'],
+    ];
+}
+```
+
+Le model ne fait pas de HTML.
+
+Il retourne des données.
+
+---
+
+### Controller
+
+Le **controller** reçoit la demande, appelle le model, puis choisit la view.
+
+Exemple :
+
+```php
+function item_index() {
+    $items = get_all_items();
+
+    render('item/index', ['items' => $items]);
+}
+```
+
+Le controller ne produit pas directement le HTML.
+
+Il orchestre.
+
+Il décide :
+
+```text
+De quelles données ai-je besoin ?
+Quelle view dois-je afficher ?
+```
+
+---
+
+## Comparaison frontend / backend
+
+On peut faire un parallèle simple.
+
+| Frontend                | Rôle                      | Backend MVC | Rôle                                   |
+| ----------------------- | ------------------------- | ----------- | -------------------------------------- |
+| HTML                    | structure visible         | View        | HTML affiché                           |
+| JS                      | réagit, décide, orchestre | Controller  | reçoit la demande et décide quoi faire |
+| Données côté navigateur | état, contenu             | Model       | données de l’application               |
+
+La comparaison n’est pas parfaite, mais elle aide à comprendre l’idée :
+
+```text
+On évite de tout mélanger.
+```
+
+C’est le même principe que HTML / CSS / JS.
+
+On sépare pour pouvoir lire, modifier et tester plus facilement.
+
+---
+
+## Règle de la séance
+
+Pendant cette séance, on applique une règle simple :
+
+```text
+Aucune fonction ne fait echo.
+Seules les views produisent du HTML.
+```
+
+Un controller peut choisir une view.
+
+Un model peut retourner des données.
+
+Mais l’affichage se fait dans une view.
+
+---
+
+# Bloc 2 — Afficher une view avec `render()`
+
+## Problème : `include` direct dans le controller
+
+Un controller pourrait faire ceci :
+
+```php
+function home_index() {
+    include 'views/home/index.php';
+}
+```
+
+Ce code fonctionne.
+
+Mais on veut une convention plus claire.
+
+On veut que les controllers disent :
+
+```text
+Je veux afficher telle view avec telles données.
+```
+
+Pour ça, on crée une fonction :
+
+```php
+render()
+```
+
+---
+
+## `escape()`
+
+Avant d’afficher des variables dans du HTML, on les protège avec une fonction.
+
+```php
+// core/html.php
+
+function escape($value) {
+    if (is_null($value)) {
+        return '';
+    }
+
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+}
+```
+
+Exemple dans une view :
+
+```php
+<?= escape($name) ?>
+```
+
+Pourquoi ?
+
+Parce qu’une variable peut contenir des caractères spéciaux.
+
+Exemple :
+
+```text
+<script>alert('test')</script>
+```
+
+Avec `escape()`, ce texte est affiché comme du texte.
+
+Il n’est pas interprété comme du HTML ou du JavaScript.
+
+---
+
+## `render()`
+
+```php
+// core/html.php
+
+function render($view, $data = []) {
+    extract($data);
+
+    include 'views/' . $view . '.php';
+}
+```
+
+Exemple :
+
+```php
+render('home/index');
+```
+
+Cette ligne charge :
+
+```text
+views/home/index.php
+```
+
+Autre exemple :
+
+```php
+render('item/show', ['id' => 3]);
+```
+
+Cette ligne charge :
+
+```text
+views/item/show.php
+```
+
+et rend la variable `$id` disponible dans la view.
+
+---
+
+## Pourquoi `$data` ?
+
+Sans `render()`, un controller pourrait faire ceci :
+
+```php
+function item_show() {
+    $id = 3;
+    $debug = true;
+    $user = 'admin';
+
+    include 'views/item/show.php';
+}
+```
+
+La view peut alors utiliser `$id`, mais aussi `$debug` et `$user`.
+
+Le problème : on ne sait pas clairement quelles variables la view est censée recevoir.
+
+Avec `render()` :
+
+```php
+function item_show() {
+    $id = 3;
+
+    render('item/show', ['id' => $id]);
+}
+```
+
+La ligne dit clairement :
+
+```text
+Je charge la view item/show.
+Je lui donne une variable : id.
+```
+
+---
+
+## Exemple de view
+
+```php
+<!-- views/item/show.php -->
+
+<p>Item n°<?= escape($id) ?></p>
+```
+
+La view affiche.
+
+Le controller décide quelle view afficher.
+
+---
+
+# Bloc 3 — De l’URL à `parse_url_segments()`
+
+## Point de départ
+
+L’exercice précédent a produit ce code :
 
 ```php
 $url   = 'product/show/12';
 $parts = explode('/', trim($url, '/'));
 
-$entity = $parts[0] ?? 'home';
-$action = $parts[1] ?? 'index';
-$id     = $parts[2] ?? null;
+$entity = $parts[0];
+$action = 'index';
+
+if (isset($parts[1])) {
+    $action = $parts[1];
+}
+
+$id = null;
+
+if (isset($parts[2])) {
+    $id = $parts[2];
+}
 ```
 
-Trois segments, trois rôles : **une entité** (de quoi on parle), **une action** (ce qu'on en fait), **un id** (sur quel exemplaire). C'est le vocabulaire qu'on garde toute la séance.
+Ce code transforme :
 
-Ce code fonctionne. Mais il est en vrac dans `index.php`, mélangé avec ce qui va suivre. **Poser la question à la classe : quel est le problème si tout reste dans `index.php` ?**
+```text
+product/show/12
+```
 
-Réponses attendues :
-- on ne peut pas le réutiliser
-- on ne peut pas le tester isolément
-- `index.php` devient illisible à mesure qu'on ajoute du code
-
-La solution : mettre ce code dans une fonction. On l'a déjà fait en exercice — on l'appelle `parse_url_segments()`.
-
-### `parse_url_segments()`
-
-Elle retourne un tableau. **Poser la question : tableau indexé ou associatif ?**
-
-Avec un tableau indexé, `$segments[0]` ne dit rien. Avec un tableau associatif, `$segments['entity']` dit exactement ce que c'est. Le code qui suit devient lisible sans commentaires.
-
-**Poser la question : d'où on lit l'URL ?**
-
-L'exercice utilisait `$_GET['url']` parce que le `.htaccess` redirige tout vers `index.php?url=...`. C'est fonctionnel mais artificiel — on crée un paramètre GET juste pour transporter quelque chose qui est déjà disponible nativement : `$_SERVER['REQUEST_URI']`.
-
-`REQUEST_URI` contient le chemin brut tel que le navigateur l'a envoyé — `/item/show/3`. Il peut aussi contenir une query string — `/item/search?q=clavier`. On en veut que le chemin, donc on la retire avec `parse_url()` avant d'exploser.
+en :
 
 ```php
+$entity = 'product';
+$action = 'show';
+$id = '12';
+```
+
+Trois segments, trois rôles :
+
+```text
+entity → de quoi on parle
+action → ce qu’on veut faire
+id     → sur quel élément
+```
+
+Exemples :
+
+```text
+/item/show/3
+```
+
+donne :
+
+```text
+entity = item
+action = show
+id     = 3
+```
+
+```text
+/item
+```
+
+donne :
+
+```text
+entity = item
+action = index
+id     = null
+```
+
+```text
+/
+```
+
+donne :
+
+```text
+entity = home
+action = index
+id     = null
+```
+
+---
+
+## Pourquoi mettre ce code dans une fonction ?
+
+Question à poser :
+
+```text
+Quel est le problème si ce code reste directement dans index.php ?
+```
+
+Réponses attendues :
+
+* `index.php` devient long
+* on ne peut pas réutiliser ce code
+* on ne peut pas tester cette partie séparément
+* on mélange le point d’entrée du site et la logique de routing
+
+On crée donc une fonction :
+
+```php
+parse_url_segments()
+```
+
+Son rôle :
+
+```text
+Lire l’URL et retourner entity, action et id.
+```
+
+---
+
+## D’où vient l’URL ?
+
+Dans un navigateur, l’URL demandée est disponible dans :
+
+```php
+$_SERVER['REQUEST_URI']
+```
+
+Exemples :
+
+```text
+/
+```
+
+```text
+/item
+```
+
+```text
+/item/show/3
+```
+
+```text
+/item/search?q=clavier
+```
+
+Dans le dernier cas, l’URL contient une query string :
+
+```text
+?q=clavier
+```
+
+Pour le router, on ne veut que le chemin :
+
+```text
+/item/search
+```
+
+On utilise donc :
+
+```php
+parse_url($uri, PHP_URL_PATH)
+```
+
+---
+
+## `parse_url_segments()`
+
+```php
+// core/router.php
+
 function parse_url_segments() {
-    $uri  = $_SERVER['REQUEST_URI'] ?? '/';
-    $path = trim(parse_url($uri, PHP_URL_PATH), '/');
+    $uri = '/';
+
+    if (isset($_SERVER['REQUEST_URI'])) {
+        $uri = $_SERVER['REQUEST_URI'];
+    }
+
+    $path = parse_url($uri, PHP_URL_PATH);
+
+    if (is_null($path)) {
+        $path = '/';
+    }
+
+    $path = trim($path, '/');
 
     if ($path === '') {
-        return ['entity' => 'home', 'action' => 'index', 'id' => null];
+        return [
+            'entity' => 'home',
+            'action' => 'index',
+            'id' => null,
+        ];
     }
 
     $parts = explode('/', $path);
+
+    $entity = $parts[0];
+
+    $action = 'index';
+
+    if (isset($parts[1])) {
+        $action = $parts[1];
+    }
+
+    $id = null;
+
+    if (isset($parts[2])) {
+        $id = $parts[2];
+    }
+
     return [
-        'entity' => $parts[0],
-        'action' => $parts[1] ?? 'index',
-        'id'     => $parts[2] ?? null,
+        'entity' => $entity,
+        'action' => $action,
+        'id' => $id,
     ];
 }
 ```
 
-**Pourquoi le cas spécial pour `/` ?**
+---
 
-`trim('/', '/')` donne `''`. `explode('/', '')` donne `['']` — un tableau d'un seul élément vide, pas un tableau vide. Sans le test, `$parts[0]` vaudrait `''` et le router chercherait `controllers/.php`. L'URL racine est le premier cas que les étudiants vont tester — il faut qu'elle marche.
+## Pourquoi le cas spécial pour `/` ?
 
-### `router()`
+Si l’URL est :
 
-On a une fonction qui parse. La séance d'aujourd'hui ajoute une deuxième responsabilité : **vérifier que ce que l'URL demande existe réellement**, et exécuter si c'est le cas.
+```text
+/
+```
 
-Ces deux responsabilités sont distinctes — elles méritent chacune leur fonction. `router()` les orchestre :
+alors :
+
+```php
+trim('/', '/')
+```
+
+donne :
+
+```php
+''
+```
+
+Et :
+
+```php
+explode('/', '')
+```
+
+donne :
+
+```php
+['']
+```
+
+Ce n’est pas ce qu’on veut.
+
+On veut que `/` signifie :
+
+```text
+home / index / null
+```
+
+Donc on traite ce cas explicitement :
+
+```php
+if ($path === '') {
+    return [
+        'entity' => 'home',
+        'action' => 'index',
+        'id' => null,
+    ];
+}
+```
+
+---
+
+## Ce que cette fonction ne fait pas encore
+
+Cette fonction ne valide pas vraiment l’URL.
+
+Elle ne vérifie pas si l’entité existe.
+
+Elle ne vérifie pas si l’action existe.
+
+Elle ne vérifie pas si l’id est un nombre.
+
+Elle découpe seulement l’URL.
+
+La validation minimale viendra dans `dispatch()` avec :
+
+```php
+file_exists()
+```
+
+Puis plus tard avec :
+
+```php
+function_exists()
+```
+
+---
+
+# Bloc 4 — `router()` et `dispatch()` version simple
+
+## `router()`
+
+On a une fonction qui découpe l’URL.
+
+Maintenant, on veut une fonction qui orchestre le traitement de la requête.
 
 ```php
 function router() {
     $segments = parse_url_segments();
+
     dispatch($segments);
 }
 ```
 
-`router()` ne fait rien elle-même. Elle délègue.
+`router()` ne fait presque rien.
+
+Il délègue.
+
+Son rôle est de dire :
+
+```text
+1. Je lis l’URL.
+2. Je transmets le résultat à dispatch().
+```
 
 ---
 
-## Bloc 2 — `dispatch()` : trouver le fichier et l'exécuter (25 min)
+## `dispatch()`
 
-### Le minimum : un fichier par URL
-
-`dispatch()` reçoit les segments. Question minimale : **quel est le travail le plus simple possible pour exécuter la demande ?**
-
-Trouver un fichier qui correspond à l'URL et l'inclure. C'est tout. Pas de fonction à appeler, pas de découpage : le fichier *est* l'action. Quand on l'inclut, son code s'exécute.
-
-Pour `item/show/3`, on charge `item_show.php` et on lui rend l'id disponible. Pour `item`, on charge `item.php` (ou `item_index.php`).
-
-**Poser la question : où mettre ces fichiers ?**
-
-Pas dans la racine du projet — ils s'y mélangeraient avec `index.php`, le `.htaccess`, `core/`. On les regroupe dans un dossier dédié : `controllers/`. Le nom traduit ce que ces fichiers font : ils contrôlent ce qui se passe pour une URL donnée.
-
-**Poser la question : comment construit-on le nom du fichier à charger ?**
-
-Convention : `entity_action.php`. C'est la traduction directe de l'URL en chemin :
+`dispatch()` reçoit ceci :
 
 ```php
-$controllerFile = 'controllers/' . $segments['entity'] . '_' . $segments['action'] . '.php';
+[
+    'entity' => 'item',
+    'action' => 'show',
+    'id' => '3',
+]
 ```
 
-Avec `item/show/3` → `controllers/item_show.php`. Avec `/` (URL racine) → `controllers/home_index.php` grâce aux valeurs par défaut du parser.
+Son rôle :
 
-### Première version de `dispatch()`
+```text
+Trouver le fichier controller qui correspond.
+```
+
+Dans la première version du projet, on utilise une règle très simple :
+
+```text
+/entity/action/id
+```
+
+devient :
+
+```text
+controllers/entity_action.php
+```
+
+Exemple :
+
+```text
+/item/show/3
+```
+
+devient :
+
+```text
+controllers/item_show.php
+```
+
+---
+
+## Pourquoi le dossier `controllers/` ?
+
+Un controller est le fichier qui reçoit une demande et décide quoi faire.
+
+Dans cette première version :
+
+```text
+une URL = un fichier controller
+```
+
+Exemple :
+
+```text
+/item/show/3
+```
+
+est contrôlé par :
+
+```text
+controllers/item_show.php
+```
+
+On met ces fichiers dans un dossier `controllers/` pour ne pas les mélanger avec :
+
+```text
+index.php
+.htaccess
+core/
+views/
+```
+
+Le nom `controller` signifie :
+
+```text
+Ce fichier contrôle ce qui doit se passer pour une URL donnée.
+```
+
+Il ne veut pas dire qu’il fait tout.
+
+Il ne doit pas produire directement le HTML.
+
+Il doit décider quelle view afficher.
+
+---
+
+## Première version de `dispatch()`
 
 ```php
 function dispatch($segments) {
@@ -142,114 +853,110 @@ function dispatch($segments) {
     }
 
     $id = $segments['id'];
+
     include $controllerFile;
 }
 ```
 
-C'est tout. Une vérification, un include. La variable `$id` est définie juste avant l'`include` pour qu'elle soit disponible dans le fichier inclus — `include` partage le scope.
+La seule validation ici est :
 
-### À l'intérieur d'un controller
+```php
+file_exists($controllerFile)
+```
+
+Si le fichier n’existe pas, on affiche une 404.
+
+---
+
+## Pourquoi `render()` pour la 404 ?
+
+On pourrait écrire :
+
+```php
+die('404');
+```
+
+Mais ce serait contraire à la règle de la séance.
+
+Même une erreur doit passer par une view.
+
+Donc on fait :
+
+```php
+http_response_code(404);
+render('error/404', ['message' => 'Page introuvable']);
+return;
+```
+
+---
+
+## Exemple de controller
 
 ```php
 // controllers/item_show.php
-$item = get_one_item($id);
-render('item/show', ['item' => $item]);
+
+render('item/show', ['id' => $id]);
 ```
 
-Pas de structure particulière. Le fichier est lu de haut en bas, `$id` est déjà là, le travail se fait.
-
-### `dispatch()` et son seul cas d'erreur
-
-**Poser la question : qu'est-ce qui peut mal tourner ?**
-
-Une seule chose pour l'instant : le fichier n'existe pas. URL inconnue → 404.
-
-**Pourquoi `render()` et pas `die('404 ...')` ?**
-
-`die('texte')` envoie du texte brut au navigateur depuis `dispatch()`. Mais on vient d'établir que les fonctions métier ne produisent pas d'affichage — l'affichage passe par les views. Si `dispatch()` fait une exception, on enseigne la règle et on la viole dans la même fonction.
-
-`render('error/404')` charge une view dédiée. `dispatch()` se contente de choisir laquelle, puis `return` pour s'arrêter proprement.
-
-**Pourquoi `http_response_code(404)` ?**
-
-Sans appel explicite, le navigateur reçoit un code 200 (succès) — alors que la page demandée n'existe pas. Le code HTTP doit refléter la réalité, indépendamment du contenu affiché.
-
-La view `views/error/404.php` est minimale :
+Ce fichier ne fait pas :
 
 ```php
-<!-- views/error/404.php -->
-<h1>404</h1>
-<p><?= escape($message) ?></p>
+echo '<p>Item</p>';
 ```
 
-### `index.php` résultant
+Il appelle une view.
+
+---
+
+## Exemple de view
 
 ```php
-require 'core/router.php';
+<!-- views/item/show.php -->
+
+<p>Item n°<?= escape($id) ?></p>
+```
+
+La view affiche.
+
+Le controller décide.
+
+---
+
+## `index.php`
+
+```php
+<?php
+
 require 'core/html.php';
+require 'core/router.php';
+
 router();
 ```
 
-`index.php` ne connaît pas les détails du routing.
+`index.php` reste minimal.
 
-### Ce qu'on a construit, et ce qu'on n'a pas encore
-
-À ce stade, le router fonctionne. Une URL → un fichier → exécution. C'est volontairement minimal :
-- un fichier par couple (entité, action)
-- pas de structure MVC
-- pas encore de modèle ou de séparation par couche
-
-Tout ça arrive plus tard, comme **conséquence** des problèmes que cette version va poser quand on l'utilise pour de vrai.
+Il charge les fonctions nécessaires, puis lance le router.
 
 ---
 
-## Bloc 3 — Afficher une view avec `render()` (15 min)
+# Bloc 5 — Exercice 1 : router + render fonctionnels
 
-`dispatch()` appelle déjà `render()` pour la vue d'erreur 404 — il faut donc définir cette fonction avant que le router puisse fonctionner.
+## Objectif
 
-### Le principe
+Créer un projet minimal avec :
 
-Le controller ne produit pas de HTML. Il décide *quoi* afficher, puis demande à `render()` de charger la view qui correspond. La view reçoit uniquement les variables que le controller lui passe explicitement.
-
-```php
-// core/html.php
-
-function escape($value) {
-    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-}
-
-function render($view, $data = []) {
-    extract($data);
-    include 'views/' . $view . '.php';
-}
-```
-
-**Pourquoi un tableau `$data` plutôt qu'un `include` direct dans le controller ?**
-
-Avec `include` direct, la view hérite de toutes les variables du scope appelant — y compris celles qu'on n'a pas voulu lui donner. `extract($data)` rend les dépendances explicites : la view reçoit *exactement* ce qu'on lui passe, rien de plus.
-
-### Règle d'affichage pour la séance
-
-Aucune fonction ne fait `echo`. Les controllers, models et le router ne produisent pas d'affichage. L'affichage est réservé aux views chargées par `render()`.
-
-Dans une view, `<?= escape($var) ?>` est autorisé — c'est la *seule* exception, et c'est le rôle de la view.
-
-```
-controller  → décide quoi afficher
-model       → fournit les données
-view        → affiche
-render()    → charge la view avec les bonnes données
-```
+* un router
+* une fonction `render()`
+* une fonction `escape()`
+* un dossier `controllers/`
+* un dossier `views/`
+* une view 404
 
 ---
 
-## Bloc 4 — Exercice 1 : router + render fonctionnels (30 min)
+## Structure attendue
 
-### Consigne
-
-Créer un projet minimal — un fichier par action :
-
-```
+```text
 project/
 ├── index.php
 ├── .htaccess
@@ -270,7 +977,9 @@ project/
         └── show.php
 ```
 
-`.htaccess` redirige toutes les requêtes vers `index.php` :
+---
+
+## `.htaccess`
 
 ```apache
 RewriteEngine On
@@ -279,87 +988,263 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [L]
 ```
 
-`core/router.php` contient `parse_url_segments()`, `dispatch()`, et `router()`.
-`core/html.php` contient `escape()` et `render()`.
+Ce fichier fait en sorte que les URLs soient envoyées vers `index.php`.
 
-Les controllers sont de simples scripts — du code qui s'exécute quand le fichier est inclus :
+Exemple :
+
+```text
+/item/show/3
+```
+
+ne cherche pas un vrai fichier :
+
+```text
+item/show/3
+```
+
+La requête passe par :
+
+```text
+index.php
+```
+
+---
+
+## `core/html.php`
 
 ```php
+<?php
+
+function escape($value) {
+    if (is_null($value)) {
+        return '';
+    }
+
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+}
+
+function render($view, $data = []) {
+    extract($data);
+
+    include 'views/' . $view . '.php';
+}
+```
+
+---
+
+## `core/router.php`
+
+```php
+<?php
+
+function parse_url_segments() {
+    $uri = '/';
+
+    if (isset($_SERVER['REQUEST_URI'])) {
+        $uri = $_SERVER['REQUEST_URI'];
+    }
+
+    $path = parse_url($uri, PHP_URL_PATH);
+
+    if (is_null($path)) {
+        $path = '/';
+    }
+
+    $path = trim($path, '/');
+
+    if ($path === '') {
+        return [
+            'entity' => 'home',
+            'action' => 'index',
+            'id' => null,
+        ];
+    }
+
+    $parts = explode('/', $path);
+
+    $entity = $parts[0];
+
+    $action = 'index';
+
+    if (isset($parts[1])) {
+        $action = $parts[1];
+    }
+
+    $id = null;
+
+    if (isset($parts[2])) {
+        $id = $parts[2];
+    }
+
+    return [
+        'entity' => $entity,
+        'action' => $action,
+        'id' => $id,
+    ];
+}
+
+function dispatch($segments) {
+    $controllerFile = 'controllers/' . $segments['entity'] . '_' . $segments['action'] . '.php';
+
+    if (!file_exists($controllerFile)) {
+        http_response_code(404);
+        render('error/404', ['message' => 'Page introuvable']);
+        return;
+    }
+
+    $id = $segments['id'];
+
+    include $controllerFile;
+}
+
+function router() {
+    $segments = parse_url_segments();
+
+    dispatch($segments);
+}
+```
+
+---
+
+## `index.php`
+
+```php
+<?php
+
+require 'core/html.php';
+require 'core/router.php';
+
+router();
+```
+
+---
+
+## Controllers
+
+```php
+<?php
 // controllers/home_index.php
+
 render('home/index');
 ```
 
 ```php
+<?php
 // controllers/item_index.php
+
 render('item/index');
 ```
 
 ```php
+<?php
 // controllers/item_show.php
+
 render('item/show', ['id' => $id]);
 ```
 
-Les views sont minimales :
+---
+
+## Views
 
 ```php
 <!-- views/home/index.php -->
+
 <p>Accueil</p>
+```
 
+```php
 <!-- views/item/index.php -->
+
 <p>Liste des items</p>
+```
 
+```php
 <!-- views/item/show.php -->
-<p>Item n°<?= escape($id) ?></p>
 
+<p>Item n°<?= escape($id) ?></p>
+```
+
+```php
 <!-- views/error/404.php -->
+
 <h1>404</h1>
 <p><?= escape($message) ?></p>
 ```
 
-### À tester
+---
 
-Tester avec les URLs réelles dans le navigateur :
+## À tester
 
-| URL | Résultat attendu |
-|-----|-----------------|
-| `/` | `Accueil` |
-| `/item` | `Liste des items` |
-| `/item/show/3` | `Item n°3` |
-| `/admin` | Vue 404 — `Page introuvable` |
+| URL              | Résultat attendu             |
+| ---------------- | ---------------------------- |
+| `/`              | `Accueil`                    |
+| `/item`          | `Liste des items`            |
+| `/item/show/3`   | `Item n°3`                   |
+| `/admin`         | Vue 404 — `Page introuvable` |
 | `/item/delete/3` | Vue 404 — `Page introuvable` |
-
-### Critère de validation
-
-Les cinq cas produisent le bon résultat. Aucun `echo` ni `die` dans le code — tout l'affichage passe par `render()`.
 
 ---
 
-## Bloc 5 — Faire évoluer la structure (45 min)
+## Critères de validation
 
-À la fin de l'exercice 1, le projet marche. On va maintenant le faire grossir et observer ce que ça produit. Chaque problème va déclencher une décision.
+Le projet est valide si :
 
-### Étape 1 — Partir d'une seule entité
+* les cinq URLs produisent le bon résultat
+* `index.php` contient seulement les `require` et `router()`
+* aucun controller ne fait `echo`
+* aucune fonction ne fait `echo`
+* toutes les sorties dans les views passent par `escape()`
 
-Prendre `item` comme exemple. Un item a une face publique et une face admin. **Poser la question : quelles URLs faut-il pour gérer un item complètement ?**
+---
 
-Laisser la classe lister. Réponse attendue :
+# Bloc 6 — Faire évoluer la structure
 
+## Le projet fonctionne, mais il ne va pas bien grandir
+
+À la fin de l’exercice 1, le projet fonctionne.
+
+Mais l’organisation est encore très simple :
+
+```text
+une action = un fichier controller
 ```
-# côté visiteur
-/item                  → liste des items
-/item/show/{id}        → détail
-/item/search           → recherche
 
-# côté admin
-/admin_item            → liste avec actions
-/admin_item/create     → formulaire de création
-/admin_item/edit/{id}  → formulaire d'édition
-/admin_item/delete/{id}→ suppression
+Exemple :
+
+```text
+controllers/item_index.php
+controllers/item_show.php
 ```
 
-Avec la règle actuelle (un fichier par action), ça donne :
+Pour un petit projet, ça passe.
 
+Pour un projet plus grand, le dossier `controllers/` va vite devenir trop chargé.
+
+---
+
+## Étape 1 — Une seule entité : item
+
+Question à poser :
+
+```text
+Quelles actions peut-on vouloir faire sur des items ?
 ```
+
+Réponses possibles :
+
+```text
+/item
+/item/show/3
+/item/search
+/admin_item
+/admin_item/create
+/admin_item/edit/3
+/admin_item/delete/3
+```
+
+Avec la règle actuelle, cela donne :
+
+```text
 controllers/item_index.php
 controllers/item_show.php
 controllers/item_search.php
@@ -369,17 +1254,26 @@ controllers/admin_item_edit.php
 controllers/admin_item_delete.php
 ```
 
-7 fichiers pour une seule entité.
+Pour une seule entité, on a déjà beaucoup de fichiers.
 
-### Étape 2 — Projeter sur tout le projet
+---
 
-**Poser la question : combien d'entités dans ce projet ?**
+## Étape 2 — Plusieurs entités
 
-Items, catégories, thèmes, tags, collections, utilisateurs — 6 entités. Plus `home` et `auth`.
+Imaginons maintenant :
 
-Si on applique la même logique partout, voici à quoi ressemble le dossier `controllers/` :
-
+```text
+items
+categories
+collections
+tags
+users
+auth
 ```
+
+Le dossier `controllers/` pourrait devenir :
+
+```text
 controllers/
 ├── home_index.php
 ├── auth_login.php
@@ -393,149 +1287,234 @@ controllers/
 ├── admin_item_edit.php
 ├── admin_item_delete.php
 ├── category_index.php
+├── category_show.php
 ├── admin_category_index.php
 ├── admin_category_create.php
 ├── admin_category_edit.php
 ├── admin_category_delete.php
 ├── collection_index.php
 ├── collection_show.php
-├── admin_collection_index.php
-├── admin_collection_create.php
-├── admin_collection_edit.php
-├── admin_collection_delete.php
 ├── tag_index.php
-├── admin_tag_index.php
-...
+├── tag_show.php
+└── ...
 ```
 
-Et c'est sans compter `models/` et `views/` qui suivent la même logique.
+Question à poser :
 
-**Poser la question : qu'est-ce qui ne va plus ?**
+```text
+Qu’est-ce qui ne va plus ?
+```
 
-Laisser la classe répondre. Réponses attendues :
-- 30+ fichiers dans un seul dossier
-- l'admin et le public sont mélangés
-- difficile de trouver ce qu'on cherche
+Réponses attendues :
 
-C'est une saturation visuelle. Le code marche, mais il devient illisible.
+* trop de fichiers dans un seul dossier
+* difficile de trouver ce qu’on cherche
+* les fichiers liés aux items sont dispersés
+* l’admin et le public sont mélangés
+* le code fonctionne, mais le projet devient difficile à lire
+
+Ce n’est pas encore un problème de PHP.
+
+C’est un problème d’organisation.
 
 ---
 
-### Première itération — introduire des dossiers
+## Première idée : ranger dans des dossiers
 
-**Poser la question : qu'est-ce qu'on peut faire sans toucher au code, juste en réorganisant les fichiers ?**
+On pourrait ranger les controllers par entité :
 
-Les regrouper en sous-dossiers. La séparation public / admin est la plus évidente :
-
-```
+```text
 controllers/
-├── home_index.php
-├── auth/
-│   ├── login.php
-│   ├── logout.php
-│   └── register.php
 ├── item/
 │   ├── index.php
 │   ├── show.php
 │   └── search.php
 ├── category/
-│   └── index.php
-├── collection/
 │   ├── index.php
 │   └── show.php
-├── tag/
-│   └── index.php
-└── admin/
-    ├── item/
-    │   ├── index.php
-    │   ├── create.php
-    │   ├── edit.php
-    │   └── delete.php
-    ├── category/
-    │   └── ...
-    └── ...
+└── admin_item/
+    ├── index.php
+    ├── create.php
+    ├── edit.php
+    └── delete.php
 ```
 
-Chaque entité a son dossier. L'admin a son propre arbre. On retrouve ses fichiers en suivant la hiérarchie.
+Cela rend le dossier plus lisible.
 
-**Conséquence pour `dispatch()` :**
+Mais cela demande de changer le `dispatch()` pour chercher :
 
-Le segment `file` de l'URL doit maintenant pouvoir représenter un chemin. `item/show` → `controllers/item/show.php`. `admin/item/edit` → `controllers/admin/item/edit.php`.
+```text
+controllers/item/show.php
+```
 
-C'est un détail d'implémentation : on adapte le parser pour qu'il garde le chemin complet sauf le dernier segment-id, ou on transforme `entity/action` en chemin de fichier. Ne pas s'attarder dessus — l'important c'est que **le code source n'a pas changé**, juste son emplacement.
+au lieu de :
 
-À ce stade, le projet est rangé. Ça suffit ? Ça marche, oui. Mais il y a un autre problème, plus subtil.
+```text
+controllers/item_show.php
+```
+
+On pourrait le faire.
+
+Mais il reste un autre problème.
 
 ---
 
-### Deuxième itération — consolider les fichiers d'une même ressource
+## Le vrai problème : duplication dans les actions d’une même entité
 
-**Poser la question : qu'est-ce qu'ont en commun `controllers/item/index.php`, `controllers/item/show.php`, `controllers/item/search.php` ?**
-
-Réponses attendues :
-- ils touchent tous au même domaine (les items)
-- ils ont tous besoin d'accéder aux données des items
-- ils utilisent souvent les mêmes helpers, les mêmes validations
-- quand on change la structure d'un item, on les modifie tous en même temps
-
-**Concrètement, qu'est-ce qu'on duplique ?**
+Regardons trois fichiers liés aux items.
 
 ```php
-// controllers/item/index.php
+// controllers/item_index.php
+
 require 'models/item_model.php';
+
 $items = get_all_items();
+
 render('item/index', ['items' => $items]);
-
-// controllers/item/show.php
-require 'models/item_model.php';   // ← même require
-$item = get_one_item($id);
-render('item/show', ['item' => $item]);
-
-// controllers/item/search.php
-require 'models/item_model.php';   // ← encore
-// ...
 ```
 
-Le `require` du model est répété dans chaque fichier. Si on ajoute demain un helper, une vérification d'autorisation, du logging — il faut le copier dans chaque fichier de la ressource. Si on renomme le model, chasser toutes les occurrences.
+```php
+// controllers/item_show.php
 
-**La solution : un fichier par entité, et chaque action devient une fonction PHP dans ce fichier.**
+require 'models/item_model.php';
 
-C'est ici que les *fonctions* PHP entrent en jeu — comme outil d'implémentation des actions. Une entité = un fichier ; une action = une fonction.
+$item = get_one_item($id);
+
+render('item/show', ['item' => $item]);
+```
+
+```php
+// controllers/item_search.php
+
+require 'models/item_model.php';
+
+// recherche...
+
+render('item/search');
+```
+
+Question à poser :
+
+```text
+Qu’est-ce qui est répété ?
+```
+
+Réponses attendues :
+
+* le `require` du model
+* le fait que tout concerne les items
+* le même domaine revient dans plusieurs fichiers
+* si on change les données des items, on risque de modifier plusieurs fichiers
+
+---
+
+## Deuxième idée : un fichier controller par entité
+
+On change la convention.
+
+Avant :
+
+```text
+un fichier = une action
+```
+
+Après :
+
+```text
+un fichier controller = une entité
+une fonction = une action
+```
+
+Avant :
+
+```text
+controllers/item_index.php
+controllers/item_show.php
+controllers/item_search.php
+```
+
+Après :
+
+```text
+controllers/item.php
+```
+
+Dans ce fichier :
 
 ```php
 // controllers/item.php
-require 'models/item_model.php';   // une seule fois
 
-function item_index() {
+require 'models/item_model.php';
+
+function item_index($id = null) {
     $items = get_all_items();
+
     render('item/index', ['items' => $items]);
 }
 
-function item_show($id) {
+function item_show($id = null) {
     $item = get_one_item($id);
+
     render('item/show', ['item' => $item]);
 }
 
-function item_search() {
-    // ...
+function item_search($id = null) {
+    render('item/search');
 }
 ```
 
-C'est un choix de **cohésion** : ce qui change ensemble vit ensemble. La duplication disparaît, le fichier devient le bon endroit où chercher tout ce qui concerne `item`.
+Toutes les actions liées aux items sont dans le même controller.
 
-### Conséquence : `dispatch()` doit changer
+C’est plus cohérent.
 
-Maintenant qu'un fichier contient plusieurs actions implémentées comme fonctions, charger le fichier ne suffit plus. Il faut aussi appeler la bonne.
+---
 
-**Poser la question : comment nommer la fonction pour qu'elle soit identifiable depuis l'URL ?**
+## Nouveau `dispatch()`
 
-Convention : `<entité>_<action>`. Pour `item/show/3`, on charge `controllers/item.php` et on appelle `item_show($id)`. C'est exactement la convention des anciens noms de fichiers — on la transpose au nom de la fonction.
+Avant, l’URL désignait un fichier complet :
 
-`dispatch()` devient :
+```text
+/item/show/3
+```
+
+donnait :
+
+```text
+controllers/item_show.php
+```
+
+Maintenant, l’URL désigne :
+
+```text
+un fichier controller
+une fonction dans ce fichier
+```
+
+Exemple :
+
+```text
+/item/show/3
+```
+
+donne :
+
+```text
+controllers/item.php
+```
+
+puis :
+
+```php
+item_show('3')
+```
+
+---
+
+## `dispatch()` version finale de la séance
 
 ```php
 function dispatch($segments) {
-    $controllerFile   = 'controllers/' . $segments['entity'] . '.php';
+    $controllerFile = 'controllers/' . $segments['entity'] . '.php';
     $controllerAction = $segments['entity'] . '_' . $segments['action'];
 
     if (!file_exists($controllerFile)) {
@@ -556,277 +1535,1490 @@ function dispatch($segments) {
 }
 ```
 
-Deux différences avec la version précédente :
-1. Le chemin du fichier n'utilise plus que `entity` ; `action` sert maintenant à construire le **nom de la fonction à appeler**, plus le nom du fichier
-2. Une deuxième vérification : le fichier existe peut-être, mais l'action peut ne pas y être implémentée — d'où le second 404 distinct
+Ici, on ajoute une deuxième vérification :
 
-**Pourquoi le préfixe `<entité>_` sur les fonctions ?**
+```php
+function_exists($controllerAction)
+```
 
-Pas pour éviter les collisions — `dispatch()` n'inclut qu'un controller à la fois, donc deux `show()` dans des fichiers différents ne se croisent jamais. C'est pour la lisibilité : `item_show` dit clairement à quelle entité appartient l'action. Dans un stack trace, dans un `grep`, dans un log, c'est non ambigu.
+Pourquoi ?
 
-Pour les models, en revanche, la collision serait réelle — ils sont inclus ensemble, on y reviendra.
+Parce que le fichier controller peut exister, mais l’action demandée peut ne pas exister.
+
+Exemple :
+
+```text
+/item/delete/3
+```
+
+Le fichier existe :
+
+```text
+controllers/item.php
+```
+
+Mais la fonction n’existe peut-être pas :
+
+```php
+item_delete()
+```
 
 ---
 
-### Troisième itération — séparer les responsabilités
+## Pourquoi toutes les fonctions prennent `$id = null` ?
 
-À ce stade, `controllers/item.php` contient tout ce qui concerne les items : routing d'URL, accès aux données, génération HTML. Le fichier marche, mais il fait trois choses très différentes.
+Le router appelle toujours l’action comme ceci :
 
-**Poser la question : un controller bien conçu, qu'est-ce qu'il fait ?**
-
-Trois rôles vont émerger :
-- **recevoir la demande** et décider quoi faire
-- **récupérer les données** (souvent depuis une base)
-- **générer la sortie** (HTML)
-
-Ces trois rôles changent à des rythmes différents : on change la base sans changer le HTML, on refait le HTML sans changer le routing. Quand ils cohabitent, toute modification oblige à lire le tout.
-
-**Poser la question : comment les séparer ?**
-
-Deux réponses raisonnables.
-
-**Option A — grouper par ressource** : `item/` contient son controller, son model, ses vues.
-
-```
-project/
-├── item/
-│   ├── controller.php
-│   ├── model.php
-│   └── views/
-├── category/
-│   ├── controller.php
-│   ├── model.php
-│   └── views/
-└── ...
+```php
+$controllerAction($segments['id']);
 ```
 
-**Option B — grouper par couche (MVC)** : tout ce qui fait du routing ensemble, tout ce qui touche aux données ensemble, tout ce qui affiche ensemble.
+Donc même une action qui n’utilise pas l’id accepte un paramètre.
 
-```
-project/
-├── controllers/
-│   ├── item.php
-│   ├── category.php
-│   └── ...
-├── models/
-│   ├── item_model.php
-│   ├── category_model.php
-│   └── ...
-└── views/
-    ├── item/
-    ├── category/
-    └── ...
+Exemple :
+
+```php
+function item_index($id = null) {
+    $items = get_all_items();
+
+    render('item/index', ['items' => $items]);
+}
 ```
 
-### Pourquoi MVC l'a emporté
+L’id existe dans la signature, mais la fonction ne l’utilise pas.
 
-Les deux options sont valides. **Poser la question : quelle différence concrète ?**
+Cela garde le router simple.
 
-Avec l'option A, pour changer comment les données `item` sont stockées, on ouvre `item/` — mais le dossier contient aussi du HTML et du routing. Pour toucher à une chose, il faut comprendre le tout.
+---
 
-Avec l'option B, pour changer comment les données `item` sont stockées : `models/`. Pour changer l'affichage : `views/item/`. Les fichiers qui font le même *type* de travail sont ensemble — et surtout, ils ne font *que* ça.
+## Pourquoi préfixer les fonctions ?
 
-Ce n'est pas que l'option A est fausse. C'est que MVC rend explicite une séparation qui existe de toute façon : dans n'importe quel projet, il y a du code qui touche aux données, du code qui affiche, du code qui orchestre. MVC dit juste : *ne les mélange pas dans le même fichier, et range-les séparément*.
+On écrit :
 
-C'est pour ça que tous les frameworks web — Laravel, Symfony, Rails, Django, Express — organisent le code de cette façon. Ce n'est pas une opinion, c'est une convention qui a émergé de décennies de projets où les responsabilités mélangées ont posé problème.
-
-### Structure finale
-
+```php
+item_index()
+item_show()
+category_index()
+category_show()
 ```
+
+et non :
+
+```php
+index()
+show()
+```
+
+Pourquoi ?
+
+Parce que PHP ne peut pas avoir deux fonctions avec le même nom.
+
+On ne peut pas avoir :
+
+```php
+function show() {
+}
+```
+
+dans un controller, puis encore :
+
+```php
+function show() {
+}
+```
+
+dans un autre.
+
+Avec le préfixe, les noms sont différents :
+
+```php
+item_show()
+category_show()
+```
+
+C’est aussi plus lisible.
+
+Quand on lit :
+
+```php
+item_show()
+```
+
+on sait immédiatement que l’action concerne les items.
+
+---
+
+## Structure finale
+
+```text
 project/
 ├── index.php
+├── .htaccess
 ├── core/
 │   ├── router.php
 │   └── html.php
 ├── controllers/
 │   ├── home.php
 │   ├── item.php
-│   ├── auth.php
-│   └── collection.php
+│   ├── category.php
+│   └── auth.php
 ├── models/
 │   ├── item_model.php
-│   ├── category_model.php
-│   └── collection_model.php
+│   └── category_model.php
 └── views/
+    ├── error/
+    │   └── 404.php
     ├── home/
+    │   └── index.php
     ├── item/
     │   ├── index.php
     │   ├── show.php
     │   └── search.php
-    ├── auth/
-    └── collection/
+    └── category/
+        ├── index.php
+        └── show.php
 ```
 
-**Pourquoi `views/item/` et pas `views/item_show.php` à plat ?**
+À partir de maintenant, on utilise cette convention :
 
-Un item a plusieurs vues. Sans sous-dossier, `views/` reproduirait exactement le problème qu'on vient de résoudre.
+```text
+URL              → /item/show/3
+controller       → controllers/item.php
+fonction appelée → item_show('3')
+view             → views/item/show.php
+```
 
 ---
 
-## Bloc 6 — Controllers, models, views : rôles et règles (20 min)
+# Bloc 7 — Controllers, models, views : rôles et règles
 
-### Trois rôles, trois règles
+## Les trois responsabilités
 
-**Controller** — reçoit la demande, appelle le model, charge la view. Rien d'autre.
+On revient maintenant aux noms MVC.
+
+```text
+Model
+View
+Controller
+```
+
+L’objectif n’est pas d’apprendre un mot compliqué.
+
+L’objectif est de séparer les responsabilités.
+
+---
+
+## Controller
+
+Le controller reçoit la demande, appelle le model, puis choisit la view.
+
+Exemple :
+
+```php
+// controllers/item.php
+
+require 'models/item_model.php';
+
+function item_show($id = null) {
+    $item = get_one_item($id);
+
+    if (is_null($item)) {
+        http_response_code(404);
+        render('error/404', ['message' => 'Item introuvable']);
+        return;
+    }
+
+    render('item/show', ['item' => $item]);
+}
+```
+
+Le controller décide.
+
+Il ne produit pas de HTML.
+
+Il ne contient pas les données.
+
+Il ne fait pas de SQL.
+
+---
+
+## Model
+
+Le model fournit les données.
+
+Pour cette séance, les données sont dans des tableaux PHP.
+
+```php
+// models/item_model.php
+
+function get_all_items() {
+    return [
+        ['id' => 1, 'name' => 'Clavier', 'category_id' => 1],
+        ['id' => 2, 'name' => 'Souris', 'category_id' => 1],
+        ['id' => 3, 'name' => 'Écran', 'category_id' => 2],
+    ];
+}
+
+function get_one_item($id) {
+    if (is_null($id)) {
+        return null;
+    }
+
+    foreach (get_all_items() as $item) {
+        if ($item['id'] == $id) {
+            return $item;
+        }
+    }
+
+    return null;
+}
+```
+
+Le model ne fait pas de HTML.
+
+Il ne charge pas de view.
+
+Il ne sait pas quelle URL a été demandée.
+
+Il retourne seulement des données.
+
+---
+
+## View
+
+La view affiche les données.
+
+```php
+<!-- views/item/show.php -->
+
+<h1><?= escape($item['name']) ?></h1>
+
+<p>Identifiant : <?= escape($item['id']) ?></p>
+```
+
+La view reçoit une variable `$item`.
+
+Elle ne va pas chercher l’item elle-même.
+
+Elle affiche ce qu’on lui donne.
+
+---
+
+## Une view peut contenir une boucle
+
+Dire “la view ne contient pas de logique” peut être trop vague.
+
+Une view peut contenir une logique d’affichage simple.
+
+Exemple :
+
+```php
+<!-- views/item/index.php -->
+
+<h1>Items</h1>
+
+<?php if (empty($items)): ?>
+    <p>Aucun item.</p>
+<?php else: ?>
+    <ul>
+        <?php foreach ($items as $item): ?>
+            <li><?= escape($item['name']) ?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+```
+
+C’est autorisé.
+
+Pourquoi ?
+
+Parce que cette logique sert uniquement à afficher.
+
+Ce qui n’est pas autorisé dans une view :
+
+```text
+- accéder directement au model
+- faire une requête SQL
+- décider quelle page afficher
+- modifier les données principales de l’application
+```
+
+---
+
+## Contre-exemple : HTML dans un controller
+
+```php
+// Mauvais exemple
+
+function item_show($id = null) {
+    $item = get_one_item($id);
+
+    echo '<h1>' . $item['name'] . '</h1>';
+}
+```
+
+Problème :
+
+```text
+Le controller produit du HTML.
+```
+
+Correction :
 
 ```php
 function item_show($id = null) {
     $item = get_one_item($id);
-    include 'views/item/show.php';
+
+    render('item/show', ['item' => $item]);
 }
 ```
-
-**Model** — retourne des données. Ne sait pas qu'il y a une view, ne sait pas qu'il y a une URL.
-
-```php
-function get_one_item($id) {
-    $items = [
-        1 => ['id' => 1, 'name' => 'Clavier'],
-        2 => ['id' => 2, 'name' => 'Souris'],
-    ];
-    return $items[$id] ?? null;
-}
-```
-
-**View** — reçoit des variables, produit du HTML. Aucun calcul, aucun accès aux données.
-
-```php
-<!-- views/item/show.php -->
-<h1><?= htmlspecialchars($item['name']) ?></h1>
-```
-
-### Contre-exemples — montrer ce qu'on veut éviter
-
-**SQL dans un controller :**
-```php
-// ❌
-function item_show($id) {
-    $pdo  = new PDO(...);
-    $item = $pdo->query("SELECT * FROM items WHERE id = $id")->fetch();
-    include 'views/item/show.php';
-}
-```
-Si on change de base de données, on touche au controller. Si on change l'affichage, on doit lire du SQL pour s'y retrouver. Les responsabilités sont mélangées.
-
-**HTML dans un model :**
-```php
-// ❌
-function get_one_item($id) {
-    return "<h1>Item $id</h1>";
-}
-```
-Le model décide de l'affichage. Si on veut afficher le même item différemment selon le contexte, le model doit être modifié. C'est le rôle de la view.
-
-### Règle à retenir
-
-- Controller : **ni HTML, ni SQL**
-- Model : **ni HTML, ni include**
-- View : **ni calcul, ni accès direct aux données**
 
 ---
 
-## Bloc 7 — Exercice 2 : mini projet structuré (45 min)
+## Contre-exemple : données dans une view
 
-### Consigne
+```php
+<!-- Mauvais exemple -->
 
-Construire un mini catalogue avec deux entités : **items** et **categories**.
+<?php
+$items = get_all_items();
+?>
 
-URLs à faire fonctionner :
+<ul>
+    <?php foreach ($items as $item): ?>
+        <li><?= escape($item['name']) ?></li>
+    <?php endforeach; ?>
+</ul>
 ```
+
+Problème :
+
+```text
+La view va chercher les données.
+```
+
+Correction :
+
+```php
+// controller
+
+$items = get_all_items();
+
+render('item/index', ['items' => $items]);
+```
+
+Puis :
+
+```php
+<!-- view -->
+
+<ul>
+    <?php foreach ($items as $item): ?>
+        <li><?= escape($item['name']) ?></li>
+    <?php endforeach; ?>
+</ul>
+```
+
+---
+
+## Contre-exemple : HTML dans un model
+
+```php
+// Mauvais exemple
+
+function get_one_item($id) {
+    return '<h1>Item ' . $id . '</h1>';
+}
+```
+
+Problème :
+
+```text
+Le model décide de l’affichage.
+```
+
+Correction :
+
+```php
+function get_one_item($id) {
+    if (is_null($id)) {
+        return null;
+    }
+
+    foreach (get_all_items() as $item) {
+        if ($item['id'] == $id) {
+            return $item;
+        }
+    }
+
+    return null;
+}
+```
+
+Le model retourne des données.
+
+La view affiche ces données.
+
+---
+
+## Règles à retenir
+
+```text
+Controller :
+- reçoit la demande
+- appelle le model
+- choisit la view
+- ne fait pas de HTML
+
+Model :
+- fournit les données
+- ne fait pas de HTML
+- ne charge pas de view
+
+View :
+- affiche les données reçues
+- utilise escape()
+- peut contenir des boucles simples
+- ne va pas chercher les données elle-même
+```
+
+---
+
+# Bloc 8 — Exercice 2 : mini projet structuré
+
+## Objectif
+
+Construire un mini catalogue avec deux types de données :
+
+```text
+items
+categories
+```
+
+Les URLs à faire fonctionner :
+
+```text
 /                        → home_index()
 /item                    → item_index()
-/item/show/{id}          → item_show($id)
-/item/category/{id}      → item_category($id)
+/item/show/1             → item_show('1')
+/item/category/1         → item_category('1')
 ```
-
-Contraintes :
-- Données en tableaux statiques dans les models — pas de SQL
-- Chaque item a : `id`, `name`, `category_id`
-- Chaque catégorie a : `id`, `name`
-- `item_category($id)` filtre les items par `category_id`
-- Les views utilisent `htmlspecialchars()` sur toutes les sorties
-
-### Bonus
-
-Ajouter `/item/search` qui filtre les items dont le nom contient `$_GET['q']`.
 
 ---
 
-## Bloc 8 — Exercice 3 : utilitaires HTTP (30 min)
+## Structure attendue
 
-### Consigne
+```text
+project/
+├── index.php
+├── .htaccess
+├── core/
+│   ├── router.php
+│   └── html.php
+├── controllers/
+│   ├── home.php
+│   └── item.php
+├── models/
+│   ├── item_model.php
+│   └── category_model.php
+└── views/
+    ├── error/
+    │   └── 404.php
+    ├── home/
+    │   └── index.php
+    └── item/
+        ├── index.php
+        ├── show.php
+        └── category.php
+```
 
-`render()` et `escape()` existent déjà dans `core/html.php`. Il manque les utilitaires pour gérer les requêtes POST et les redirections — utiles dès qu'on traitera les formulaires (login, création, édition).
+---
 
-Créer `core/http.php` :
+## `core/router.php`
 
 ```php
+<?php
+
+function parse_url_segments() {
+    $uri = '/';
+
+    if (isset($_SERVER['REQUEST_URI'])) {
+        $uri = $_SERVER['REQUEST_URI'];
+    }
+
+    $path = parse_url($uri, PHP_URL_PATH);
+
+    if (is_null($path)) {
+        $path = '/';
+    }
+
+    $path = trim($path, '/');
+
+    if ($path === '') {
+        return [
+            'entity' => 'home',
+            'action' => 'index',
+            'id' => null,
+        ];
+    }
+
+    $parts = explode('/', $path);
+
+    $entity = $parts[0];
+
+    $action = 'index';
+
+    if (isset($parts[1])) {
+        $action = $parts[1];
+    }
+
+    $id = null;
+
+    if (isset($parts[2])) {
+        $id = $parts[2];
+    }
+
+    return [
+        'entity' => $entity,
+        'action' => $action,
+        'id' => $id,
+    ];
+}
+
+function dispatch($segments) {
+    $controllerFile = 'controllers/' . $segments['entity'] . '.php';
+    $controllerAction = $segments['entity'] . '_' . $segments['action'];
+
+    if (!file_exists($controllerFile)) {
+        http_response_code(404);
+        render('error/404', ['message' => 'Entité inconnue']);
+        return;
+    }
+
+    include $controllerFile;
+
+    if (!function_exists($controllerAction)) {
+        http_response_code(404);
+        render('error/404', ['message' => 'Action inconnue']);
+        return;
+    }
+
+    $controllerAction($segments['id']);
+}
+
+function router() {
+    $segments = parse_url_segments();
+
+    dispatch($segments);
+}
+```
+
+---
+
+## `core/html.php`
+
+```php
+<?php
+
+function escape($value) {
+    if (is_null($value)) {
+        return '';
+    }
+
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+}
+
+function render($view, $data = []) {
+    extract($data);
+
+    include 'views/' . $view . '.php';
+}
+```
+
+---
+
+## `index.php`
+
+```php
+<?php
+
+require 'core/html.php';
+require 'core/router.php';
+
+router();
+```
+
+---
+
+## `controllers/home.php`
+
+```php
+<?php
+
+function home_index($id = null) {
+    render('home/index');
+}
+```
+
+---
+
+## `controllers/item.php`
+
+```php
+<?php
+
+require 'models/item_model.php';
+require 'models/category_model.php';
+
+function item_index($id = null) {
+    $items = get_all_items();
+    $categories = get_all_categories();
+
+    render('item/index', [
+        'items' => $items,
+        'categories' => $categories,
+    ]);
+}
+
+function item_show($id = null) {
+    $item = get_one_item($id);
+
+    if (is_null($item)) {
+        http_response_code(404);
+        render('error/404', ['message' => 'Item introuvable']);
+        return;
+    }
+
+    $category = get_one_category($item['category_id']);
+
+    render('item/show', [
+        'item' => $item,
+        'category' => $category,
+    ]);
+}
+
+function item_category($id = null) {
+    $category = get_one_category($id);
+
+    if (is_null($category)) {
+        http_response_code(404);
+        render('error/404', ['message' => 'Catégorie introuvable']);
+        return;
+    }
+
+    $items = get_items_by_category($id);
+
+    render('item/category', [
+        'category' => $category,
+        'items' => $items,
+    ]);
+}
+```
+
+---
+
+## `models/item_model.php`
+
+```php
+<?php
+
+function get_all_items() {
+    return [
+        ['id' => 1, 'name' => 'Clavier', 'category_id' => 1],
+        ['id' => 2, 'name' => 'Souris', 'category_id' => 1],
+        ['id' => 3, 'name' => 'Écran', 'category_id' => 2],
+    ];
+}
+
+function get_one_item($id) {
+    if (is_null($id)) {
+        return null;
+    }
+
+    foreach (get_all_items() as $item) {
+        if ($item['id'] == $id) {
+            return $item;
+        }
+    }
+
+    return null;
+}
+
+function get_items_by_category($categoryId) {
+    $results = [];
+
+    if (is_null($categoryId)) {
+        return $results;
+    }
+
+    foreach (get_all_items() as $item) {
+        if ($item['category_id'] == $categoryId) {
+            $results[] = $item;
+        }
+    }
+
+    return $results;
+}
+```
+
+---
+
+## `models/category_model.php`
+
+```php
+<?php
+
+function get_all_categories() {
+    return [
+        ['id' => 1, 'name' => 'Périphériques'],
+        ['id' => 2, 'name' => 'Écrans'],
+    ];
+}
+
+function get_one_category($id) {
+    if (is_null($id)) {
+        return null;
+    }
+
+    foreach (get_all_categories() as $category) {
+        if ($category['id'] == $id) {
+            return $category;
+        }
+    }
+
+    return null;
+}
+```
+
+---
+
+## `views/home/index.php`
+
+```php
+<h1>Accueil</h1>
+
+<p>Bienvenue dans le mini catalogue.</p>
+```
+
+---
+
+## `views/item/index.php`
+
+```php
+<h1>Items</h1>
+
+<?php if (empty($items)): ?>
+    <p>Aucun item.</p>
+<?php else: ?>
+    <ul>
+        <?php foreach ($items as $item): ?>
+            <li>
+                <a href="/item/show/<?= escape($item['id']) ?>">
+                    <?= escape($item['name']) ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+
+<h2>Catégories</h2>
+
+<?php if (empty($categories)): ?>
+    <p>Aucune catégorie.</p>
+<?php else: ?>
+    <ul>
+        <?php foreach ($categories as $category): ?>
+            <li>
+                <a href="/item/category/<?= escape($category['id']) ?>">
+                    <?= escape($category['name']) ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+```
+
+---
+
+## `views/item/show.php`
+
+```php
+<h1><?= escape($item['name']) ?></h1>
+
+<p>Identifiant : <?= escape($item['id']) ?></p>
+
+<?php if (!is_null($category)): ?>
+    <p>Catégorie : <?= escape($category['name']) ?></p>
+<?php endif; ?>
+
+<p><a href="/item">Retour à la liste</a></p>
+```
+
+---
+
+## `views/item/category.php`
+
+```php
+<h1>Catégorie : <?= escape($category['name']) ?></h1>
+
+<?php if (empty($items)): ?>
+    <p>Aucun item dans cette catégorie.</p>
+<?php else: ?>
+    <ul>
+        <?php foreach ($items as $item): ?>
+            <li>
+                <a href="/item/show/<?= escape($item['id']) ?>">
+                    <?= escape($item['name']) ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+
+<p><a href="/item">Retour à la liste</a></p>
+```
+
+---
+
+## `views/error/404.php`
+
+```php
+<h1>404</h1>
+
+<p><?= escape($message) ?></p>
+```
+
+---
+
+## Critères de validation
+
+Le projet est valide si :
+
+* `/` affiche l’accueil
+* `/item` affiche tous les items
+* `/item/show/1` affiche l’item 1
+* `/item/show/999` affiche une 404
+* `/item/category/1` affiche les items de la catégorie 1
+* `/item/category/999` affiche une 404
+* les views utilisent `escape()`
+* les controllers utilisent `render()`
+* les models retournent seulement des données
+* aucun controller ne fait `echo`
+
+---
+
+# Bloc 9 — Exercice 3 : utilitaires HTTP
+
+## Objectif
+
+Créer des fonctions simples pour :
+
+* rediriger
+* savoir si une requête est en POST
+* lire une valeur dans `$_POST`
+
+Ces fonctions seront utiles pour les formulaires.
+
+---
+
+## Créer `core/http.php`
+
+```php
+<?php
+
 function redirect($url) {
     header('Location: ' . $url);
     exit;
 }
 
 function is_post() {
-    return $_SERVER['REQUEST_METHOD'] === 'POST';
+    if (isset($_SERVER['REQUEST_METHOD'])) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 function post($key, $default = null) {
-    return isset($_POST[$key]) ? trim($_POST[$key]) : $default;
+    if (isset($_POST[$key])) {
+        return trim($_POST[$key]);
+    }
+
+    return $default;
 }
 ```
 
-### À faire
-
-1. Créer `core/http.php`
-2. L'inclure dans `index.php` (au même endroit que `core/html.php`)
-3. Ajouter une action `item_search()` dans `controllers/item.php` qui utilise `post('q')` si la requête est `is_post()`, sinon affiche le formulaire de recherche
-4. Créer `views/item/search.php` avec un formulaire et l'affichage des résultats
-
-### Critère de validation
-
-Le formulaire de recherche fonctionne en POST. Aucun accès direct à `$_POST` ou `$_SERVER` dans les controllers.
-
 ---
 
-## Bloc 9 — Mise en commun & questions (15 min)
+## Ajouter le fichier dans `index.php`
 
-### Points à vérifier collectivement
+```php
+<?php
 
-- `index.php` contient-il autre chose que les `require` et `router()` ?
-- Les fonctions des controllers font-elles plus de 5 lignes ?
-- Les models retournent-ils autre chose que des données ?
-- Les views contiennent-elles de la logique ?
+require 'core/html.php';
+require 'core/http.php';
+require 'core/router.php';
 
-### Questions fréquentes
-
-**"Pourquoi préfixer les fonctions avec le nom du fichier ?"**
-Pour éviter les collisions. PHP ne peut pas avoir deux fonctions `show()`. `item_show` et `product_show` coexistent sans problème.
-
-**"Et si l'id n'est pas un nombre ?"**
-`$segments['id']` est toujours une chaîne ou `null`. C'est au model de valider — pas au router.
-
-**"Pourquoi deux 404 distincts dans `dispatch()` ?"**
-Parce que ce ne sont pas la même erreur. L'un signifie que le controller n'existe pas. L'autre signifie que le controller existe mais ne gère pas cette action. En développement, la distinction aide à déboguer.
-
----
-
-## Récapitulatif
-
+router();
 ```
-URL : /item/show/3
-       ↓
-index.php            require core/router.php → router()
-       ↓
-parse_url_segments() → ['entity'=>'item', 'action'=>'show', 'id'=>'3']
-       ↓
-dispatch($segments)
-  → controllers/item.php existe ?  non → 404
-  → item_show existe ?             non → 404
-  → item_show('3')
-       ↓
-controller  get_one_item('3') → model retourne ['id'=>3, 'name'=>'Souris']
-       ↓
-render('item/show', ['item' => $item])
-       ↓
-view        echo HTML
+
+---
+
+## Ajouter une recherche d’items
+
+Nouvelle URL :
+
+```text
+/item/search
+```
+
+Elle appelle :
+
+```php
+item_search()
+```
+
+---
+
+## Ajouter une fonction dans `models/item_model.php`
+
+```php
+function search_items($query) {
+    $results = [];
+
+    if ($query === '') {
+        return $results;
+    }
+
+    foreach (get_all_items() as $item) {
+        if (stripos($item['name'], $query) !== false) {
+            $results[] = $item;
+        }
+    }
+
+    return $results;
+}
+```
+
+---
+
+## Ajouter l’action dans `controllers/item.php`
+
+```php
+function item_search($id = null) {
+    $q = '';
+    $results = [];
+    $hasSearched = false;
+
+    if (is_post()) {
+        $q = post('q', '');
+
+        if ($q === '') {
+            redirect('/item/search');
+        }
+
+        $results = search_items($q);
+        $hasSearched = true;
+    }
+
+    render('item/search', [
+        'q' => $q,
+        'results' => $results,
+        'hasSearched' => $hasSearched,
+    ]);
+}
+```
+
+---
+
+## Créer `views/item/search.php`
+
+```php
+<h1>Recherche</h1>
+
+<form method="post" action="/item/search">
+    <label for="q">Rechercher un item</label>
+    <input type="text" id="q" name="q" value="<?= escape($q) ?>">
+
+    <button type="submit">Rechercher</button>
+</form>
+
+<?php if ($hasSearched): ?>
+    <h2>Résultats</h2>
+
+    <?php if (empty($results)): ?>
+        <p>Aucun résultat.</p>
+    <?php else: ?>
+        <ul>
+            <?php foreach ($results as $item): ?>
+                <li>
+                    <a href="/item/show/<?= escape($item['id']) ?>">
+                        <?= escape($item['name']) ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+<?php endif; ?>
+
+<p><a href="/item">Retour à la liste</a></p>
+```
+
+---
+
+## Critères de validation
+
+L’exercice est valide si :
+
+* `/item/search` affiche le formulaire
+* le formulaire utilise `method="post"`
+* une recherche avec `clavier` affiche `Clavier`
+* une recherche sans résultat affiche `Aucun résultat`
+* une recherche vide redirige vers `/item/search`
+* les controllers n’utilisent pas directement `$_POST`
+* les controllers n’utilisent pas directement `$_SERVER['REQUEST_METHOD']`
+* les views utilisent `escape()`
+
+---
+
+# Bloc 10 — Mise en commun & questions
+
+## Points à vérifier collectivement
+
+Question :
+
+```text
+index.php contient-il autre chose que les require et router() ?
+```
+
+Réponse attendue :
+
+```php
+require 'core/html.php';
+require 'core/http.php';
+require 'core/router.php';
+
+router();
+```
+
+---
+
+Question :
+
+```text
+Les controllers produisent-ils du HTML ?
+```
+
+Réponse attendue :
+
+```text
+Non. Ils appellent render().
+```
+
+---
+
+Question :
+
+```text
+Les models produisent-ils du HTML ?
+```
+
+Réponse attendue :
+
+```text
+Non. Ils retournent des données.
+```
+
+---
+
+Question :
+
+```text
+Les views peuvent-elles contenir foreach ?
+```
+
+Réponse attendue :
+
+```text
+Oui, si c’est uniquement pour afficher.
+```
+
+---
+
+Question :
+
+```text
+Les views peuvent-elles appeler get_all_items() ?
+```
+
+Réponse attendue :
+
+```text
+Non. C’est le controller qui appelle le model.
+```
+
+---
+
+# Questions fréquentes
+
+## “Pourquoi appeler ça une view ?”
+
+Parce que c’est ce que l’utilisateur voit.
+
+Dans notre projet, une view est un fichier qui contient le HTML final ou presque final.
+
+Exemple :
+
+```text
+views/item/show.php
+```
+
+affiche le détail d’un item.
+
+---
+
+## “Pourquoi appeler ça un controller ?”
+
+Parce que ce fichier contrôle ce qui se passe après une demande.
+
+Il ne fait pas tout lui-même.
+
+Il décide :
+
+```text
+- quelles données demander
+- quelle view afficher
+- quoi faire si les données n’existent pas
+```
+
+---
+
+## “Pourquoi appeler ça un model ?”
+
+Parce que le model représente les données de l’application.
+
+Dans cette séance, ce sont des tableaux.
+
+Plus tard, ce seront des données venant d’une base de données.
+
+Le rôle reste le même :
+
+```text
+fournir des données propres au controller
+```
+
+---
+
+## “Pourquoi préfixer les fonctions avec le nom de l’entité ?”
+
+Parce que PHP ne peut pas avoir deux fonctions avec le même nom.
+
+On ne peut pas avoir plusieurs fonctions :
+
+```php
+function show() {
+}
+```
+
+Mais on peut avoir :
+
+```php
+function item_show() {
+}
+
+function category_show() {
+}
+```
+
+C’est aussi plus lisible.
+
+---
+
+## “Pourquoi toutes les actions ont `$id = null` ?”
+
+Parce que le router appelle toujours l’action avec un id :
+
+```php
+$controllerAction($segments['id']);
+```
+
+Certaines actions utilisent cet id.
+
+Exemple :
+
+```php
+item_show($id)
+```
+
+D’autres ne l’utilisent pas.
+
+Exemple :
+
+```php
+item_index($id = null)
+```
+
+C’est volontaire : cela garde le router simple.
+
+---
+
+## “Et si l’id n’est pas bon ?”
+
+Le router ne décide pas si l’id est bon.
+
+Le router transmet l’id.
+
+Le model cherche les données.
+
+Si le model ne trouve rien, il retourne :
+
+```php
+null
+```
+
+Puis le controller affiche une 404.
+
+---
+
+## “Pourquoi deux 404 dans dispatch() ?”
+
+Parce qu’il y a deux erreurs possibles.
+
+Première erreur :
+
+```text
+Le controller n’existe pas.
+```
+
+Exemple :
+
+```text
+/admin
+```
+
+Le router cherche :
+
+```text
+controllers/admin.php
+```
+
+S’il ne trouve pas le fichier, on affiche :
+
+```text
+Entité inconnue
+```
+
+Deuxième erreur :
+
+```text
+Le controller existe, mais l’action n’existe pas.
+```
+
+Exemple :
+
+```text
+/item/delete/3
+```
+
+Le router trouve :
+
+```text
+controllers/item.php
+```
+
+Mais il ne trouve pas :
+
+```php
+item_delete()
+```
+
+On affiche :
+
+```text
+Action inconnue
+```
+
+---
+
+## “Pourquoi pas de validation plus forte de l’URL ?”
+
+Dans cette séance, on garde le router volontairement simple.
+
+La seule validation au début est :
+
+```php
+file_exists()
+```
+
+Puis on ajoute :
+
+```php
+function_exists()
+```
+
+Plus tard, on pourra ajouter :
+
+* validation des segments
+* validation des méthodes HTTP
+* routes nommées
+* contraintes sur les ids
+* routes plus complexes
+
+Mais pas dans cette séance.
+
+---
+
+# Récapitulatif
+
+Pour l’URL :
+
+```text
+/item/show/3
+```
+
+Le navigateur demande :
+
+```text
+/item/show/3
+```
+
+Le `.htaccess` envoie la requête vers :
+
+```text
+index.php
+```
+
+`index.php` lance :
+
+```php
+router();
+```
+
+`router()` appelle :
+
+```php
+parse_url_segments();
+```
+
+qui retourne :
+
+```php
+[
+    'entity' => 'item',
+    'action' => 'show',
+    'id' => '3',
+]
+```
+
+`dispatch()` construit :
+
+```php
+$controllerFile = 'controllers/item.php';
+$controllerAction = 'item_show';
+```
+
+Il vérifie :
+
+```php
+file_exists($controllerFile)
+```
+
+Puis il inclut :
+
+```php
+controllers/item.php
+```
+
+Il vérifie :
+
+```php
+function_exists($controllerAction)
+```
+
+Puis il appelle :
+
+```php
+item_show('3');
+```
+
+Le controller appelle le model :
+
+```php
+$item = get_one_item('3');
+```
+
+Le model retourne :
+
+```php
+[
+    'id' => 3,
+    'name' => 'Écran',
+    'category_id' => 2,
+]
+```
+
+Le controller appelle :
+
+```php
+render('item/show', ['item' => $item]);
+```
+
+`render()` charge :
+
+```text
+views/item/show.php
+```
+
+La view affiche :
+
+```php
+<h1><?= escape($item['name']) ?></h1>
+```
+
+Chaîne complète :
+
+```text
+URL
+ ↓
+index.php
+ ↓
+router()
+ ↓
+parse_url_segments()
+ ↓
+dispatch()
+ ↓
+controller
+ ↓
+model
+ ↓
+render()
+ ↓
+view
+ ↓
+HTML
+```
+
+---
+
+# Règles finales de la séance
+
+```text
+1. index.php est le point d’entrée.
+2. Le router lit l’URL.
+3. dispatch() trouve le controller.
+4. Au début, un controller = un fichier par action.
+5. Ensuite, un controller = une entité.
+6. Dans un controller, une fonction = une action.
+7. Le controller appelle le model.
+8. Le model retourne des données.
+9. Le controller choisit la view.
+10. La view affiche.
+11. render() charge une view.
+12. escape() protège les sorties HTML.
+13. Les controllers ne font pas echo.
+14. Les models ne font pas de HTML.
+15. Les views ne vont pas chercher les données elles-mêmes.
 ```
