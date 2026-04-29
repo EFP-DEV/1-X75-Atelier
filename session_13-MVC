@@ -1,0 +1,107 @@
+# Session 13 — Rôles et règles : controllers, models, views
+
+**Niveau : bases PHP acquises**
+
+**Note :** tous les chemins dans le code sont écrits depuis la racine du projet, car toutes les requêtes passent par `index.php`. Le projet doit être servi à la racine du serveur web ; si on travaille dans un sous-dossier (ex. `localhost/mon-projet/`), il faudra retirer le préfixe.
+
+---
+
+## Bloc 6 — Rôles et règles : controllers, models, views (20 min)
+
+### Trois rôles, trois règles
+
+**Controller** — reçoit la demande, appelle le model, charge la view. Rien d'autre.
+
+```php
+function item_show($id = null) {
+    $item = get_one_item($id);
+    if ($item === null) {
+        http_response_code(404);
+        render('error/404', ['message' => 'Item introuvable']);
+        return;
+    }
+    render('item/show', ['item' => $item]);
+}
+```
+
+Si le model retourne `null`, le controller rend une 404. Il n'envoie jamais `null` à une view qui attend un tableau.
+
+**Model** — retourne des données. Ne sait pas qu'il y a une view, ne sait pas qu'il y a une URL.
+
+```php
+function get_one_item($id) {
+    $items = [
+        1 => ['id' => 1, 'name' => 'Clavier'],
+        2 => ['id' => 2, 'name' => 'Souris'],
+    ];
+    return $items[$id] ?? null;
+}
+```
+
+**View** — reçoit des variables, produit du HTML. Pas de logique métier, pas d'accès aux données, pas de requêtes. Les boucles et conditions simples d'affichage (`foreach`, `if empty(...)`) sont autorisées.
+
+```php
+<!-- views/item/show.php -->
+<h1><?= escape($item['name']) ?></h1>
+```
+
+### Contre-exemples — montrer ce qu'on veut éviter
+
+**SQL dans un controller :**
+
+```php
+// ❌
+function item_show($id) {
+    $pdo  = new PDO(...);
+    $item = $pdo->query("SELECT * FROM items WHERE id = $id")->fetch();
+    render('item/show', ['item' => $item]);
+}
+```
+
+Si on change de base de données, on touche au controller. Si on change l'affichage, on doit lire du SQL pour s'y retrouver. Les responsabilités sont mélangées. Ce code est aussi dangereux car `$id` est injecté directement dans la requête — on verra les requêtes préparées plus tard.
+
+**HTML dans un model :**
+
+```php
+// ❌
+function get_one_item($id) {
+    return "<h1>Item $id</h1>";
+}
+```
+
+Le model décide de l'affichage. Si on veut afficher le même item différemment selon le contexte, le model doit être modifié. C'est le rôle de la view.
+
+### Règle à retenir
+
+* Controller : **ni HTML, ni SQL**
+* Model : **ni HTML, ni include**
+* View : **pas de logique métier, pas d'accès aux données**
+
+---
+
+## Bloc 7 — Exercice 2 : mini projet structuré (45 min)
+
+### Consigne
+
+Construire un mini catalogue avec deux entités : **items** et **categories**.
+
+`categories` est une entité de données utilisée par le model item — elle n'a pas de page dédiée dans cette séance.
+
+URLs à faire fonctionner :
+
+```
+/                        → home_index()
+/item                    → item_index()
+/item/show/{id}          → item_show($id)
+/item/category/{id}      → item_category($id)
+```
+
+Contraintes :
+
+* Données en tableaux statiques dans les models — pas de SQL
+* Chaque item a : `id`, `name`, `category_id`
+* Chaque catégorie a : `id`, `name`
+* `item_category($id)` filtre les items par `category_id`
+* Les views utilisent `escape()` sur toutes les sorties
+* Toutes les actions acceptent `$id = null`
+* Si le model retourne `null`, le controller rend une 404 — jamais envoyer `null` à la view
