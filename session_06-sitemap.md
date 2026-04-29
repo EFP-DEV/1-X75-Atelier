@@ -230,19 +230,3 @@ Avant de quitter la séance, vérifiez que vous avez bien :
 - mis à jour le `README.md`
 - préparé une base exploitable pour la future création du router
 
----
-
-# Transition vers la séance suivante
-
-La séance suivante pourra s’appuyer sur ce travail pour commencer à :
-
-- transformer les pages HTML en vues réutilisables
-- factoriser les éléments communs
-- préparer les includes ou layouts
-- commencer l’intégration PHP dans une structure organisée
-
-Autrement dit :
-
-**Session 6 : organiser le site**  
-**Session 7 : commencer à transformer la structure HTML en architecture PHP exploitable**
-
