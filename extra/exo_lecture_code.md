@@ -19,6 +19,8 @@ Votre travail est de :
 
 L’exercice peut être fait uniquement par lecture, mais l’exécution permet de mieux observer certains bugs.
 
+Attention : la page à ouvrir est `index.php`, pas `render.html`. Le fichier `render.html` sert de modèle HTML utilisé par PHP.
+
 ---
 
 # Fichiers fournis
@@ -27,6 +29,7 @@ L’exercice peut être fait uniquement par lecture, mais l’exécution permet 
 mission/
 ├── index.php
 ├── missions.php
+├── render.html
 └── app.js
 ```
 
@@ -108,7 +111,14 @@ require 'missions.php';
 $active_missions = get_active_missions($missions);
 $mission = get_random_mission($active_missions);
 
-?>
+require 'render.html';
+```
+
+---
+
+# `render.html`
+
+```php
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -189,12 +199,14 @@ Répondez aux questions suivantes.
 
 1. Quel est le rôle de `missions.php` ?
 2. Quel est le rôle de `index.php` ?
-3. Quel est le rôle de `app.js` ?
-4. Quel code est exécuté côté serveur ?
-5. Quel code est exécuté côté navigateur ?
-6. Que permet `require 'missions.php';` ?
-7. À quoi servent les attributs `data-id`, `data-level` et `data-reward` ?
-8. Comment les données PHP arrivent-elles jusqu’au JavaScript ?
+3. Quel est le rôle de `render.html` ?
+4. Quel est le rôle de `app.js` ?
+5. Quel code est exécuté côté serveur ?
+6. Quel code est exécuté côté navigateur ?
+7. Que permet `require 'missions.php';` ?
+8. Que permet `require 'render.html';` ?
+9. Pourquoi faut-il ouvrir `index.php` et pas directement `render.html` ?
+10. Comment les données PHP arrivent-elles jusqu’au JavaScript ?
 
 ---
 
@@ -210,13 +222,32 @@ Répondez aux questions suivantes.
 4. Pourquoi cette mission ne devrait-elle pas apparaître ?
 5. Que fait `get_active_missions()` ?
 6. Que fait `get_random_mission()` ?
-7. Si un tableau contient 4 éléments, quels sont ses index possibles ?
-8. Quelle ligne du PHP peut parfois produire une erreur ?
-9. Pourquoi ce bug n’apparaît-il pas à chaque chargement de page ?
+7. Que contient `$active_missions` dans `index.php` ?
+8. Que contient `$mission` dans `index.php` ?
+9. Si un tableau contient 4 éléments, quels sont ses index possibles ?
+10. Quelle ligne du PHP peut parfois produire une erreur ?
+11. Pourquoi ce bug n’apparaît-il pas à chaque chargement de page ?
 
 ---
 
-# Partie 3 — Lire le JavaScript
+# Partie 3 — Lire le rendu HTML
+
+Observez le fichier `render.html`.
+
+Répondez aux questions suivantes.
+
+1. Quel est l’`id` de l’élément `<article>` ?
+2. Quels attributs `data-*` sont ajoutés à cet élément ?
+3. D’où viennent les valeurs de `data-id`, `data-level` et `data-reward` ?
+4. À quoi sert `<?= $mission['title'] ?>` ?
+5. Pourquoi le fichier `render.html` peut-il utiliser la variable `$mission` ?
+6. Est-ce que `render.html` choisit lui-même la mission ?
+7. Quel fichier choisit la mission avant l’affichage ?
+8. À quoi servent les attributs `data-*` pour JavaScript ?
+
+---
+
+# Partie 4 — Lire le JavaScript
 
 Observez le fichier `app.js`.
 
@@ -225,19 +256,20 @@ Répondez aux questions suivantes.
 1. Que sélectionne `document.querySelector('#mission-card')` ?
 2. Que contient `card.dataset.reward` ?
 3. Cette valeur est-elle un nombre ou une chaîne de caractères ?
-4. Que vaut `accepted` au chargement de la page ?
-5. Que se passe-t-il quand on clique sur “Accepter la mission” ?
-6. Que devrait afficher le message si la récompense vaut `120` ?
-7. Que risque d’afficher le code actuel ?
-8. Que se passe-t-il quand on clique sur “Panique pédagogique” ?
-9. Que veut probablement tester la condition `if` ?
-10. Quelle différence y a-t-il entre affecter une valeur et comparer une valeur ?
+4. Que contient `card.dataset.level` ?
+5. Que vaut `accepted` au chargement de la page ?
+6. Que se passe-t-il quand on clique sur “Accepter la mission” ?
+7. Que devrait afficher le message si la récompense vaut `120` ?
+8. Que risque d’afficher le code actuel ?
+9. Que se passe-t-il quand on clique sur “Panique pédagogique” ?
+10. Que veut probablement tester la condition `if` ?
+11. Quelle différence y a-t-il entre affecter une valeur et comparer une valeur ?
 
 ---
 
-# Partie 4 — Exécuter et observer
+# Partie 5 — Exécuter et observer
 
-Lancez le projet dans le navigateur.
+Lancez le projet dans le navigateur en ouvrant `index.php`.
 
 Testez les actions suivantes :
 
@@ -251,14 +283,16 @@ Répondez aux questions suivantes.
 
 1. La page fonctionne-t-elle à chaque rafraîchissement ?
 2. Observez-vous une erreur parfois ?
-3. Le bouton “Accepter la mission” affiche-t-il un calcul correct ?
-4. Le bouton “Panique pédagogique” dépend-il réellement du niveau de la mission ?
-5. Que contiennent les attributs `data-*` dans le HTML généré ?
-6. Les bugs observés correspondent-ils à ce que vous aviez prévu en lisant le code ?
+3. Si une erreur apparaît, vient-elle plutôt du PHP ou du JavaScript ?
+4. Le bouton “Accepter la mission” affiche-t-il un calcul correct ?
+5. Le bouton “Panique pédagogique” dépend-il réellement du niveau de la mission ?
+6. Que contiennent les attributs `data-*` dans le HTML généré ?
+7. Les bugs observés correspondent-ils à ce que vous aviez prévu en lisant le code ?
+8. Que se passe-t-il si vous ouvrez directement `render.html` au lieu de `index.php` ?
 
 ---
 
-# Partie 5 — Identifier les bugs
+# Partie 6 — Identifier les bugs
 
 Complétez le tableau.
 
@@ -276,7 +310,7 @@ Pour chaque bug, vous devez être capable d’expliquer :
 
 ---
 
-# Partie 6 — Corriger le code
+# Partie 7 — Corriger le code
 
 Corrigez les bugs un par un.
 
@@ -298,7 +332,7 @@ La correction permet de ________.
 
 ---
 
-# Partie 7 — Ajouter une règle spéciale
+# Partie 8 — Ajouter une règle spéciale
 
 Ajoutez maintenant une règle supplémentaire.
 
@@ -316,6 +350,8 @@ Répondez avant de coder.
 2. Quelle variable contient le niveau de la mission ?
 3. Où faut-il ajouter la condition ?
 4. Que doit-il se passer si la mission n’est pas `legendary` ?
+5. Cette règle concerne-t-elle PHP, HTML ou JavaScript ?
+6. Pourquoi ?
 
 ---
 
@@ -323,11 +359,13 @@ Répondez avant de coder.
 
 Complétez le tableau après correction.
 
-| Test                                  | Résultat attendu                    | Résultat observé |
-| ------------------------------------- | ----------------------------------- | ---------------- |
-| Rafraîchir plusieurs fois             | Pas d’erreur PHP                    |                  |
-| Mission inactive                      | Elle n’apparaît jamais              |                  |
-| Bouton “Accepter”                     | Le calcul de récompense est correct |                  |
-| Mission `legendary` acceptée          | Message spécial café                |                  |
-| Bouton “Panique” avec niveau `danger` | Message de panique                  |                  |
-| Bouton “Panique” avec autre niveau    | Message normal                      |                  |
+| Test                                  | Résultat attendu                          | Résultat observé |
+| ------------------------------------- | ----------------------------------------- | ---------------- |
+| Ouvrir `index.php`                    | La mission s’affiche                      |                  |
+| Rafraîchir plusieurs fois             | Pas d’erreur PHP                          |                  |
+| Mission inactive                      | Elle n’apparaît jamais                    |                  |
+| Attributs `data-*`                    | Ils contiennent les données de la mission |                  |
+| Bouton “Accepter”                     | Le calcul de récompense est correct       |                  |
+| Mission `legendary` acceptée          | Message spécial café                      |                  |
+| Bouton “Panique” avec niveau `danger` | Message de panique                        |                  |
+| Bouton “Panique” avec autre niveau    | Message normal                            |                  |
