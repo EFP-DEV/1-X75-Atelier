@@ -167,10 +167,10 @@ require 'render.html';
 # `app.js`
 
 ```js
-const card = document.querySelector('#mission-card');
-const acceptButton = document.querySelector('#accept-button');
-const panicButton = document.querySelector('#panic-button');
-const message = document.querySelector('#message');
+let card = document.querySelector('#mission-card');
+let acceptButton = document.querySelector('#accept-button');
+let panicButton = document.querySelector('#panic-button');
+let message = document.querySelector('#message');
 
 let reward = card.dataset.reward;
 let level = card.dataset.level;
