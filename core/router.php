@@ -61,13 +61,17 @@ function route(array $http_segments): array
 
     return $route;
 }
-
-function run(array $route): string
+function run(array $route, string $base_path): string
 {
+    // Le front controller connaît la racine du projet.
+    $base_path = rtrim($base_path, '/');
+
     // Le nom de l'entité détermine le fichier controller à charger.
-    $controller_filepath = __DIR__ . '/controllers/' . $route['entity'] . '.php';
+    // Exemple : item → controllers/item.php
+    $controller_filepath = $base_path . '/controllers/' . $route['entity'] . '.php';
 
     // Le nom de l'entité et le nom de l'action déterminent la fonction à appeler.
+    // Exemple : item + show → item_show()
     $function_name = $route['entity'] . '_' . $route['action'];
 
     // Si le fichier controller n'existe pas, la route ne peut pas être traitée.
@@ -91,6 +95,7 @@ function run(array $route): string
     // Sinon, le controller est appelé sans argument.
     return $function_name();
 }
+
 
 function is_safe_segment(string $part): bool
 {
