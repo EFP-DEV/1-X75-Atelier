@@ -1,4 +1,5 @@
-# Du nom local au fichier servi : configurer Apache localement
+# Du nom local au fichier servi
+### Configurer Apache localement
 
 # Introduction
 
@@ -6,7 +7,7 @@ L’objectif de cet atelier est d’obtenir d’abord cette adresse locale :
 
 ```text
 http://mon_nom.local
-```
+````
 
 Puis cette adresse plus propre :
 
@@ -14,7 +15,22 @@ Puis cette adresse plus propre :
 http://mon_nom.local/about
 ```
 
+Dans tout le document, `mon_nom` est un exemple. Remplace-le par le nom de ton projet, en minuscules, sans espace et sans accent.
+
+Par exemple, si ton projet s’appelle `tamarine.eu`, tu utiliseras :
+
+```text
+http://tamarine.local
+```
+
+et les chemins correspondront à un dossier nommé :
+
+```text
+tamarine
+```
+
 Quand tu écris une URL, la machine suit une course de relais :
+
 
 1. Le navigateur formule une URL.
 2. Windows résout le nom grâce au fichier `hosts`.
@@ -62,11 +78,13 @@ Nous allons maintenant créer une correspondance locale. Cette correspondance di
 Quand tu vois mon_nom.local, va vers 127.0.0.1.
 ```
 
-Le fichier à modifier est :
+Le fichier à modifier dépend du système :
 
-```text
-C:\Windows\System32\drivers\etc\hosts
-```
+| Système | Fichier `hosts`                         |
+| ------- | --------------------------------------- |
+| Windows | `C:\Windows\System32\drivers\etc\hosts` |
+| macOS   | `/etc/hosts`                            |
+| Linux   | `/etc/hosts`                            |
 
 Si tu ne sais pas encore ouvrir ce fichier avec les droits nécessaires, utilise l’annexe A.
 
@@ -106,15 +124,7 @@ Interprétation : Windows sait maintenant envoyer la demande vers ta machine loc
 
 # Partie 3 — Configurer Apache : VirtualHosts et DocumentRoot
 
-Nous allons créer le dossier du projet.
-
-| Environnement | Dossier naturel des projets locaux |
-| ------------- | ---------------------------------- |
-| XAMPP         | `C:\xampp\htdocs`                  |
-| Laragon       | `C:\laragon\www`                   |
-| MAMP          | `C:\MAMP\htdocs`                   |
-
-Crée le dossier de projet correspondant à ton environnement :
+Nous allons créer le dossier du projet correspondant à ton environnement :
 
 | Environnement | Dossier à créer           |
 | ------------- | ------------------------- |
