@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Catalog - Monkey Chess Library</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Catalog of fictional books about monkey chess.">
+</head>
+
+<body>
+  <header>
+    <p><strong>Monkey Chess Library</strong></p>
+
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="books.html" aria-current="page">Catalog</a></li>
+        <li><a href="book-detail.html">Featured book</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <header>
+      <h1>Book catalog</h1>
+      <p>
+        Browse our collection of books about monkey chess, from beginner openings
+        to advanced jungle tactics.
+      </p>
+    </header>
+
+    <section aria-labelledby="catalog-search-title">
+      <h2 id="catalog-search-title">Search the catalog</h2>
+
+      <form action="books.html" method="get">
+        <div>
+          <label for="search">Search by title, author, or keyword</label>
+          <input
+            type="search"
+            id="search"
+            name="search"
+            autocomplete="off"
+          >
+        </div>
+
+        <div>
+          <label for="category">Category</label>
+          <select id="category" name="category">
+            <option value="">All categories</option>
+            <option value="opening-theory">Opening theory</option>
+            <option value="tactics">Tactics</option>
+            <option value="endgame">Endgame</option>
+            <option value="psychology">Psychology</option>
+            <option value="beginner-guide">Beginner guide</option>
+            <option value="history">History</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="theme">Theme</label>
+          <select id="theme" name="theme">
+            <option value="">All themes</option>
+            <option value="bananas">Bananas</option>
+            <option value="canopy">Canopy</option>
+            <option value="troop-hierarchy">Troop hierarchy</option>
+            <option value="night-play">Night play</option>
+            <option value="territory">Territory</option>
+            <option value="human-observers">Human observers</option>
+          </select>
+        </div>
+
+        <fieldset>
+          <legend>Tags</legend>
+
+          <div>
+            <input type="checkbox" id="tag-beginner-friendly" name="tags[]" value="beginner-friendly">
+            <label for="tag-beginner-friendly">Beginner-friendly</label>
+          </div>
+
+          <div>
+            <input type="checkbox" id="tag-aggressive-play" name="tags[]" value="aggressive-play">
+            <label for="tag-aggressive-play">Aggressive play</label>
+          </div>
+
+          <div>
+            <input type="checkbox" id="tag-defensive-play" name="tags[]" value="defensive-play">
+            <label for="tag-defensive-play">Defensive play</label>
+          </div>
+
+          <div>
+            <input type="checkbox" id="tag-classic" name="tags[]" value="classic">
+            <label for="tag-classic">Classic</label>
+          </div>
+
+          <div>
+            <input type="checkbox" id="tag-rare" name="tags[]" value="rare">
+            <label for="tag-rare">Rare</label>
+          </div>
+
+          <div>
+            <input type="checkbox" id="tag-illustrated" name="tags[]" value="illustrated">
+            <label for="tag-illustrated">Illustrated</label>
+          </div>
+
+          <div>
+            <input type="checkbox" id="tag-field-notes" name="tags[]" value="field-notes">
+            <label for="tag-field-notes">Field notes</label>
+          </div>
+
+          <div>
+            <input type="checkbox" id="tag-slow-strategy" name="tags[]" value="slow-strategy">
+            <label for="tag-slow-strategy">Slow strategy</label>
+          </div>
+
+          <div>
+            <input type="checkbox" id="tag-fast-games" name="tags[]" value="fast-games">
+            <label for="tag-fast-games">Fast games</label>
+          </div>
+
+          <div>
+            <input type="checkbox" id="tag-family-readable" name="tags[]" value="family-readable">
+            <label for="tag-family-readable">Family readable</label>
+          </div>
+        </fieldset>
+
+        <button type="submit">Search</button>
+        <a href="books.html">Reset search</a>
+      </form>
+    </section>
+
+    <section aria-labelledby="books-title">
+      <h2 id="books-title">Books</h2>
+
+      <article>
+        <h3>
+          <a href="book-detail.html">The Banana Gambit</a>
+        </h3>
+
+        <p>
+          A beginner introduction to the most famous opening in monkey chess:
+          the early banana sacrifice.
+        </p>
+
+        <dl>
+          <dt>Author</dt>
+          <dd>Dr. Hugo Palm</dd>
+
+          <dt>Year</dt>
+          <dd>1984</dd>
+
+          <dt>Category</dt>
+          <dd>Opening theory</dd>
+
+          <dt>Theme</dt>
+          <dd>Bananas</dd>
+
+          <dt>Tags</dt>
+          <dd>Beginner-friendly, classic, aggressive play</dd>
+
+          <dt>Level</dt>
+          <dd>Beginner</dd>
+
+          <dt>Availability</dt>
+          <dd>Available</dd>
+
+          <dt>Price</dt>
+          <dd>12.00 EUR</dd>
+        </dl>
+
+        <p>
+          <a href="book-detail.html">View details for The Banana Gambit</a>
+        </p>
+      </article>
+
+      <article>
+        <h3>
+          <a href="book-detail.html">Knights of the Canopy</a>
+        </h3>
+
+        <p>
+          A tactical guide to vertical attacks, branch control, and sudden
+          pressure from above.
+        </p>
+
+        <dl>
+          <dt>Author</dt>
+          <dd>Mira Langur</dd>
+
+          <dt>Year</dt>
+          <dd>1997</dd>
+
+          <dt>Category</dt>
+          <dd>Tactics</dd>
+
+          <dt>Theme</dt>
+          <dd>Canopy</dd>
+
+          <dt>Tags</dt>
+          <dd>Illustrated, fast games</dd>
+
+          <dt>Level</dt>
+          <dd>Intermediate</dd>
+
+          <dt>Availability</dt>
+          <dd>Available</dd>
+
+          <dt>Price</dt>
+          <dd>15.50 EUR</dd>
+        </dl>
+
+        <p>
+          <a href="book-detail.html">View details for Knights of the Canopy</a>
+        </p>
+      </article>
+
+      <article>
+        <h3>
+          <a href="book-detail.html">Endgames for Silverbacks</a>
+        </h3>
+
+        <p>
+          A slow and serious study of final positions, authority, patience,
+          and the last decisive move.
+        </p>
+
+        <dl>
+          <dt>Author</dt>
+          <dd>Prof. Elias Root</dd>
+
+          <dt>Year</dt>
+          <dd>2005</dd>
+
+          <dt>Category</dt>
+          <dd>Endgame</dd>
+
+          <dt>Theme</dt>
+          <dd>Troop hierarchy</dd>
+
+          <dt>Tags</dt>
+          <dd>Slow strategy, rare</dd>
+
+          <dt>Level</dt>
+          <dd>Advanced</dd>
+
+          <dt>Availability</dt>
+          <dd>Reserved</dd>
+
+          <dt>Price</dt>
+          <dd>18.00 EUR</dd>
+        </dl>
+
+        <p>
+          <a href="book-detail.html">View details for Endgames for Silverbacks</a>
+        </p>
+      </article>
+
+      <article>
+        <h3>
+          <a href="book-detail.html">The Chimpanzee Defense</a>
+        </h3>
+
+        <p>
+          A practical manual for defending territory, closing diagonals,
+          and refusing unnecessary exchanges.
+        </p>
+
+        <dl>
+          <dt>Author</dt>
+          <dd>N. B. Macaque</dd>
+
+          <dt>Year</dt>
+          <dd>2011</dd>
+
+          <dt>Category</dt>
+          <dd>Opening theory</dd>
+
+          <dt>Theme</dt>
+          <dd>Territory</dd>
+
+          <dt>Tags</dt>
+          <dd>Defensive play, field notes</dd>
+
+          <dt>Level</dt>
+          <dd>Intermediate</dd>
+
+          <dt>Availability</dt>
+          <dd>Available</dd>
+
+          <dt>Price</dt>
+          <dd>14.00 EUR</dd>
+        </dl>
+
+        <p>
+          <a href="book-detail.html">View details for The Chimpanzee Defense</a>
+        </p>
+      </article>
+
+      <article>
+        <h3>
+          <a href="book-detail.html">Pawns in the Mist</a>
+        </h3>
+
+        <p>
+          A gentle book about perception, hesitation, and how young players
+          learn to see the board.
+        </p>
+
+        <dl>
+          <dt>Author</dt>
+          <dd>Clara Bonobo</dd>
+
+          <dt>Year</dt>
+          <dd>2018</dd>
+
+          <dt>Category</dt>
+          <dd>Psychology</dd>
+
+          <dt>Theme</dt>
+          <dd>Human observers</dd>
+
+          <dt>Tags</dt>
+          <dd>Family readable, beginner-friendly</dd>
+
+          <dt>Level</dt>
+          <dd>Beginner</dd>
+
+          <dt>Availability</dt>
+          <dd>Out of stock</dd>
+
+          <dt>Price</dt>
+          <dd>11.00 EUR</dd>
+        </dl>
+
+        <p>
+          <a href="book-detail.html">View details for Pawns in the Mist</a>
+        </p>
+      </article>
+
+      <article>
+        <h3>
+          <a href="book-detail.html">Checkmate at Moonrise</a>
+        </h3>
+
+        <p>
+          An advanced tactical work on night play, hidden threats, and attacks
+          that appear one move too late to stop.
+        </p>
+
+        <dl>
+          <dt>Author</dt>
+          <dd>Otto Capuchin</dd>
+
+          <dt>Year</dt>
+          <dd>2022</dd>
+
+          <dt>Category</dt>
+          <dd>Tactics</dd>
+
+          <dt>Theme</dt>
+          <dd>Night play</dd>
+
+          <dt>Tags</dt>
+          <dd>Aggressive play, fast games</dd>
+
+          <dt>Level</dt>
+          <dd>Advanced</dd>
+
+          <dt>Availability</dt>
+          <dd>Available</dd>
+
+          <dt>Price</dt>
+          <dd>21.00 EUR</dd>
+        </dl>
+
+        <p>
+          <a href="book-detail.html">View details for Checkmate at Moonrise</a>
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>Monkey Chess Library is a fictional project for learning HTML and PHP.</p>
+  </footer>
+</body>
+</html>
