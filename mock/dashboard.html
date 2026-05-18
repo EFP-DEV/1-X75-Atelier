@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard - Monkey Chess Library</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Admin dashboard for the fictional Monkey Chess Library project.">
+</head>
+
+<body>
+  <header>
+    <p><strong>Monkey Chess Library Admin</strong></p>
+
+    <nav aria-label="Admin navigation">
+      <ul>
+        <li><a href="admin-dashboard.html" aria-current="page">Dashboard</a></li>
+        <li><a href="admin-books.html">Books</a></li>
+        <li><a href="admin-book-form.html">Add book</a></li>
+        <li><a href="books.html">View public catalog</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <header>
+      <h1>Dashboard</h1>
+      <p>
+        Manage the Monkey Chess Library catalog, check book availability, and prepare
+        new entries for publication.
+      </p>
+    </header>
+
+    <section aria-labelledby="overview-title">
+      <h2 id="overview-title">Catalog overview</h2>
+
+      <dl>
+        <dt>Total books</dt>
+        <dd>6</dd>
+
+        <dt>Available books</dt>
+        <dd>4</dd>
+
+        <dt>Reserved books</dt>
+        <dd>1</dd>
+
+        <dt>Out of stock books</dt>
+        <dd>1</dd>
+
+        <dt>Categories used</dt>
+        <dd>4</dd>
+
+        <dt>Themes used</dt>
+        <dd>6</dd>
+      </dl>
+    </section>
+
+    <section aria-labelledby="actions-title">
+      <h2 id="actions-title">Main actions</h2>
+
+      <ul>
+        <li><a href="admin-books.html">Manage books</a></li>
+        <li><a href="admin-book-form.html">Add a new book</a></li>
+        <li><a href="books.html">Check the public catalog</a></li>
+        <li><a href="book-detail.html">Check the featured book page</a></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="recent-books-title">
+      <h2 id="recent-books-title">Recent books</h2>
+
+      <article>
+        <h3>The Banana Gambit</h3>
+
+        <dl>
+          <dt>Author</dt>
+          <dd>Dr. Hugo Palm</dd>
+
+          <dt>Category</dt>
+          <dd>Opening theory</dd>
+
+          <dt>Theme</dt>
+          <dd>Bananas</dd>
+
+          <dt>Availability</dt>
+          <dd>Available</dd>
+        </dl>
+
+        <p>
+          <a href="admin-book-form.html">Edit The Banana Gambit</a>
+        </p>
+      </article>
+
+      <article>
+        <h3>Checkmate at Moonrise</h3>
+
+        <dl>
+          <dt>Author</dt>
+          <dd>Otto Capuchin</dd>
+
+          <dt>Category</dt>
+          <dd>Tactics</dd>
+
+          <dt>Theme</dt>
+          <dd>Night play</dd>
+
+          <dt>Availability</dt>
+          <dd>Available</dd>
+        </dl>
+
+        <p>
+          <a href="admin-book-form.html">Edit Checkmate at Moonrise</a>
+        </p>
+      </article>
+
+      <article>
+        <h3>Pawns in the Mist</h3>
+
+        <dl>
+          <dt>Author</dt>
+          <dd>Clara Bonobo</dd>
+
+          <dt>Category</dt>
+          <dd>Psychology</dd>
+
+          <dt>Theme</dt>
+          <dd>Human observers</dd>
+
+          <dt>Availability</dt>
+          <dd>Out of stock</dd>
+        </dl>
+
+        <p>
+          <a href="admin-book-form.html">Edit Pawns in the Mist</a>
+        </p>
+      </article>
+    </section>
+
+    <section aria-labelledby="attention-title">
+      <h2 id="attention-title">Needs attention</h2>
+
+      <ul>
+        <li>
+          <strong>Pawns in the Mist</strong> is out of stock.
+          <a href="admin-book-form.html">Update availability</a>
+        </li>
+        <li>
+          <strong>Endgames for Silverbacks</strong> is currently reserved.
+          <a href="admin-book-form.html">Review reservation status</a>
+        </li>
+        <li>
+          Some categories from the search form have no books yet:
+          Beginner guide and History.
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="classification-title">
+      <h2 id="classification-title">Classification reminder</h2>
+
+      <p>
+        Each book must have one mandatory category, one mandatory theme, and
+        optional tags.
+      </p>
+
+      <dl>
+        <dt>Category</dt>
+        <dd>The required type of book, such as Opening theory, Tactics, or Endgame.</dd>
+
+        <dt>Theme</dt>
+        <dd>The required subject world of the book, such as Bananas, Canopy, or Territory.</dd>
+
+        <dt>Tags</dt>
+        <dd>Optional retrieval labels, such as beginner-friendly, classic, or fast games.</dd>
+      </dl>
+    </section>
+  </main>
+
+  <footer>
+    <p>Monkey Chess Library Admin is part of a fictional project for learning HTML and PHP.</p>
+  </footer>
+</body>
+</html>
