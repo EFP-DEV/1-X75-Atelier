@@ -82,10 +82,7 @@ function http_out(int $code, string $body, array $headers = []): void
 function redirect(string $url): void
 {
     // Version ergonomique de http_out() pour le cas fréquent de la redirection.
-    http_out(302, '', [
-        'Location' => $url,
-    ]);
-
+    http_out(302, '', ['Location' => $url]);
     exit;
 }
 
