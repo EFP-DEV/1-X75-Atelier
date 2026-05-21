@@ -1,5 +1,5 @@
 # Du nom local au fichier servi
-### Configurer Apache localement
+## Configurer Apache localement
 
 # Introduction
 
@@ -7,7 +7,7 @@ L’objectif de cet atelier est d’obtenir d’abord cette adresse locale :
 
 ```text
 http://mon_nom.local
-````
+```
 
 Puis cette adresse plus propre :
 
@@ -15,9 +15,9 @@ Puis cette adresse plus propre :
 http://mon_nom.local/about
 ```
 
-Dans tout le document, `mon_nom` est un exemple. Remplace-le par le nom de ton projet, en minuscules, sans espace et sans accent.
+Dans tout le document, `mon_nom` est un exemple. On le remplace par le nom du projet, en minuscules, sans espace et sans accent.
 
-Par exemple, si ton projet s’appelle `tamarine.eu`, tu utiliseras :
+Par exemple, si le projet s’appelle `tamarine.eu`, on utilisera :
 
 ```text
 http://tamarine.local
@@ -29,53 +29,53 @@ et les chemins correspondront à un dossier nommé :
 tamarine
 ```
 
-Quand tu écris une URL, la machine suit une course de relais :
-
+Quand on écrit une URL, la machine suit une course de relais :
 
 1. Le navigateur formule une URL.
-2. Windows résout le nom grâce au fichier `hosts`.
+2. Le système résout le nom grâce au fichier `hosts`.
 3. Apache reçoit la demande.
 4. Le `VirtualHost` choisit le bon dossier.
 5. Le `DocumentRoot` contient les fichiers à servir.
 6. `.htaccess` peut modifier le chemin demandé.
-7. La réponse revient dans le navigateur.
+7. La demande peut être transmise à `index.php`.
+8. La réponse revient dans le navigateur.
 
 # Partie 1 — Première vérification : demander un domaine connu
 
-Avant de toucher Apache, on vérifie une chose simple : est-ce que Windows sait retrouver une adresse à partir d’un nom de domaine ?
+Avant de toucher Apache, on vérifie une chose simple : est-ce que la machine sait retrouver une adresse à partir d’un nom de domaine ?
 
-Ouvre un terminal Windows, puis inscris cette commande :
+On ouvre un terminal, puis on inscrit cette commande :
 
 ```cmd
 ping google.com
 ```
 
-Observation attendue : Windows trouve une adresse IP et affiche des réponses.
+Observation attendue : le système trouve une adresse IP et affiche des réponses.
 
 Conséquence : le nom `google.com` a été transformé en adresse IP.
 
 Interprétation : pour contacter un site, la machine ne travaille pas seulement avec le nom visible. Elle doit d’abord trouver une adresse IP. Le nom est pratique pour l’humain ; l’IP est utile pour la machine.
 
-Maintenant, demande un domaine qui n’existe pas :
+Maintenant, on demande un domaine qui n’existe pas :
 
 ```cmd
 ping royaume-introuvable.invalid
 ```
 
-Observation attendue : Windows ne trouve pas l’hôte.
+Observation attendue : le système ne trouve pas l’hôte.
 
 Conséquence : la demande échoue avant même qu’un serveur web puisse répondre.
 
-Interprétation : Apache n’intervient pas encore. À ce stade, Windows demande seulement : “Quelle adresse IP correspond à ce nom ?” Si personne ne sait répondre, le navigateur ne peut pas atteindre Apache.
+Interprétation : Apache n’intervient pas encore. À ce stade, le système demande seulement : “Quelle adresse IP correspond à ce nom ?” Si personne ne sait répondre, le navigateur ne peut pas atteindre Apache.
 
 Cela ne fonctionne pas encore parce que le nom n’est pas résolu en adresse IP.
 
 # Partie 2 — Déclarer un domaine local : le fichier hosts
 
-Nous allons maintenant créer une correspondance locale. Cette correspondance dit à Windows :
+Nous allons maintenant créer une correspondance locale. Cette correspondance dit à la machine :
 
 ```text
-Quand tu vois mon_nom.local, va vers 127.0.0.1.
+Quand on voit mon_nom.local, on va vers 127.0.0.1.
 ```
 
 Le fichier à modifier dépend du système :
@@ -86,31 +86,31 @@ Le fichier à modifier dépend du système :
 | macOS   | `/etc/hosts`                            |
 | Linux   | `/etc/hosts`                            |
 
-Si tu ne sais pas encore ouvrir ce fichier avec les droits nécessaires, utilise l’annexe A.
+Si on ne sait pas encore ouvrir ce fichier avec les droits nécessaires, on utilise l’annexe A.
 
-Ajoute cette ligne dans le fichier `hosts` :
+On ajoute cette ligne dans le fichier `hosts` :
 
 ```text
 127.0.0.1 mon_nom.local
 ```
 
-Enregistre le fichier.
+On enregistre le fichier.
 
-Maintenant, teste le nom local :
+Maintenant, on teste le nom local :
 
 ```cmd
 ping mon_nom.local
 ```
 
-Observation attendue : Windows répond depuis `127.0.0.1`.
+Observation attendue : la machine répond depuis `127.0.0.1`.
 
 Conséquence : le domaine `mon_nom.local` est maintenant trouvé.
 
-Interprétation : ce fichier parle à Windows, pas à Apache. Il sert uniquement à résoudre un nom en adresse IP. Il ne dit pas encore quel dossier Apache doit servir.
+Interprétation : ce fichier parle au système, pas à Apache. Il sert uniquement à résoudre un nom en adresse IP. Il ne dit pas encore quel dossier Apache doit servir.
 
-Apache ne doit pas être redémarré ici parce que le fichier `hosts` n’est pas une configuration Apache. C’est Windows qui le lit.
+Apache ne doit pas être redémarré ici parce que le fichier `hosts` n’est pas une configuration Apache. C’est le système qui le lit.
 
-Maintenant, ouvre dans le navigateur :
+Maintenant, on ouvre dans le navigateur :
 
 ```text
 http://mon_nom.local
@@ -120,11 +120,11 @@ Observation possible : une page d’accueil locale apparaît, une erreur appara�
 
 Conséquence : le domaine est trouvé, mais le bon dossier n’est pas encore forcément indiqué.
 
-Interprétation : Windows sait maintenant envoyer la demande vers ta machine locale. Apache reçoit probablement la demande, mais il ne sait pas encore forcément quel dossier associer à `mon_nom.local`.
+Interprétation : le système sait maintenant envoyer la demande vers la machine locale. Apache reçoit probablement la demande, mais il ne sait pas encore forcément quel dossier associer à `mon_nom.local`.
 
-# Partie 3 — Configurer Apache : VirtualHosts et DocumentRoot
+# Partie 3 — Configurer Apache : VirtualHost et DocumentRoot
 
-Nous allons créer le dossier du projet correspondant à ton environnement :
+Nous allons créer le dossier du projet correspondant à l’environnement utilisé :
 
 | Environnement | Dossier à créer           |
 | ------------- | ------------------------- |
@@ -132,7 +132,7 @@ Nous allons créer le dossier du projet correspondant à ton environnement :
 | Laragon       | `C:\laragon\www\mon_nom`  |
 | MAMP          | `C:\MAMP\htdocs\mon_nom`  |
 
-Dans ce dossier, crée un fichier `index.html` :
+Dans ce dossier, on crée un fichier `index.html` :
 
 ```html
 <!doctype html>
@@ -162,7 +162,7 @@ Conséquence : il faut configurer Apache.
 
 Interprétation : le `VirtualHost` permet à Apache de savoir quel domaine est demandé. Le `DocumentRoot` lui indique quel dossier servir.
 
-Ouvre le fichier de configuration des VirtualHosts.
+On ouvre le fichier de configuration des VirtualHosts.
 
 | Environnement | Fichier de configuration des VirtualHosts                                                           |
 | ------------- | --------------------------------------------------------------------------------------------------- |
@@ -170,7 +170,7 @@ Ouvre le fichier de configuration des VirtualHosts.
 | Laragon       | `C:\laragon\etc\apache2\sites-enabled\auto.mon_nom.local.conf` ou configuration générée par Laragon |
 | MAMP          | `C:\MAMP\conf\apache\extra\httpd-vhosts.conf`                                                       |
 
-Ajoute ou adapte le bloc correspondant à ton environnement.
+On ajoute ou on adapte le bloc correspondant à l’environnement.
 
 Pour XAMPP :
 
@@ -252,7 +252,16 @@ Et `DocumentRoot` signifie : “…sers les fichiers depuis ce dossier.”
 
 Pour cette première configuration, Apache sert directement le dossier du projet. Plus tard, on pourra ajouter un dossier `public` pour séparer les fichiers exposés des fichiers internes.
 
-Redémarre Apache.
+Avant de redémarrer Apache, on relit les points les plus fragiles :
+
+- les guillemets autour des chemins ;
+- le nom du dossier ;
+- le `ServerName` ;
+- le `DocumentRoot` ;
+- le bloc `<Directory>` ;
+- la présence de `AllowOverride All`.
+
+On redémarre Apache.
 
 | Environnement | Redémarrage Apache                                          |
 | ------------- | ----------------------------------------------------------- |
@@ -262,9 +271,9 @@ Redémarre Apache.
 
 Apache doit être redémarré ici parce qu’il lit cette configuration au démarrage. Tant qu’il n’a pas redémarré, il peut continuer avec l’ancienne configuration.
 
-Si Apache ne redémarre pas, consulte l’annexe B.
+Si Apache ne redémarre pas, on consulte l’annexe B.
 
-Teste maintenant :
+On teste maintenant :
 
 ```text
 http://localhost
@@ -278,7 +287,7 @@ Observation attendue : `localhost` continue de pointer vers le dossier local pri
 | Laragon       | `C:\laragon\www`                          |
 | MAMP          | `C:\MAMP\htdocs`                          |
 
-Teste ensuite :
+On teste ensuite :
 
 ```text
 http://mon_nom.local
@@ -294,107 +303,153 @@ Conséquence : Apache a reconnu le nom demandé, choisi le bon `VirtualHost`, pu
 
 Interprétation : `ServerName` est le nom demandé. `DocumentRoot` est le dossier servi. `index.html` est le fichier ouvert automatiquement quand l’URL ne demande pas de fichier précis.
 
-Si `mon_nom.local` affiche encore la page locale principale ou un mauvais dossier, les `VirtualHosts` ne sont peut-être pas lus correctement. Consulte l’annexe C.
+Si `mon_nom.local` affiche encore la page locale principale ou un mauvais dossier, les `VirtualHosts` ne sont peut-être pas lus correctement. On consulte l’annexe C.
 
-# Partie 4 — Chemins propres et .htaccess
+# Partie 4 — Chemins propres et point d’entrée PHP
 
-Nous allons maintenant passer de :
+Jusqu’ici, Apache sert des fichiers.
+
+Quand on demande :
 
 ```text
-http://mon_nom.local/about.html
+http://mon_nom.local
 ```
 
-à :
+Apache cherche automatiquement un fichier d’accueil, par exemple :
+
+```text
+index.html
+```
+
+Mais quand on demande :
 
 ```text
 http://mon_nom.local/about
 ```
 
-Crée ce fichier :
+Apache cherche quelque chose qui s’appelle réellement :
 
-| Environnement | Fichier à créer                      |
-| ------------- | ------------------------------------ |
-| XAMPP         | `C:\xampp\htdocs\mon_nom\about.html` |
-| Laragon       | `C:\laragon\www\mon_nom\about.html`  |
-| MAMP          | `C:\MAMP\htdocs\mon_nom\about.html`  |
+```text
+about
+```
 
-Avec ce contenu :
+Cela peut être un fichier ou un dossier. Mais pour le moment, il n’existe pas.
 
-```html
-<!doctype html>
+Observation attendue : `http://mon_nom.local/about` ne fonctionne pas encore.
+
+Conséquence : Apache lit encore la demande de manière directe. Si l’URL demande `/about`, Apache cherche un fichier ou un dossier nommé `about`.
+
+Interprétation : sans règle spéciale, Apache ne comprend pas encore que `/about` doit être une route de notre application.
+
+Une solution simple, pour un site statique, serait de créer un vrai dossier :
+
+```text
+about
+```
+
+et de mettre dedans :
+
+```text
+index.html
+```
+
+Dans ce cas, l’adresse suivante fonctionnerait :
+
+```text
+http://mon_nom.local/about
+```
+
+Mais ce n’est pas la direction choisie ici.
+
+Nous allons préparer une application PHP avec un seul point d’entrée.
+
+Au lieu de créer un fichier ou un dossier pour chaque URL, on va demander à Apache de transmettre les demandes inconnues à :
+
+```text
+index.php
+```
+
+Cela signifie :
+
+```text
+/about
+/catalog
+/catalog/theme/aventure
+/admin/items
+```
+
+ne seront plus forcément des fichiers réels. Ce seront des chemins demandés par le navigateur, puis transmis à PHP.
+
+PHP pourra ensuite lire l’URL et décider quoi faire.
+
+# Partie 5 — Créer index.php
+
+Dans le dossier du projet, on remplace ou on complète le fichier d’accueil avec un fichier nommé :
+
+```text
+index.php
+```
+
+Son chemin complet est :
+
+| Environnement | Fichier à créer                       |
+| ------------- | ------------------------------------- |
+| XAMPP         | `C:\xampp\htdocs\mon_nom\index.php`  |
+| Laragon       | `C:\laragon\www\mon_nom\index.php`   |
+| MAMP          | `C:\MAMP\htdocs\mon_nom\index.php`   |
+
+On y place ce contenu provisoire :
+
+```php
+<?php
+
+$uri = $_SERVER['REQUEST_URI'];
+
+?><!doctype html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>À propos</title>
+    <title>Point d’entrée PHP</title>
 </head>
 <body>
-    <h1>À propos</h1>
-    <p>Cette page est servie depuis about.html.</p>
+    <h1>Point d’entrée PHP</h1>
+
+    <p>La demande est arrivée dans index.php.</p>
+
+    <p>URL demandée :</p>
+
+    <pre><?= htmlspecialchars($uri, ENT_QUOTES, 'UTF-8') ?></pre>
 </body>
 </html>
 ```
 
-Teste dans le navigateur :
+On teste :
 
 ```text
-http://mon_nom.local/about.html
+http://mon_nom.local
 ```
 
-Observation attendue : la page s’affiche.
+Observation attendue : le navigateur affiche la page “Point d’entrée PHP”.
 
-Conséquence : Apache trouve le fichier réel `about.html`.
+Conséquence : Apache sait servir `index.php` comme fichier d’accueil.
 
-Maintenant, teste :
+Interprétation : quand l’URL demande simplement le domaine, Apache cherche un fichier d’accueil. Si `index.php` existe, il peut être servi automatiquement.
 
-```text
-http://mon_nom.local/about
-```
-
-Observation attendue : cela ne fonctionne pas encore.
-
-Conséquence : Apache cherche un fichier ou un dossier nommé `about`.
-
-Interprétation : `/about` n’est pas automatiquement équivalent à `/about.html`. Sans règle spéciale, Apache lit la demande littéralement. Si l’URL demande `/about`, Apache cherche `about`.
-
-Une solution simple, sans réécriture, consiste à créer un vrai dossier :
-
-| Environnement | Dossier à créer                 |
-| ------------- | ------------------------------- |
-| XAMPP         | `C:\xampp\htdocs\mon_nom\about` |
-| Laragon       | `C:\laragon\www\mon_nom\about`  |
-| MAMP          | `C:\MAMP\htdocs\mon_nom\about`  |
-
-Puis à mettre dedans un fichier :
-
-| Environnement | Fichier à créer                            |
-| ------------- | ------------------------------------------ |
-| XAMPP         | `C:\xampp\htdocs\mon_nom\about\index.html` |
-| Laragon       | `C:\laragon\www\mon_nom\about\index.html`  |
-| MAMP          | `C:\MAMP\htdocs\mon_nom\about\index.html`  |
-
-Dans ce cas, l’adresse suivante fonctionne :
+Maintenant, on teste :
 
 ```text
 http://mon_nom.local/about
 ```
 
-Observation : Apache entre dans le dossier `about` et ouvre automatiquement son `index.html`.
+Observation attendue : cela ne fonctionne pas encore, ou Apache affiche une erreur.
 
-Conséquence : c’est simple et valable pour un site statique.
+Conséquence : Apache cherche encore un fichier ou un dossier nommé `about`.
 
-Interprétation : la structure physique impose alors les URLs. Si tu veux `/about`, tu crées un dossier `about`. C’est propre, mais parfois trop rigide.
+Interprétation : `index.php` fonctionne comme page d’accueil, mais Apache ne lui transmet pas encore toutes les URLs inconnues.
 
-Avant la suite, supprime ou mets de côté ce dossier `about`. Vérifie que ce fichier existe bien :
+# Partie 6 — Transmettre les routes à index.php avec .htaccess
 
-| Environnement | Fichier à conserver                  |
-| ------------- | ------------------------------------ |
-| XAMPP         | `C:\xampp\htdocs\mon_nom\about.html` |
-| Laragon       | `C:\laragon\www\mon_nom\about.html`  |
-| MAMP          | `C:\MAMP\htdocs\mon_nom\about.html`  |
-
-Nous allons maintenant créer une règle de réécriture : une URL propre qui mène vers un fichier réel différent.
-
-Dans le dossier du projet, crée un fichier nommé :
+Dans le dossier du projet, on crée un fichier nommé :
 
 ```text
 .htaccess
@@ -408,7 +463,7 @@ Son chemin complet est :
 | Laragon       | `C:\laragon\www\mon_nom\.htaccess`  |
 | MAMP          | `C:\MAMP\htdocs\mon_nom\.htaccess`  |
 
-Ajoute ceci :
+On ajoute ceci :
 
 ```apache
 RewriteEngine On
@@ -420,19 +475,29 @@ RewriteRule ^ index.php [L]
 
 Cette règle dit, en pratique :
 
-Si la demande ne correspond pas déjà à un vrai fichier, si elle ne correspond pas déjà à un vrai dossier, mais si le même nom avec `.html` existe, alors sers ce fichier `.html`.
+Si la demande ne correspond pas déjà à un vrai fichier, et si elle ne correspond pas déjà à un vrai dossier, alors on transmet la demande à `index.php`.
 
-Teste sans redémarrer Apache :
+Cela ne veut pas dire que `/about` devient `about.html`.
+
+Cela veut dire que `/about` arrive dans `index.php`.
+
+On teste sans redémarrer Apache :
 
 ```text
 http://mon_nom.local/about
 ```
 
-Observation attendue : la page “À propos” s’affiche.
+Observation attendue : la page “Point d’entrée PHP” s’affiche.
 
-Conséquence : l’URL reste `/about`, mais le fichier réel servi est `about.html`.
+Dans la page, on doit voir que l’URL demandée est :
 
-Interprétation : `.htaccess` est une règle locale lue par Apache dans le dossier du site. Ce fichier parle à Apache, pas à Windows.
+```text
+/about
+```
+
+Conséquence : l’URL reste `/about`, mais le fichier exécuté est `index.php`.
+
+Interprétation : `.htaccess` est une règle locale lue par Apache dans le dossier du site. Ce fichier parle à Apache, pas au système.
 
 Apache ne doit pas être redémarré après modification de `.htaccess`, parce que `.htaccess` est relu pendant les requêtes.
 
@@ -442,16 +507,68 @@ Attention : pour que cela fonctionne, le `VirtualHost` doit autoriser la lecture
 AllowOverride All
 ```
 
-Si `.htaccess` semble ignoré, consulte l’annexe D.
+Si `.htaccess` semble ignoré, on consulte l’annexe D.
+
+# Partie 7 — Ce que cette étape prépare
+
+À ce stade, Apache ne décide plus de la signification de `/about`.
+
+Apache fait seulement ceci :
+
+```text
+/about → index.php
+```
+
+Ensuite, `index.php` peut lire :
+
+```php
+$_SERVER['REQUEST_URI']
+```
+
+et notre code pourra décider :
+
+```text
+/about        → page à propos
+/catalog      → catalogue
+/item/12      → détail d’un élément
+/admin        → administration
+```
+
+C’est le début du routage.
+
+Pour l’instant, on ne construit pas encore tout le routeur. On vérifie seulement que toutes les demandes peuvent arriver au même endroit.
+
+C’est important parce qu’une application PHP ne veut pas forcément avoir un fichier physique pour chaque page.
+
+On ne veut pas forcément ceci :
+
+```text
+about.php
+catalog.php
+item.php
+admin.php
+```
+
+On prépare plutôt ceci :
+
+```text
+index.php
+```
+
+qui reçoit la demande, puis appelle le bon code.
 
 # Conclusion
 
-Tu as configuré une chaîne complète.
+On a configuré une chaîne complète.
 
-Si `ping mon_nom.local` échoue, le problème est avant Apache. Windows ne sait pas résoudre le nom local.
+Si `ping mon_nom.local` échoue, le problème est avant Apache. Le système ne sait pas résoudre le nom local.
 
 Si `ping mon_nom.local` fonctionne mais que le navigateur affiche le mauvais site, le problème est probablement dans le `VirtualHost` ou le `DocumentRoot`.
 
-Si `http://mon_nom.local/about.html` fonctionne mais que `http://mon_nom.local/about` échoue, le problème concerne soit la structure de dossiers, soit la réécriture d’URL.
+Si `http://mon_nom.local` fonctionne mais que `http://mon_nom.local/about` échoue, le problème concerne probablement `.htaccess`, `AllowOverride All` ou le module de réécriture.
 
-Si Apache ne redémarre pas, la dernière modification de configuration est suspecte. Reviens au dernier fichier Apache modifié, puis vérifie la syntaxe, les chemins et les guillemets.
+Si `http://mon_nom.local/about` affiche `index.php`, la réécriture fonctionne.
+
+Si Apache ne redémarre pas, la dernière modification de configuration est suspecte. On revient au dernier fichier Apache modifié, puis on vérifie la syntaxe, les chemins et les guillemets.
+
+À partir de là, la suite logique sera de lire l’URL dans `index.php`, puis de la transformer en route.
