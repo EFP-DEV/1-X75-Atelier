@@ -2,26 +2,30 @@
 
 ## Objectif
 
-Vous devez définir les URLs publiques d’un site de catalogue.
+Vous devez choisir une grammaire d’URL pour la partie publique d’un site de catalogue.
 
-Le but n’est pas seulement de choisir une URL “jolie”. Le but est de comprendre ce que chaque choix d’URL provoque dans le code :
+Le but n’est pas seulement de choisir une URL qui fonctionne. Vous devez comprendre ce que chaque choix provoque dans le projet :
 
 ```txt
 nombre de fichiers controller
 nombre de fonctions
-duplication possible
+duplication du code
 facilité à combiner les filtres
-facilité à créer des formulaires
+facilité à créer un formulaire de recherche
 lisibilité pour l’utilisateur
 lisibilité pour le développeur
+facilité de maintenance
 ```
+
+À la fin de l’exercice, vous devrez proposer une grammaire d’URL pour votre projet et la justifier.
+
 ---
 
-# Contexte du site
+# 1. Contexte
 
-Le site contient un catalogue d’éléments.
+Votre site contient un catalogue d’éléments.
 
-Selon les projets, un élément peut être :
+Selon votre projet, un élément peut être :
 
 ```txt
 un livre
@@ -36,49 +40,59 @@ un article
 Chaque élément peut avoir :
 
 ```txt
-une catégorie (obligatoire)
-un thème (obligatoire)
-des tags
 un titre
 un slug
 une description
+une ou plusieurs catégories
+un ou plusieurs thèmes
+un ou plusieurs tags
 ```
 
 Le visiteur doit pouvoir :
 
 ```txt
 voir tout le catalogue
-chercher dans le catalogue
-filtrer par catégorie
-filtrer par thème
-filtrer par tag
-combiner plusieurs filtres
+chercher un texte dans le catalogue
+sélectionner une ou plusieurs catégories
+sélectionner un ou plusieurs thèmes
+sélectionner un ou plusieurs tags
+combiner recherche + catégories + thèmes + tags
 trier les résultats
 changer de page
 voir le détail d’un élément
 ```
 
-Exemples de besoins :
+Exemple de besoin complexe :
 
 ```txt
-Voir tout le catalogue
-Voir les éléments du thème "fantasy"
-Voir les éléments de la catégorie "books"
-Chercher "monkey" dans le catalogue
-Voir les livres du thème "chess"
-Voir la page 2 des résultats
-Voir le détail d’un élément
+Je veux chercher "monkey",
+dans les catégories "books" et "games",
+avec les thèmes "chess" et "fantasy",
+sur la page 2,
+trié par titre.
 ```
 
 ---
 
-# Partie 1 — Comparer plusieurs grammaires d’URL
+# 2. Problème à résoudre
 
-Pour afficher un catalogue filtré par thème, on pourrait imaginer plusieurs URLs.
+On doit représenter ces actions dans des URLs.
 
-Analysez les quatre grammaires suivantes.
+Mais plusieurs grammaires sont possibles.
 
-## Grammaire A — URL orientée entité technique
+Vous allez comparer plusieurs solutions.
+
+Pour chaque solution, vous devez répondre à cette question :
+
+```txt
+Qu’est-ce que cette grammaire d’URL provoque dans le code ?
+```
+
+---
+
+# 3. Grammaire A — URL orientée entité technique
+
+Exemples :
 
 ```txt
 /theme/show/1
@@ -87,6 +101,8 @@ Analysez les quatre grammaires suivantes.
 /search/index?q=monkey
 ```
 
+## Analyse
+
 Questions :
 
 ```txt
@@ -94,22 +110,44 @@ Quelle page le visiteur voit-il réellement ?
 Est-ce vraiment une page "theme" ?
 Est-ce vraiment une page "category" ?
 Est-ce vraiment une page "tag" ?
-Est-ce que "search" est une page séparée du catalogue ?
+Est-ce que la recherche est une page séparée du catalogue ?
 ```
 
 Complétez :
 
 ```txt
-Fichiers controller probables :
+Page réellement affichée :
+________________________________________________________
 
-controllers/________________.php
-controllers/________________.php
-controllers/________________.php
-controllers/________________.php
-controllers/________________.php
+Controller probable pour /theme/show/1 :
+________________________________________________________
+
+Controller probable pour /category/show/1 :
+________________________________________________________
+
+Controller probable pour /tag/show/1 :
+________________________________________________________
+
+Controller probable pour /search/index?q=monkey :
+________________________________________________________
 ```
 
-Fonctions probables :
+## Fichiers probables
+
+Complétez :
+
+```txt
+controllers/
+    __________________.php
+    __________________.php
+    __________________.php
+    __________________.php
+    __________________.php
+```
+
+## Fonctions probables
+
+Complétez :
 
 ```txt
 ________________()
@@ -119,18 +157,65 @@ ________________()
 ________________()
 ```
 
-Conséquences possibles :
+## Test avec filtres multiples
+
+Avec cette grammaire, essayez d’écrire l’URL correspondant à ce besoin :
 
 ```txt
-Nombre de fichiers controller : faible / moyen / élevé
-Nombre de fonctions : faible / moyen / élevé
-Risque de duplication : faible / moyen / élevé
-Facilité à combiner les filtres : faible / moyen / élevée
-Lisibilité pour le visiteur : faible / moyenne / élevée
-Lisibilité pour le développeur : faible / moyenne / élevée
+Chercher "monkey",
+dans les catégories "books" et "games",
+avec les thèmes "chess" et "fantasy",
+sur la page 2.
 ```
 
-Votre analyse :
+URL proposée :
+
+```txt
+________________________________________________________
+```
+
+Est-ce facile à écrire ?
+
+```txt
+Oui / Non
+```
+
+Pourquoi ?
+
+```txt
+
+
+
+```
+
+## Conséquences
+
+Complétez :
+
+```txt
+Nombre de fichiers controller :
+faible / moyen / élevé
+
+Nombre de fonctions :
+faible / moyen / élevé
+
+Risque de duplication :
+faible / moyen / élevé
+
+Facilité à combiner plusieurs filtres :
+faible / moyenne / élevée
+
+Facilité à créer un formulaire de recherche :
+faible / moyenne / élevée
+
+Lisibilité pour le visiteur :
+faible / moyenne / élevée
+
+Lisibilité pour le développeur :
+faible / moyenne / élevée
+```
+
+Votre conclusion sur cette grammaire :
 
 ```txt
 Avantages :
@@ -145,34 +230,51 @@ Inconvénients :
 
 ---
 
-## Grammaire B — URL orientée catalogue avec segments
+# 4. Grammaire B — URL orientée catalogue avec segments
+
+Exemples :
 
 ```txt
 /catalog
-/catalog/theme/fantasy
+/catalog/theme/chess
 /catalog/category/books
 /catalog/tag/beginner
 /catalog/search/monkey
 ```
 
+## Analyse
+
 Questions :
 
 ```txt
 Quelle est la page principale ?
-Les filtres sont-ils regroupés dans le catalogue ?
-Combien de fichiers controller faut-il probablement ?
-Combien de fonctions faut-il probablement ?
+Est-ce que le thème est une page ou un filtre ?
+Est-ce que la catégorie est une page ou un filtre ?
+Est-ce que la recherche est une page ou un filtre ?
 ```
 
 Complétez :
 
 ```txt
-Fichiers controller probables :
+Page principale :
+________________________________________________________
 
-controllers/________________.php
+Controller probable :
+________________________________________________________
 ```
 
-Fonctions probables :
+## Fichiers probables
+
+Complétez :
+
+```txt
+controllers/
+    __________________.php
+```
+
+## Fonctions probables
+
+Complétez :
 
 ```txt
 ________________()
@@ -182,33 +284,80 @@ ________________()
 ________________()
 ```
 
-Conséquences possibles :
+Exemple possible :
 
 ```txt
-Nombre de fichiers controller : faible / moyen / élevé
-Nombre de fonctions : faible / moyen / élevé
-Risque de duplication : faible / moyen / élevé
-Facilité à combiner les filtres : faible / moyen / élevée
-Facilité à créer un formulaire de recherche : faible / moyenne / élevée
-Lisibilité pour le visiteur : faible / moyenne / élevée
+catalog_index()
+catalog_theme()
+catalog_category()
+catalog_tag()
+catalog_search()
 ```
 
-Testez mentalement cette combinaison :
+## Test avec filtres multiples
+
+Avec cette grammaire, essayez d’écrire l’URL correspondant à ce besoin :
 
 ```txt
-Je veux chercher "monkey",
-dans la catégorie "books",
-avec le thème "chess",
-sur la page 2.
+Chercher "monkey",
+dans les catégories "books" et "games",
+avec les thèmes "chess" et "fantasy",
+sur la page 2,
+trié par titre.
 ```
 
-Quelle URL faudrait-il écrire avec cette grammaire ?
+URL proposée :
 
 ```txt
 ________________________________________________________
 ```
 
-Votre analyse :
+Questions :
+
+```txt
+L’URL reste-t-elle lisible ?
+Est-ce facile d’ajouter une deuxième catégorie ?
+Est-ce facile d’ajouter un deuxième thème ?
+Est-ce facile d’ajouter une pagination ?
+Est-ce facile d’ajouter un tri ?
+```
+
+Réponse :
+
+```txt
+
+
+
+```
+
+## Conséquences
+
+Complétez :
+
+```txt
+Nombre de fichiers controller :
+faible / moyen / élevé
+
+Nombre de fonctions :
+faible / moyen / élevé
+
+Risque de duplication :
+faible / moyen / élevé
+
+Facilité à combiner plusieurs filtres :
+faible / moyenne / élevée
+
+Facilité à créer un formulaire de recherche :
+faible / moyenne / élevée
+
+Lisibilité pour le visiteur :
+faible / moyenne / élevée
+
+Lisibilité pour le développeur :
+faible / moyenne / élevée
+```
+
+Votre conclusion sur cette grammaire :
 
 ```txt
 Avantages :
@@ -223,77 +372,143 @@ Inconvénients :
 
 ---
 
-## Grammaire C — URL catalogue avec query string
+# 5. Grammaire C — Catalogue avec query string simple
+
+Exemples :
 
 ```txt
 /catalog
-/catalog?theme=fantasy
+/catalog?q=monkey
+/catalog?theme=chess
 /catalog?category=books
 /catalog?tag=beginner
-/catalog?q=monkey
-/catalog?q=monkey&theme=chess&category=books&page=2
+/catalog?page=2
 ```
+
+## Analyse
 
 Questions :
 
 ```txt
 Est-ce que la page change vraiment ?
-Ou est-ce seulement l’état du catalogue qui change ?
+Ou est-ce que l’état du catalogue change ?
 ```
 
 Complétez :
 
 ```txt
-Fichiers controller probables :
+Page principale :
+________________________________________________________
 
-controllers/________________.php
+Controller probable :
+________________________________________________________
+
+Fonction probable :
+________________________________________________________
 ```
 
-Fonctions probables :
+## Fichiers probables
+
+Complétez :
+
+```txt
+controllers/
+    __________________.php
+```
+
+## Fonctions probables
+
+Complétez :
 
 ```txt
 ________________()
 ```
 
-Paramètres possibles :
+## Paramètres possibles
+
+Complétez :
 
 ```txt
-q        = ________________________
-theme    = ________________________
-category = ________________________
-tag      = ________________________
-page     = ________________________
-sort     = ________________________
+q        = ________________________________________
+theme    = ________________________________________
+category = ________________________________________
+tag      = ________________________________________
+page     = ________________________________________
+sort     = ________________________________________
 ```
 
-Conséquences possibles :
+## Limite de cette grammaire
+
+Cette grammaire fonctionne bien pour un seul thème ou une seule catégorie.
+
+Mais le moteur de recherche doit permettre plusieurs catégories et plusieurs thèmes.
+
+Question :
 
 ```txt
-Nombre de fichiers controller : faible / moyen / élevé
-Nombre de fonctions : faible / moyen / élevé
-Risque de duplication : faible / moyen / élevé
-Facilité à combiner les filtres : faible / moyen / élevée
-Facilité à créer un formulaire GET : faible / moyenne / élevée
-Lisibilité pour le visiteur : faible / moyenne / élevée
-Lisibilité pour le développeur : faible / moyenne / élevée
+Comment représenter plusieurs catégories avec cette forme ?
 ```
 
-Testez mentalement cette combinaison :
+Exemple attendu :
 
 ```txt
-Je veux chercher "monkey",
-dans la catégorie "books",
-avec le thème "chess",
-sur la page 2.
+/catalog?category=books&category=games
 ```
 
-URL possible :
+ou :
+
+```txt
+/catalog?categories=books,games
+```
+
+ou :
+
+```txt
+/catalog?categories[]=books&categories[]=games
+```
+
+Quelle solution semble la plus claire pour votre projet ?
 
 ```txt
 ________________________________________________________
 ```
 
-Votre analyse :
+Pourquoi ?
+
+```txt
+
+
+
+```
+
+## Conséquences
+
+Complétez :
+
+```txt
+Nombre de fichiers controller :
+faible / moyen / élevé
+
+Nombre de fonctions :
+faible / moyen / élevé
+
+Risque de duplication :
+faible / moyen / élevé
+
+Facilité à combiner plusieurs filtres :
+faible / moyenne / élevée
+
+Facilité à créer un formulaire de recherche :
+faible / moyenne / élevée
+
+Lisibilité pour le visiteur :
+faible / moyenne / élevée
+
+Lisibilité pour le développeur :
+faible / moyenne / élevée
+```
+
+Votre conclusion sur cette grammaire :
 
 ```txt
 Avantages :
@@ -308,56 +523,207 @@ Inconvénients :
 
 ---
 
-## Grammaire D — Grammaire mixte
+# 6. Grammaire D — Catalogue avec query string et filtres multiples
+
+Exemples :
 
 ```txt
 /catalog
-/catalog?theme=fantasy&category=books&q=monkey
-/catalog/theme/fantasy
-/catalog/category/books
-/item/the-great-monkey-gambit
+/catalog?q=monkey
+/catalog?categories[]=books&categories[]=games
+/catalog?themes[]=chess&themes[]=fantasy
+/catalog?tags[]=beginner&tags[]=rare
+/catalog?q=monkey&categories[]=books&categories[]=games&themes[]=chess&themes[]=fantasy&page=2&sort=title
 ```
+
+Cette grammaire utilise la query string pour représenter l’état du catalogue.
+
+Le chemin reste :
+
+```txt
+/catalog
+```
+
+Les options actives sont dans la query string :
+
+```txt
+?q=monkey&categories[]=books&themes[]=chess&page=2
+```
+
+## Analyse
 
 Questions :
 
 ```txt
-Quelles URLs représentent une vraie page ?
-Quelles URLs représentent seulement un filtre ?
-Est-ce que certaines URLs sont des alias ?
-Est-ce qu’un même résultat peut avoir plusieurs URLs ?
-Est-ce un problème ?
+Quelle est la vraie page ?
+Qu’est-ce qui change dans la page ?
+Est-ce que la recherche est une page séparée ?
+Est-ce que les catégories sont des pages séparées ?
+Est-ce que les thèmes sont des pages séparées ?
 ```
 
 Complétez :
 
 ```txt
-Fichiers controller probables :
+Vraie page :
+________________________________________________________
 
-controllers/________________.php
-controllers/________________.php
+État de la page :
+________________________________________________________
+
+Controller probable :
+________________________________________________________
+
+Fonction probable :
+________________________________________________________
 ```
 
-Fonctions probables :
+## Fichiers probables
+
+Complétez :
+
+```txt
+controllers/
+    __________________.php
+```
+
+## Fonctions probables
+
+Complétez :
 
 ```txt
 ________________()
-________________()
-________________()
-________________()
 ```
 
-Conséquences possibles :
+## Paramètres possibles
+
+Complétez :
 
 ```txt
-Nombre de fichiers controller : faible / moyen / élevé
-Nombre de fonctions : faible / moyen / élevé
-Risque de duplication : faible / moyen / élevé
-Facilité à combiner les filtres : faible / moyen / élevée
-Lisibilité pour le visiteur : faible / moyenne / élevée
-Complexité pour le développeur : faible / moyenne / élevée
+q            = ________________________________________
+categories  = ________________________________________
+themes      = ________________________________________
+tags        = ________________________________________
+page        = ________________________________________
+sort        = ________________________________________
 ```
 
-Votre analyse :
+## Test avec filtres multiples
+
+Écrivez l’URL correspondant à ce besoin :
+
+```txt
+Chercher "monkey",
+dans les catégories "books" et "games",
+avec les thèmes "chess" et "fantasy",
+sur la page 2,
+trié par titre.
+```
+
+URL proposée :
+
+```txt
+________________________________________________________
+```
+
+## Formulaire HTML
+
+Cette grammaire peut être produite naturellement par un formulaire GET.
+
+Complétez le formulaire :
+
+```html
+<form action="_____________" method="_____">
+
+    <label for="q">Recherche</label>
+    <input id="q" type="text" name="_____" placeholder="Recherche">
+
+    <fieldset>
+        <legend>Catégories</legend>
+
+        <label>
+            <input type="checkbox" name="_____________" value="books">
+            Books
+        </label>
+
+        <label>
+            <input type="checkbox" name="_____________" value="games">
+            Games
+        </label>
+
+        <label>
+            <input type="checkbox" name="_____________" value="comics">
+            Comics
+        </label>
+    </fieldset>
+
+    <fieldset>
+        <legend>Thèmes</legend>
+
+        <label>
+            <input type="checkbox" name="_____________" value="chess">
+            Chess
+        </label>
+
+        <label>
+            <input type="checkbox" name="_____________" value="fantasy">
+            Fantasy
+        </label>
+
+        <label>
+            <input type="checkbox" name="_____________" value="absurdity">
+            Absurdity
+        </label>
+    </fieldset>
+
+    <label for="sort">Tri</label>
+    <select id="sort" name="_____">
+        <option value="title">Titre</option>
+        <option value="date">Date</option>
+    </select>
+
+    <button type="submit">Filtrer</button>
+
+</form>
+```
+
+URL produite si l’utilisateur cherche `monkey`, coche `books`, `games`, `chess`, `fantasy`, puis trie par titre :
+
+```txt
+________________________________________________________
+```
+
+## Conséquences
+
+Complétez :
+
+```txt
+Nombre de fichiers controller :
+faible / moyen / élevé
+
+Nombre de fonctions :
+faible / moyen / élevé
+
+Risque de duplication :
+faible / moyen / élevé
+
+Facilité à combiner plusieurs filtres :
+faible / moyenne / élevée
+
+Facilité à créer un formulaire de recherche :
+faible / moyenne / élevée
+
+Facilité à ajouter pagination et tri :
+faible / moyenne / élevée
+
+Lisibilité pour le visiteur :
+faible / moyenne / élevée
+
+Lisibilité pour le développeur :
+faible / moyenne / élevée
+```
+
+Votre conclusion sur cette grammaire :
 
 ```txt
 Avantages :
@@ -372,39 +738,152 @@ Inconvénients :
 
 ---
 
-# Partie 2 — Comparaison globale
+# 7. Grammaire E — Grammaire mixte
 
-Complétez le tableau suivant.
+Exemples :
 
 ```txt
-+-------------------------------+-------------------+--------------------+----------------------+----------------------+-------------------------+
-| Grammaire                     | Fichiers nombreux ?| Fonctions nombreuses?| Filtres combinables ? | Formulaire facile ?  | URL lisible public ?    |
-+-------------------------------+-------------------+--------------------+----------------------+----------------------+-------------------------+
-| /theme/show/1                 |                   |                    |                      |                      |                         |
-| /catalog/theme/fantasy        |                   |                    |                      |                      |                         |
-| /catalog?theme=fantasy        |                   |                    |                      |                      |                         |
-| /catalog?q=x&theme=y&page=2   |                   |                    |                      |                      |                         |
-+-------------------------------+-------------------+--------------------+----------------------+----------------------+-------------------------+
+/catalog
+/catalog?q=monkey&categories[]=books&themes[]=chess
+/catalog/theme/chess
+/catalog/category/books
+/item/the-great-monkey-gambit
 ```
 
-Ajoutez une colonne “risque principal”.
+Dans cette solution, on mélange deux idées :
 
 ```txt
-+-------------------------------+------------------------------------------+
-| Grammaire                     | Risque principal                         |
-+-------------------------------+------------------------------------------+
-| /theme/show/1                 |                                          |
-| /catalog/theme/fantasy        |                                          |
-| /catalog?theme=fantasy        |                                          |
-| /catalog?q=x&theme=y&page=2   |                                          |
-+-------------------------------+------------------------------------------+
+/catalog?... 
+```
+
+pour la recherche et les filtres combinés,
+
+et :
+
+```txt
+/catalog/theme/chess
+/catalog/category/books
+```
+
+pour certaines pages publiques plus lisibles.
+
+## Analyse
+
+Questions :
+
+```txt
+Est-ce que /catalog/theme/chess affiche un résultat différent de /catalog?themes[]=chess ?
+Est-ce que ce sont deux URLs pour le même contenu ?
+Est-ce que cela peut créer de la confusion ?
+Est-ce que cela peut être utile pour certaines pages publiques importantes ?
+```
+
+Réponse :
+
+```txt
+
+
+
+```
+
+## Fichiers probables
+
+Complétez :
+
+```txt
+controllers/
+    __________________.php
+    __________________.php
+```
+
+## Fonctions probables
+
+Complétez :
+
+```txt
+________________()
+________________()
+________________()
+________________()
+```
+
+## Conséquences
+
+Complétez :
+
+```txt
+Nombre de fichiers controller :
+faible / moyen / élevé
+
+Nombre de fonctions :
+faible / moyen / élevé
+
+Risque de duplication :
+faible / moyen / élevé
+
+Risque d’avoir plusieurs URLs pour le même contenu :
+faible / moyen / élevé
+
+Facilité à combiner plusieurs filtres :
+faible / moyenne / élevée
+
+Lisibilité pour le visiteur :
+faible / moyenne / élevée
+
+Complexité pour le développeur :
+faible / moyenne / élevée
+```
+
+Votre conclusion sur cette grammaire :
+
+```txt
+Avantages :
+
+
+
+Inconvénients :
+
+
+
 ```
 
 ---
 
-# Partie 3 — Identifier la vraie page
+# 8. Comparaison globale
 
-Pour chaque URL, dites si elle représente :
+Complétez le tableau.
+
+```txt
++---------------------------------------------+-------------------+--------------------+----------------------+----------------------+-------------------------+
+| Grammaire                                   | Fichiers nombreux ?| Fonctions nombreuses?| Filtres combinables ? | Formulaire facile ?  | URL lisible public ?    |
++---------------------------------------------+-------------------+--------------------+----------------------+----------------------+-------------------------+
+| /theme/show/1                               |                   |                    |                      |                      |                         |
+| /catalog/theme/chess                        |                   |                    |                      |                      |                         |
+| /catalog?theme=chess                        |                   |                    |                      |                      |                         |
+| /catalog?themes[]=chess&themes[]=fantasy    |                   |                    |                      |                      |                         |
+| /catalog?q=x&categories[]=a&themes[]=b      |                   |                    |                      |                      |                         |
++---------------------------------------------+-------------------+--------------------+----------------------+----------------------+-------------------------+
+```
+
+Ajoutez le risque principal de chaque solution.
+
+```txt
++---------------------------------------------+------------------------------------------+
+| Grammaire                                   | Risque principal                         |
++---------------------------------------------+------------------------------------------+
+| /theme/show/1                               |                                          |
+| /catalog/theme/chess                        |                                          |
+| /catalog?theme=chess                        |                                          |
+| /catalog?themes[]=chess&themes[]=fantasy    |                                          |
+| /catalog?q=x&categories[]=a&themes[]=b      |                                          |
++---------------------------------------------+------------------------------------------+
+```
+
+---
+
+# 9. Identifier la vraie page
+
+Pour chaque URL, indiquez si elle représente :
 
 ```txt
 A. une vraie page différente
@@ -413,12 +892,15 @@ C. une action d’administration
 D. une URL ambiguë
 ```
 
+URLs :
+
 ```txt
 /catalog
-/catalog?theme=fantasy
 /catalog?q=monkey
 /catalog?page=2
-/catalog/theme/fantasy
+/catalog?categories[]=books&categories[]=games
+/catalog?themes[]=chess&themes[]=fantasy
+/catalog/theme/chess
 /theme/show/1
 /item/the-great-monkey-gambit
 /admin/item/edit/12
@@ -428,20 +910,26 @@ D. une URL ambiguë
 Réponses :
 
 ```txt
-/catalog                         : ______
-/catalog?theme=fantasy           : ______
-/catalog?q=monkey                : ______
-/catalog?page=2                  : ______
-/catalog/theme/fantasy           : ______
-/theme/show/1                    : ______
-/item/the-great-monkey-gambit    : ______
-/admin/item/edit/12              : ______
-/admin/theme/edit/3              : ______
+/catalog                                      : ______
+/catalog?q=monkey                            : ______
+/catalog?page=2                              : ______
+/catalog?categories[]=books&categories[]=games : ______
+/catalog?themes[]=chess&themes[]=fantasy     : ______
+/catalog/theme/chess                         : ______
+/theme/show/1                                : ______
+/item/the-great-monkey-gambit                : ______
+/admin/item/edit/12                          : ______
+/admin/theme/edit/3                          : ______
 ```
 
-Expliquez deux choix :
+Expliquez trois choix :
 
 ```txt
+URL choisie :
+Explication :
+
+
+
 URL choisie :
 Explication :
 
@@ -456,21 +944,21 @@ Explication :
 
 ---
 
-# Partie 4 — Tester la règle “page ou état”
+# 10. La règle “page ou état”
 
-Pour chaque valeur dans l’URL, posez-vous cette question :
+Pour chaque URL, posez-vous cette question :
 
 ```txt
-Si j’enlève cette valeur, est-ce que je suis encore sur la même page ?
+Si j’enlève la valeur, est-ce que je suis encore sur la même page ?
 ```
 
 Exemple :
 
 ```txt
-/catalog?theme=fantasy
+/catalog?themes[]=chess
 ```
 
-Si j’enlève `theme=fantasy`, j’obtiens :
+Si j’enlève `themes[]=chess`, j’obtiens :
 
 ```txt
 /catalog
@@ -527,9 +1015,9 @@ Le slug de l’élément identifie probablement la page elle-même.
 Complétez :
 
 ```txt
-/catalog?category=books
+/catalog?categories[]=books&categories[]=games
 
-Si j’enlève category=books :
+Si j’enlève les catégories :
 J’obtiens : ________________________
 Même page ? Oui / Non
 Conclusion : _______________________
@@ -561,9 +1049,7 @@ Conclusion : _______________________
 
 ---
 
-# Partie 5 — Conséquences dans le code
-
-Pour chaque grammaire, proposez une organisation de fichiers.
+# 11. Conséquences dans le code
 
 ## Hypothèse A
 
@@ -595,7 +1081,7 @@ ________________()
 ________________()
 ```
 
-Vue ou vues nécessaires :
+Vues nécessaires :
 
 ```txt
 views/
@@ -626,7 +1112,7 @@ URLs :
 
 ```txt
 /catalog
-/catalog/theme/fantasy
+/catalog/theme/chess
 /catalog/category/books
 /catalog/tag/beginner
 /catalog/search/monkey
@@ -649,7 +1135,7 @@ ________________()
 ________________()
 ```
 
-Vue ou vues nécessaires :
+Vues nécessaires :
 
 ```txt
 views/
@@ -678,11 +1164,10 @@ URLs :
 
 ```txt
 /catalog
-/catalog?theme=fantasy
-/catalog?category=books
-/catalog?tag=beginner
 /catalog?q=monkey
-/catalog?q=monkey&theme=chess&category=books&page=2
+/catalog?categories[]=books&categories[]=games
+/catalog?themes[]=chess&themes[]=fantasy
+/catalog?q=monkey&categories[]=books&categories[]=games&themes[]=chess&themes[]=fantasy&page=2
 ```
 
 Fichiers :
@@ -698,7 +1183,7 @@ Fonctions :
 ________________()
 ```
 
-Vue ou vues nécessaires :
+Vues nécessaires :
 
 ```txt
 views/
@@ -731,82 +1216,93 @@ Pourquoi ?
 
 ---
 
-# Partie 6 — Formulaire de recherche et de filtres
+# 12. Lecture possible des filtres en PHP
 
-On veut créer un formulaire avec :
+Cette partie sert à réfléchir à la structure du controller.
+
+Avec une URL comme :
 
 ```txt
-champ de recherche
-liste des catégories
-liste des thèmes
-liste des tags
-tri
-pagination
+/catalog?q=monkey&categories[]=books&categories[]=games&themes[]=chess&themes[]=fantasy&page=2
 ```
 
-Quelle grammaire est la plus naturelle pour un formulaire HTML en méthode GET ?
-
-Choix :
+PHP peut recevoir :
 
 ```txt
-A. /theme/show/1
-B. /catalog/theme/fantasy
-C. /catalog?theme=fantasy&q=monkey
+$_GET['q']
+$_GET['categories']
+$_GET['themes']
+$_GET['page']
+```
+
+Complétez ce pseudo-code :
+
+```php
+function catalog_index(): array
+{
+    $filters = [];
+
+    if (isset($_GET['q'])) {
+        $filters['q'] = ____________________;
+    }
+
+    if (isset($_GET['categories'])) {
+        $filters['categories'] = ____________________;
+    }
+
+    if (isset($_GET['themes'])) {
+        $filters['themes'] = ____________________;
+    }
+
+    if (isset($_GET['tags'])) {
+        $filters['tags'] = ____________________;
+    }
+
+    if (isset($_GET['page'])) {
+        $filters['page'] = ____________________;
+    }
+
+    $items = item_find_for_catalog($filters);
+
+    return [
+        'title' => 'Catalogue',
+        'content' => render('catalog/index', [
+            'items' => $items,
+            'filters' => $filters
+        ])
+    ];
+}
+```
+
+Question :
+
+```txt
+Cette fonction remplace-t-elle plusieurs fonctions séparées ?
 ```
 
 Réponse :
 
 ```txt
-Je choisis : ______
+Oui / Non
 ```
 
-Pourquoi ?
+Si oui, lesquelles ?
 
 ```txt
 
 
 
-```
-
-Complétez le formulaire :
-
-```html
-<form action="_____________" method="_____">
-
-    <input type="text" name="_____" placeholder="Recherche">
-
-    <select name="__________">
-        <option value="">Toutes les catégories</option>
-        <option value="books">Books</option>
-        <option value="games">Games</option>
-    </select>
-
-    <select name="__________">
-        <option value="">Tous les thèmes</option>
-        <option value="fantasy">Fantasy</option>
-        <option value="chess">Chess</option>
-    </select>
-
-    <button type="submit">Filtrer</button>
-
-</form>
-```
-
-URL produite par ce formulaire si l’utilisateur cherche `monkey` dans la catégorie `books` avec le thème `chess` :
-
-```txt
-________________________________________________________
 ```
 
 ---
 
-# Partie 7 — Slug ou id ?
+# 13. Slug ou id ?
 
 Comparez :
 
 ```txt
-/catalog?theme=1
-/catalog?theme=fantasy
+/catalog?themes[]=1
+/catalog?themes[]=chess
 /item/42
 /item/the-great-monkey-gambit
 /admin/item/edit/42
@@ -842,7 +1338,7 @@ Pourquoi ?
 
 ---
 
-# Partie 8 — Décision finale pour votre projet
+# 14. Décision finale pour votre projet
 
 Vous devez maintenant choisir la grammaire d’URL de votre projet.
 
@@ -858,16 +1354,16 @@ ________________________________________________
 Recherche dans le catalogue :
 ________________________________________________
 
-Catalogue filtré par catégorie :
+Catalogue filtré par plusieurs catégories :
 ________________________________________________
 
-Catalogue filtré par thème :
+Catalogue filtré par plusieurs thèmes :
 ________________________________________________
 
-Catalogue filtré par tag :
+Catalogue filtré par plusieurs tags :
 ________________________________________________
 
-Catalogue avec plusieurs filtres :
+Catalogue avec recherche + catégories + thèmes + page + tri :
 ________________________________________________
 
 Détail public d’un élément :
@@ -885,7 +1381,7 @@ ________________________________________________
 
 ---
 
-# Partie 9 — Justification finale
+# 15. Justification finale
 
 Rédigez une réponse courte.
 
@@ -896,13 +1392,13 @@ Votre réponse doit expliquer :
 2. pourquoi cette grammaire correspond au fonctionnement réel du site ;
 3. combien de fichiers controller cela implique ;
 4. combien de fonctions principales cela implique ;
-5. si les filtres sont faciles à combiner ;
+5. si les filtres multiples sont faciles à combiner ;
 6. si les formulaires sont faciles à créer ;
-7. si les URLs publiques sont lisibles ;
+7. si les URLs publiques restent lisibles ;
 8. quelle différence vous faites entre URL publique et URL admin.
 ```
 
-Réponse attendue :
+Réponse :
 
 ```txt
 Nous choisissons la grammaire suivante :
@@ -925,6 +1421,10 @@ Conséquences sur les formulaires :
 
 
 
+Conséquences sur les filtres multiples :
+
+
+
 Conséquences sur la lisibilité des URLs :
 
 
@@ -937,14 +1437,17 @@ Différence entre public et admin :
 
 ---
 
-# Phrase de conclusion à retenir
+
+# Conclusion
 
 ```txt
 Une URL ne sert pas seulement à accéder à une page.
 
 Elle révèle comment on comprend le site.
 
-Si la valeur identifie une vraie page, elle appartient souvent au chemin.
+Si une valeur identifie une vraie page, elle appartient souvent au chemin.
 
-Si la valeur modifie seulement l’état d’une page, elle appartient souvent à la query string.
+Si une valeur modifie seulement l’état d’une page, elle appartient souvent à la query string.
+
+Plus les filtres sont nombreux et combinables, plus la query string devient naturelle.
 ```
